@@ -36,8 +36,22 @@ public class Duke {
                         TaskList.doTask(Integer.valueOf(input.substring(4).strip()));
                     } else if (input.length() >= 4 && input.substring(0, 4).equals("undo")) {
                         TaskList.undoTask(Integer.valueOf(input.substring(4).strip()));
-                    } else if (TaskList.addTask(input)) {
-                        System.out.println(Parser.parse("added: " + input));
+                    } else {
+                        String[] inputArr = input.split(" ");
+                        if (inputArr[0].equals("todo")) {
+                            TaskList.addTask("T", input.substring(4).strip());
+                            System.out.println(Parser.parse("added:" + "\n    " + TaskList.getLastTaskAdded()));
+                        } else {
+                            if (inputArr[0].equals("deadline")) {
+                                String[] forTime = input.split("/by");
+                                TaskList.addTask("D", forTime[0].substring(8).strip(), forTime[1].strip());
+                                System.out.println(Parser.parse("added:" + "\n    " + TaskList.getLastTaskAdded()));
+                            } else if (inputArr[0].equals("event")) {
+                                String[] forTime = input.split("/at");
+                                TaskList.addTask("E", forTime[0].substring(5).strip(), forTime[1].strip());
+                                System.out.println(Parser.parse("added:" + "\n    " + TaskList.getLastTaskAdded()));
+                            }
+                        }
                     }
                 }
             }

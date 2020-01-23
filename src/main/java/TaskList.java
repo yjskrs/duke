@@ -4,9 +4,26 @@ import java.util.List;
 public class TaskList {
     private static List<Task> tasks = new ArrayList<>();
 
-    public static boolean addTask(String taskName) {
+    public static Task getLastTaskAdded() {
+        return tasks.get(tasks.size() - 1);
+    }
+
+    public static boolean addTask(String type, String taskName) {
+        if (taskName.length() > 0 && type.equals("T")) {
+            tasks.add(Todo.createTask(taskName));
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean addTask(String type, String taskName, String time) {
         if (taskName.length() > 0) {
-            tasks.add(Task.createTask(taskName));
+            if (type.equals("D")) {
+                tasks.add(Deadline.createDeadline(taskName, time));
+            } else if (type.equals("E")) {
+                tasks.add(Event.createEvent(taskName, time));
+            }
             return true;
         } else {
             return false;

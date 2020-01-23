@@ -24,7 +24,7 @@ public class TaskList {
     public static boolean list() {
         if (tasks.size() > 0) {
             for (int i = 0; i < tasks.size(); ++i) {
-                System.out.println(Parser.parse((i + 1) + ". " + tasks.get(i));
+                System.out.println(Parser.parse((i + 1) + ". " + tasks.get(i)));
             }
         } else {
             return false;

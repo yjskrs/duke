@@ -10,7 +10,7 @@ public class TaskList {
 
     public static boolean addTask(String type, String taskName) {
         if (taskName.length() > 0 && type.equals("T")) {
-            tasks.add(Todo.createTask(taskName));
+            tasks.add(Todo.createTodo(taskName));
             return true;
         } else {
             return false;
@@ -48,6 +48,17 @@ public class TaskList {
         } else {
             tasks.get(i-1).resetDone();
             System.out.println(Parser.parse("o.o well... good luck completing the task:" + "\n    " + tasks.get(i-1)));
+            return true;
+        }
+    }
+
+    public static boolean removeTask(int i) {
+        if (i <= 0 || i > tasks.size()) {
+            System.out.println(Parser.parse("This task doesn't exist."));
+            return false;
+        } else {
+            System.out.println(Parser.parse("removed task:" + "\n    " + tasks.get(i-1)));
+            tasks.remove(i-1);
             return true;
         }
     }

@@ -36,6 +36,8 @@ public class Duke {
                         TaskList.doTask(Integer.valueOf(input.substring(4).strip()));
                     } else if (input.length() >= 4 && input.substring(0, 4).equals("undo")) {
                         TaskList.undoTask(Integer.valueOf(input.substring(4).strip()));
+                    } else if (input.length() >= 6 && input.substring(0, 6).equals("delete")) {
+                        TaskList.removeTask(Integer.valueOf(input.substring(6).strip()));
                     } else {
                         String[] inputArr = input.split(" ");
                         if (inputArr[0].equals("todo")) {

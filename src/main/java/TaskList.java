@@ -13,6 +13,28 @@ public class TaskList {
         }
     }
 
+    public static boolean doTask(int i) {
+        if (i <= 0 || i > tasks.size()) {
+            System.out.println(Parser.parse("This task doesn't exist."));
+            return false;
+        } else {
+            tasks.get(i-1).setDone();
+            System.out.println(Parser.parse("Good job for completing the task:" + "\n    " + tasks.get(i-1)));
+            return true;
+        }
+    }
+
+    public static boolean undoTask(int i) {
+        if (i <= 0 || i > tasks.size()) {
+            System.out.println(Parser.parse("This task doesn't exist."));
+            return false;
+        } else {
+            tasks.get(i-1).resetDone();
+            System.out.println(Parser.parse("o.o well... good luck completing the task:" + "\n    " + tasks.get(i-1)));
+            return true;
+        }
+    }
+
     public static boolean removeTask(String taskName) {
         for (int i = 0; i < tasks.size(); ++i) {
             if (tasks.get(i).getName().equals(taskName)) {

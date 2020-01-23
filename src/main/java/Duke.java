@@ -39,17 +39,31 @@ public class Duke {
                     } else {
                         String[] inputArr = input.split(" ");
                         if (inputArr[0].equals("todo")) {
-                            TaskList.addTask("T", input.substring(4).strip());
-                            System.out.println(Parser.parse("added:" + "\n    " + TaskList.getLastTaskAdded()));
+                            if (input.substring(4).strip().length() == 0) {
+                                System.out.println(Parser.parse("todo what? @-@"));
+                            } else {
+                                TaskList.addTask("T", input.substring(4).strip());
+                                System.out.println(Parser.parse("added:" + "\n    " + TaskList.getLastTaskAdded()));
+                            }
                         } else {
                             if (inputArr[0].equals("deadline")) {
                                 String[] forTime = input.split("/by");
-                                TaskList.addTask("D", forTime[0].substring(8).strip(), forTime[1].strip());
-                                System.out.println(Parser.parse("added:" + "\n    " + TaskList.getLastTaskAdded()));
+                                if (forTime.length < 2 || forTime[0].substring(8).strip().length() == 0) {
+                                    System.out.println(Parser.parse("what deadline? @-@"));
+                                } else {
+                                    TaskList.addTask("D", forTime[0].substring(8).strip(), forTime[1].strip());
+                                    System.out.println(Parser.parse("added:" + "\n    " + TaskList.getLastTaskAdded()));
+                                }
                             } else if (inputArr[0].equals("event")) {
                                 String[] forTime = input.split("/at");
-                                TaskList.addTask("E", forTime[0].substring(5).strip(), forTime[1].strip());
-                                System.out.println(Parser.parse("added:" + "\n    " + TaskList.getLastTaskAdded()));
+                                if (forTime.length < 2 || forTime[0].substring(5).strip().length() == 0) {
+                                    System.out.println(Parser.parse("what event?? @-@"));
+                                } else {
+                                    TaskList.addTask("E", forTime[0].substring(5).strip(), forTime[1].strip());
+                                    System.out.println(Parser.parse("added:" + "\n    " + TaskList.getLastTaskAdded()));
+                                }
+                            } else {
+                                System.out.println(Parser.parse("Sorry! I don't understand that command :( Please try something else!"));
                             }
                         }
                     }

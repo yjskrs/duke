@@ -4,7 +4,7 @@ import java.util.List;
 public class TaskList {
     private static List<String> tasks = new ArrayList<>();
 
-    public boolean addTask(String taskName) {
+    public static boolean addTask(String taskName) {
         if (taskName.length() > 0) {
             tasks.add(taskName);
             return true;
@@ -13,9 +13,19 @@ public class TaskList {
         }
     }
 
-    public boolean removeTask(String taskName) {
+    public static boolean removeTask(String taskName) {
         if (tasks.contains(taskName)) {
             return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean list() {
+        if (tasks.size() > 0) {
+            for (int i = 0; i < tasks.size(); ++i) {
+                System.out.println(Parser.parse((i + 1) + ". " + tasks.get(i));
+            }
         } else {
             return false;
         }

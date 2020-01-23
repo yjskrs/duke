@@ -19,6 +19,14 @@ public class Task {
         return (isDone ? "/" : "X"); //return tick or X symbols
     }
 
+    public void setDone() {
+        isDone = true;
+    }
+
+    public void resetDone() {
+        isDone = false;
+    }
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + name;

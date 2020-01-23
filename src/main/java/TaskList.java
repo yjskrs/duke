@@ -2,11 +2,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
-    private static List<String> tasks = new ArrayList<>();
+    private static List<Task> tasks = new ArrayList<>();
 
     public static boolean addTask(String taskName) {
         if (taskName.length() > 0) {
-            tasks.add(taskName);
+            tasks.add(Task.createTask(taskName));
             return true;
         } else {
             return false;
@@ -14,23 +14,26 @@ public class TaskList {
     }
 
     public static boolean removeTask(String taskName) {
-        if (tasks.contains(taskName)) {
-            return true;
-        } else {
-            return false;
+        for (int i = 0; i < tasks.size(); ++i) {
+            if (tasks.get(i).getName().equals(taskName)) {
+                tasks.remove(i);
+                return true;
+            }
         }
+        return false;
     }
 
     public static boolean list() {
         if (tasks.size() > 0) {
-            String output = ("1. " + tasks.get(0));
-            for (int i = 1; i < tasks.size(); ++i) {
+            String output = "Tasks in your list:";
+            for (int i = 0; i < tasks.size(); ++i) {
                 output += "\n    ";
                 output += ((i + 1) + ". " + tasks.get(i));
             }
             System.out.println(Parser.parse(output));
             return true;
         } else {
+            System.out.println(Parser.parse("There are currently no tasks. Why not add some?"));
             return false;
         }
     }

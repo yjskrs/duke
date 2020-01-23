@@ -32,7 +32,11 @@ public class Duke {
                 if (input.toLowerCase().equals("list")) {
                     TaskList.list();
                 } else {
-                    if (TaskList.addTask(input)) {
+                    if (input.length() >= 4 && input.substring(0, 4).equals("done")) {
+                        TaskList.doTask(Integer.valueOf(input.substring(4).strip()));
+                    } else if (input.length() >= 4 && input.substring(0, 4).equals("undo")) {
+                        TaskList.undoTask(Integer.valueOf(input.substring(4).strip()));
+                    } else if (TaskList.addTask(input)) {
                         System.out.println(Parser.parse("added: " + input));
                     }
                 }

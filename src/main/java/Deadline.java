@@ -1,9 +1,13 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
 public class Deadline extends Task {
-    private String deadline;
+    private LocalDate deadline;
 
     protected Deadline(String name, String deadline) {
         super(name);
-        this.deadline = deadline;
+        this.deadline = LocalDate.parse(deadline);
     }
 
     public static Deadline createDeadline(String name, String deadline) {
@@ -12,6 +16,8 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + deadline + ")";
+        String month = String.valueOf(deadline.getMonth());
+        return "[D]" + super.toString() +
+                "(by: " + deadline.getDayOfMonth() + " " + month.substring(0, 1).toUpperCase() + month.substring(1).toLowerCase() + " " + deadline.getYear() + ")";
     }
 }

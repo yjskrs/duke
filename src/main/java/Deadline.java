@@ -6,8 +6,16 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
+    protected Deadline(String name, boolean isDone, String deadline) {
+        super(name, isDone);
+        this.deadline = deadline;
+    }
+
     public static Deadline createDeadline(String name, String deadline) {
         return new Deadline(name, deadline);
+    }
+    public static Deadline createDeadline(String name, String deadline, boolean isDone) {
+        return new Deadline(name, isDone, deadline);
     }
 
     // return a string formatted for saving in file

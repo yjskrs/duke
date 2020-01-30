@@ -7,6 +7,11 @@ public class Task {
         this.isDone = false;
     }
 
+    protected Task(String name, boolean isDone) {
+        this.name = name;
+        this.isDone = isDone;
+    }
+
     public static Task createTask(String name) {
         return new Task(name);
     }

@@ -12,7 +12,7 @@ public class Deadline extends Task {
 
     protected Deadline(String name, boolean isDone, String deadline) {
         super(name, isDone);
-        this.deadline = deadline;
+        this.deadline = LocalDate.parse(deadline);
     }
 
     public static Deadline createDeadline(String name, String deadline) {

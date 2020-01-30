@@ -87,4 +87,13 @@ public class TaskList {
             return false;
         }
     }
+
+    public static String format() {
+        String formattedTasksList = "";
+        for (int i = 0; i < tasks.size(); ++i) {
+            formattedTasksList += tasks.get(i).format();
+            formattedTasksList += "\n";
+        }
+        return formattedTasksList;
+    }
 }

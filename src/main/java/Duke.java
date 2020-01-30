@@ -1,31 +1,68 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
-    private static String logo = " ____        _        \n"
-                               + "|  _ \\ _   _| | _____ \n"
-                               + "| | | | | | | |/ / _ \\\n"
-                               + "| |_| | |_| |   <  __/\n"
-                               + "|____/ \\__,_|_|\\_\\___|\n";
+    private static final String FILENAME = "./data/duke.txt";
+    private static final File FILE = new File("./data/duke.txt");
+    private static final String LOGO = " ____        _        \n"
+                                     + "|  _ \\ _   _| | _____ \n"
+                                     + "| | | | | | | |/ / _ \\\n"
+                                     + "| |_| | |_| |   <  __/\n"
+                                     + "|____/ \\__,_|_|\\_\\___|\n";
 
+    // initialise the user and loads data from file to TaskList if file exists.
     private static void initialise(Scanner scanner) {
-        String welcomeMsg = "Hello from\n" + logo;
+        String welcomeMsg = "Hello from\n" + LOGO;
         welcomeMsg += Parser.parse("Hello, I'm Duke! What's your name?");
         System.out.println(welcomeMsg);
         String name = scanner.nextLine().strip();
-        welcomeMsg = Parser.parse("Hello " + name + "! What can I do for you?");
+//        if (FILE.length() == 0) { // if file is empty or file does not exist
+            welcomeMsg = Parser.parse("Hello " + name + "! What can I do for you?");
+//        } else { // initialise TaskList
+//            Scanner fileScanner = new Scanner(FILE);
+//            while (fileScanner.hasNextLine()) {
+//                String input = fileScanner.nextLine();
+//                String[] inputArr = input.split(" | ");
+//                switch (inputArr[0]) {
+//                    case "T":
+//                        TaskList.addTask();
+//                        break;
+//                    case "D":
+//
+//                        break;
+//                    case "E":
+//
+//                        break;
+//                    default:
+//                        break;
+//                }
+//            }
+//        }
         System.out.println(welcomeMsg);
+
     }
 
     private static void echo(String input) {
         System.out.println(Parser.parse(input));
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        //BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME));
+        FileWriter writer = new FileWriter(FILE, false);
         Scanner scanner = new Scanner(System.in);
         initialise(scanner);
         while (scanner.hasNext()) {
             String input = scanner.nextLine();
             if (input.toLowerCase().equals("bye")) {
+                try {
+                    writer.write(TaskList.format());
+                } catch (IOException e) {
+
+                }
+                writer.close();
                 System.out.println(Parser.parse("Byebye *waves* See you again! ^^"));
                 return;
             } else {

@@ -95,19 +95,28 @@ public class TaskList {
         return false;
     }
 
-    public static boolean list() {
+    public static String list() {
         if (tasks.size() > 0) {
-            String output = "Tasks in your list:";
-            for (int i = 0; i < tasks.size(); ++i) {
+            String output = "    " + ((1) + ". " + tasks.get(0));
+            for (int i = 1; i < tasks.size(); ++i) {
                 output += "\n    ";
                 output += ((i + 1) + ". " + tasks.get(i));
             }
-            System.out.println(Parser.parse(output));
-            return true;
+            return output;
         } else {
+            return "    No tasks.";
+        }
+    }
+
+    public static boolean printList() {
+        if (tasks.size() == 0) {
             System.out.println(Parser.parse("There are currently no tasks. Why not add some?"));
             return false;
         }
+        String output = "Tasks in your list:\n";
+        output += list();
+        System.out.println(Parser.parse(output));
+        return true;
     }
 
     public static String format() {

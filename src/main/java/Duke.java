@@ -1,7 +1,4 @@
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
 
 public class Duke {
@@ -14,33 +11,39 @@ public class Duke {
                                      + "|____/ \\__,_|_|\\_\\___|\n";
 
     // initialise the user and loads data from file to TaskList if file exists.
-    private static void initialise(Scanner scanner) {
+    private static void initialise(Scanner scanner) throws FileNotFoundException {
         String welcomeMsg = "Hello from\n" + LOGO;
         welcomeMsg += Parser.parse("Hello, I'm Duke! What's your name?");
         System.out.println(welcomeMsg);
         String name = scanner.nextLine().strip();
-//        if (FILE.length() == 0) { // if file is empty or file does not exist
+        if (!FILE.exists() && FILE.length() > 0) { // if file is empty or file does not exist
             welcomeMsg = Parser.parse("Hello " + name + "! What can I do for you?");
-//        } else { // initialise TaskList
-//            Scanner fileScanner = new Scanner(FILE);
-//            while (fileScanner.hasNextLine()) {
-//                String input = fileScanner.nextLine();
-//                String[] inputArr = input.split(" | ");
-//                switch (inputArr[0]) {
-//                    case "T":
-//                        TaskList.addTask();
-//                        break;
-//                    case "D":
-//
-//                        break;
-//                    case "E":
-//
-//                        break;
-//                    default:
-//                        break;
-//                }
-//            }
-//        }
+        } else { // initialise TaskList
+            BufferedReader br = new BufferedReader(new FileReader(FILE));
+            String input;
+            try {
+                while ((input = br.readLine()) != null) {
+//                    System.out.println("hello?");
+                    String[] inputArr = input.split(" | ");
+                    switch (inputArr[0]) {
+                        case "T":
+                            TaskList.addTask(inputArr[0], inputArr[2], inputArr[1]);
+                            break;
+                        case "D":
+                            TaskList.addTask(inputArr[0], inputArr[2], inputArr[3], Integer.valueOf(inputArr[1]));
+                            break;
+                        case "E":
+                            TaskList.addTask(inputArr[0], inputArr[2], inputArr[3], Integer.valueOf(inputArr[1]));
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            } catch (IOException e) {
+
+            }
+            welcomeMsg = Parser.parse("Hello " + name + "! Here are your tasks:\n" + TaskList.list());
+        }
         System.out.println(welcomeMsg);
 
     }
@@ -51,9 +54,9 @@ public class Duke {
 
     public static void main(String[] args) throws IOException {
         //BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME));
-        FileWriter writer = new FileWriter(FILE, false);
         Scanner scanner = new Scanner(System.in);
         initialise(scanner);
+        FileWriter writer = new FileWriter(FILE, true);
         while (scanner.hasNext()) {
             String input = scanner.nextLine();
             if (input.toLowerCase().equals("bye")) {
@@ -67,7 +70,7 @@ public class Duke {
                 return;
             } else {
                 if (input.toLowerCase().equals("list")) {
-                    TaskList.list();
+                    TaskList.printList();
                 } else {
                     if (input.length() >= 4 && input.substring(0, 4).equals("done")) {
                         TaskList.doTask(Integer.valueOf(input.substring(4).strip()));

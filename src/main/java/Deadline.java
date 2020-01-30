@@ -10,6 +10,16 @@ public class Deadline extends Task {
         return new Deadline(name, deadline);
     }
 
+    // return a string formatted for saving in file
+    @Override
+    public String format() {
+        String str = "D | ";
+        str += super.format();
+        str += " | ";
+        str += deadline;
+        return str;
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + "(by: " + deadline + ")";

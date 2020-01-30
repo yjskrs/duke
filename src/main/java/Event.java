@@ -10,6 +10,16 @@ public class Event extends Task {
         return new Event(name, time);
     }
 
+    // return a string formatted for saving in file
+    @Override
+    public String format() {
+        String str = "E | ";
+        str += super.format();
+        str += " | ";
+        str += time;
+        return str;
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + "(at: " + time + ")";

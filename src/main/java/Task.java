@@ -27,6 +27,13 @@ public class Task {
         isDone = false;
     }
 
+    // return a string formatted for saving in file
+    protected String format() {
+        String str =  isDone ? "1 | " : "0 | ";
+        str += name;
+        return str;
+    }
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + name;

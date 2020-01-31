@@ -17,10 +17,20 @@ public class Deadline extends Task {
     public static Deadline create(String name, boolean isCompleted, String by) {
         return new Deadline(name, isCompleted, LocalDate.parse(by));
     }
+    
+    // return a string formatted for saving in file
+    @Override
+    public String format() {
+        return "D | " + super.format() + " | " + by;
+    }
 
     @Override
     public String toString() {
-        return "[D][" + getStatusIcon() + "]" + super.toString() + " (by:" + by + ")";
+        String month = String.valueOf(by.getMonth());
+        String formattedDate = by.getDayOfMonth() + " "
+                                + month.substring(0, 1).toUpperCase() + month.substring(1).toLowerCase() + " "
+                                + by.getYear();
+        return "[D][" + getStatusIcon() + "] " + super.toString() + " (by: " + formattedDate + ")";
     }    
 }
 

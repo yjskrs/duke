@@ -15,9 +15,15 @@ public class Event extends Task {
     public static Event create(String name, boolean isCompleted, String at) {
         return new Event(name, isCompleted, at);
     }
+    
+    // return a string formatted for saving in file
+    @Override
+    public String format() {
+        return "E | " + super.format() + " | " + at;
+    }
 
     @Override
     public String toString() {
-        return "[E][" + getStatusIcon() + "]" + super.toString() + " (at:" + at + ")";
+        return "[E][" + getStatusIcon() + "] " + super.toString() + " (at: " + at + ")";
     }
 }

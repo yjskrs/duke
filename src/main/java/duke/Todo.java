@@ -12,9 +12,15 @@ public class Todo extends Task {
     public static Todo create(String name, boolean isCompleted) {
         return new Todo(name, isCompleted);
     }
+    
+    // return a string formatted for saving in file
+    @Override
+    public String format() {
+        return "T | " + super.format();
+    }
 
     @Override
     public String toString() {
-        return "[T][" + getStatusIcon() + "]" + super.toString();
+        return "[T][" + getStatusIcon() + "] " + super.toString();
     }
 }

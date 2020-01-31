@@ -76,7 +76,7 @@ public class TaskList {
     public static String format() {
         String formattedTaskList = "";
         for (int i = 0; i < tasks.size(); ++i) {
-            formattedTaskList += (tasks.get(i) + "\n");
+            formattedTaskList += (tasks.get(i).format() + "\n");
         }
         return formattedTaskList;
     }

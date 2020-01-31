@@ -20,6 +20,11 @@ public abstract class Task {
     public String getStatusIcon() {
         return (isCompleted ? "/" : "X"); // return tick or X symbols
     }
+    
+    // return a string formatted for saving in file
+    protected String format() {
+        return (isCompleted ? "1 | " : "0 | ") + name;
+    }
 
     @Override
     public boolean equals(Object obj) {

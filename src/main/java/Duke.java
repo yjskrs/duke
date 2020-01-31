@@ -32,16 +32,16 @@ public class Duke {
                     case ADD_TODO:
                     case ADD_DEADLINE:
                     case ADD_EVENT:
-                        TaskList.addTask(cmd.task);
+                        Ui.respond(TaskList.addTask(cmd.task));
                         break;
                     case DELETE:
-                        TaskList.removeTask(cmd.index);
+                        Ui.respond(TaskList.removeTask(cmd.index));
                         break;
                     case DONE:
-                        TaskList.doTask(cmd.index);
+                        Ui.respond(TaskList.doTask(cmd.index));
                         break;
                     case UNDO:
-                        TaskList.undoTask(cmd.index);
+                        Ui.respond(TaskList.undoTask(cmd.index));
                         break;
                     default:
                         break;

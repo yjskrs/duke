@@ -22,11 +22,7 @@ public class Event extends Task {
     // return a string formatted for saving in file
     @Override
     public String format() {
-        String str = "E | ";
-        str += super.format();
-        str += " | ";
-        str += time;
-        return str;
+        return "E | " + super.format() + " | " + time;
     }
 
     @Override

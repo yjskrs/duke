@@ -26,26 +26,26 @@ public class Duke {
             } else {
                 Command command = Parser.handleInput(input);
                 switch (command.type) {
-                    case LIST:
-                        Ui.respond(TaskList.list());
-                        break;
-                    case ADD_TODO:
-                    case ADD_DEADLINE:
-                    case ADD_EVENT:
-                        Ui.respond(TaskList.addTask(command.task));
-                        break;
-                    case DELETE:
-                        Ui.respond(TaskList.removeTask(command.index));
-                        break;
-                    case DONE:
-                        Ui.respond(TaskList.doTask(command.index));
-                        break;
-                    case UNDO:
-                        Ui.respond(TaskList.undoTask(command.index));
-                        break;
-                    default:
-                        Ui.respond("Sorry! I don't understand that command :( Please try something else!");
-                        break;
+                case LIST:
+                    Ui.respond(TaskList.list());
+                    break;
+                case ADD_TODO:
+                case ADD_DEADLINE:
+                case ADD_EVENT:
+                    Ui.respond(TaskList.addTask(command.task));
+                    break;
+                case DELETE:
+                    Ui.respond(TaskList.removeTask(command.index));
+                    break;
+                case DONE:
+                    Ui.respond(TaskList.doTask(command.index));
+                    break;
+                case UNDO:
+                    Ui.respond(TaskList.undoTask(command.index));
+                    break;
+                default:
+                    Ui.respond("Sorry! I don't understand that command :( Please try something else!");
+                    break;
                 }
             }
         }

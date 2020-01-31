@@ -16,20 +16,17 @@ public class TaskList {
 
             String[] recArr = list[i].strip().split(" \\| ");
             switch (recArr[0]) {
-                case "T":
-                    TaskList.addTask(Todo.createTodo(recArr[2], recArr[1].equals("1") ? true : false));
-//                    TaskList.addTask(recArr[0], recArr[2], 0);
-                    break;
-                case "D":
-                    TaskList.addTask(Deadline.createDeadline(recArr[2], recArr[3], recArr[1].equals("1") ? true : false));
-//                    TaskList.addTask(recArr[0], recArr[2], recArr[3], 0);
-                    break;
-                case "E":
-                    TaskList.addTask(Event.createEvent(recArr[2], recArr[3], recArr[1].equals("1") ? true : false));
-//                    TaskList.addTask(recArr[0], recArr[2], recArr[3], 0);
-                    break;
-                default:
-                    break;
+            case "T":
+                TaskList.addTask(Todo.createTodo(recArr[2], recArr[1].equals("1") ? true : false));
+                break;
+            case "D":
+                TaskList.addTask(Deadline.createDeadline(recArr[2], recArr[3], recArr[1].equals("1") ? true : false));
+                break;
+            case "E":
+                TaskList.addTask(Event.createEvent(recArr[2], recArr[3], recArr[1].equals("1") ? true : false));
+                break;
+            default:
+                break;
             }
         }
     }

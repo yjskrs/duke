@@ -26,11 +26,7 @@ public class Deadline extends Task {
     // return a string formatted for saving in file
     @Override
     public String format() {
-        String str = "D | ";
-        str += super.format();
-        str += " | ";
-        str += deadline;
-        return str;
+        return "D | " + super.format() + " | " + deadline;
     }
 
     @Override

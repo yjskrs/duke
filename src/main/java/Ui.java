@@ -25,6 +25,16 @@ public class Ui {
     }
     
     /**
+     * Prints a goodbye message to standard output.
+     * <p>
+     * Used when closing program.
+     */
+    public static void goodbye() {
+        String goodbyeMsg = parse("Awwww... Sad to see you go :( Hope to see you again soon! ^^");
+        System.out.println(goodbyeMsg);
+    }
+    
+    /**
      * Prints to standard output.
      *
      * @param contents String to be output.

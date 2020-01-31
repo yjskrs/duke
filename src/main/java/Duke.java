@@ -19,6 +19,7 @@ public class Duke {
             if (input.toLowerCase().equals("bye")) {
                 try {
                     Storage.save(TaskList.format());
+                    Ui.goodbye();
                 } catch (IOException e) {
 
                 }

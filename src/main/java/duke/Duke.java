@@ -7,50 +7,28 @@ public class Duke {
 
     public Duke() {
         try {
-            TaskList.setup(Storage.load());
+            Storage.load();
         } catch (IOException e) {
 
         }
         Ui.welcome();
     }
 
-    public void run() {
+    public static void run() {
         Scanner sc = new Scanner(System.in);
-        while (sc.hasNextLine()) {
+        while (sc.hasNext()) {
             String input = sc.nextLine();
-            if (input.toLowerCase().equals("bye")) {
+            if (input.equals("bye")) {
                 try {
-                    Storage.save(TaskList.format());
-                    Ui.goodbye();
+                    Storage.save();
                 } catch (IOException e) {
 
                 }
+                Ui.goodbye();
                 return;
-            } else {
-                Command command = Parser.handleInput(input);
-                switch (command.type) {
-                case LIST:
-                    Ui.respond(TaskList.list());
-                    break;
-                case ADD_TODO:
-                case ADD_DEADLINE:
-                case ADD_EVENT:
-                    Ui.respond(TaskList.addTask(command.task));
-                    break;
-                case DELETE:
-                    Ui.respond(TaskList.removeTask(command.index));
-                    break;
-                case DONE:
-                    Ui.respond(TaskList.doTask(command.index));
-                    break;
-                case UNDO:
-                    Ui.respond(TaskList.undoTask(command.index));
-                    break;
-                default:
-                    Ui.respond("Sorry! I don't understand that command :( Please try something else!");
-                    break;
-                }
             }
+            String response = InputHandler.processInput(input);
+            Ui.respond(response);
         }
     }
 
@@ -58,3 +36,8 @@ public class Duke {
         new Duke().run();
     }
 }
+
+// Input handler will handle inputs and call the respective functions that need to be called.
+// Then subsequently input handler will return the output needed to be printed by Ui.
+// Storage will directly send the data to tasklist
+// Duke shouldn't deal with Task at all!!!

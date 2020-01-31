@@ -19,13 +19,13 @@ public class TaskList {
             String[] recArr = list[i].strip().split(" \\| ");
             switch (recArr[0]) {
             case "T":
-                TaskList.addTask(Todo.createTodo(recArr[2], recArr[1].equals("1") ? true : false));
+                TaskList.addTask(Todo.create(recArr[2], recArr[1].equals("1")));
                 break;
             case "D":
-                TaskList.addTask(Deadline.createDeadline(recArr[2], recArr[3], recArr[1].equals("1") ? true : false));
+                TaskList.addTask(Deadline.create(recArr[2], recArr[1].equals("1"), recArr[3]));
                 break;
             case "E":
-                TaskList.addTask(Event.createEvent(recArr[2], recArr[3], recArr[1].equals("1") ? true : false));
+                TaskList.addTask(Event.create(recArr[2], recArr[1].equals("1"), recArr[3]));
                 break;
             default:
                 break;
@@ -33,57 +33,51 @@ public class TaskList {
         }
     }
 
-    public static String addTask(Task t) {
-        tasks.add(t);
-        return "Added:\n" + t.toString();
+    public static void addTask(Task newTask) {
+        tasks.add(newTask);
     }
 
-    public static String doTask(int i) {
-        if (i <= 0 || i > tasks.size()) {
-            return "This task doesn't exist.";
-        } else {
-            tasks.get(i-1).setDone();
-            return "Good job for completing the task:\n" + tasks.get(i-1);
-        }
+    public static Task removeTask(int number) {
+        Task task = tasks.get(number - 1);
+        tasks.remove(number - 1);
+        return task;
     }
 
-    public static String undoTask(int i) {
-        if (i <= 0 || i > tasks.size()) {
-            return"This task doesn't exist.";
-        } else {
-            tasks.get(i-1).resetDone();
-            return "o.o well... good luck completing the task:\n" + tasks.get(i-1);
-        }
+    public static Task markTaskAsCompleted(int number) {
+        tasks.get(number - 1).markAsCompleted();
+        return tasks.get(number - 1);
     }
 
-    public static String removeTask(int i) {
-        if (i <= 0 || i > tasks.size()) {
-            return "This task doesn't exist.";
-        } else {
-            tasks.remove(i-1);
-            return "Removed task:" + "\n    " + tasks.get(i-1);
-        }
+    public static Task markTaskAsIncomplete(int number) {
+        tasks.get(number - 1).markAsIncomplete();
+        return tasks.get(number - 1);
     }
 
-    public static String list() {
-        if (tasks.size() > 0) {
-            String output = (1) + ". " + tasks.get(0);
-            for (int i = 1; i < tasks.size(); ++i) {
-                output += "\n";
-                output += ((i + 1) + ". " + tasks.get(i));
+    public static Task findTask(String name) {
+        for (int i = 0; i < tasks.size(); ++i) {
+            if (tasks.get(i).equals(name)) {
+                return tasks.get(i);
             }
-            return output;
-        } else {
-            return "No tasks.";
         }
+        return null;
+    }
+
+    public static String listTasks() {
+        if (tasks.size() == 0) {
+            return "There are no tasks!";
+        }
+        String output = "";
+        for (int i = 0; i < tasks.size(); ++i) {
+            output += ((i + 1) + ". " + tasks.get(i) + "\n");
+        }
+        return output;
     }
 
     public static String format() {
-        String formattedTasksList = "";
+        String formattedTaskList = "";
         for (int i = 0; i < tasks.size(); ++i) {
-            formattedTasksList += tasks.get(i).format();
-            formattedTasksList += "\n";
+            formattedTaskList += (tasks.get(i) + "\n");
         }
-        return formattedTasksList;
+        return formattedTaskList;
     }
 }

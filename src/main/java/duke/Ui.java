@@ -8,13 +8,13 @@ package duke;
  */
 public class Ui {
     private static final String LOGO = " ____        _        \n"
-        + "|  _ \\ _   _| | _____ \n"
-        + "| | | | | | | |/ / _ \\\n"
-        + "| |_| | |_| |   <  __/\n"
-        + "|____/ \\__,_|_|\\_\\___|\n";
+                                     + "|  _ \\ _   _| | _____ \n"
+                                     + "| | | | | | | |/ / _ \\\n"
+                                     + "| |_| | |_| |   <  __/\n"
+                                     + "|____/ \\__,_|_|\\_\\___|\n";
     private static final String LINE_SEPARATOR = "____________________________________________________________";
     private static final String INDENTATION = "    ";
-    
+
     /**
      * Prints a welcome message to standard output.
      * <p>
@@ -25,7 +25,7 @@ public class Ui {
         welcomeMsg += parse("Hello, I'm Duke!");
         System.out.println(welcomeMsg);
     }
-    
+
     /**
      * Prints a goodbye message to standard output.
      * <p>
@@ -35,7 +35,7 @@ public class Ui {
         String goodbyeMsg = parse("Awwww... Sad to see you go :( Hope to see you again soon! ^^");
         System.out.println(goodbyeMsg);
     }
-    
+
     /**
      * Prints to standard output.
      *
@@ -44,7 +44,7 @@ public class Ui {
     public static void respond(String contents) {
         System.out.println(parse(contents));
     }
-    
+
     /**
      * Handles program output and formats it for printing to standard output.
      *
@@ -57,6 +57,9 @@ public class Ui {
             String[] outputArr = formattedOutput.split("\n");
             String indentedOutput = "";
             for (String line : outputArr) {
+                if (line.length() == 0) {
+                    continue;
+                }
                 indentedOutput += (INDENTATION + line.strip() + "\n");
             }
             return indentedOutput;

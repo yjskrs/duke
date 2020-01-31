@@ -1,48 +1,40 @@
 package duke;
 
-public class Task {
-    private String name;
-    private boolean isDone;
+public abstract class Task {
+    protected String name;
+    protected boolean isCompleted;
 
-    protected Task(String name) {
+    protected Task(String name, boolean isCompleted) {
         this.name = name;
-        this.isDone = false;
+        this.isCompleted = isCompleted;
     }
 
-    protected Task(String name, boolean isDone) {
-        this.name = name;
-        this.isDone = isDone;
+    public void markAsCompleted() {
+        isCompleted = true;
     }
 
-    public static Task createTask(String name) {
-        return new Task(name);
-    }
-
-    public String getName() {
-        return name;
+    public void markAsIncomplete() {
+        isCompleted = false;
     }
 
     public String getStatusIcon() {
-        return (isDone ? "/" : "X"); //return tick or X symbols
+        return (isCompleted ? "/" : "X"); // return tick or X symbols
     }
 
-    public void setDone() {
-        isDone = true;
-    }
-
-    public void resetDone() {
-        isDone = false;
-    }
-
-    // return a string formatted for saving in file
-    protected String format() {
-        String str =  isDone ? "1 | " : "0 | ";
-        str += name;
-        return str;
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (obj instanceof Task) {
+            Task task = (Task) obj;
+            return task.name.equals(this.name);
+        } else {
+            return false;
+        }
     }
 
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + name;
+        return name;
     }
 }

@@ -10,19 +10,19 @@ import java.nio.file.Paths;
 public class Storage {
     private static final String FILE_PATH = "./data/duke.txt";
     private static final File FILE = new File(FILE_PATH);
-    private static final Charset encoding = Charset.defaultCharset();
+    private static final Charset ENCODING = Charset.defaultCharset();
 
-    public static String load() throws IOException {
+    public static void load() throws IOException { // or boolean?
         if (FILE.length() == 0) {
-            return "";
+            return;
         }
         byte[] encoded = Files.readAllBytes(Paths.get(FILE_PATH));
-        return new String(encoded, encoding);
+        TaskList.setup(new String(encoded, ENCODING));
     }
 
-    public static void save(String formattedData) throws IOException {
+    public static void save() throws IOException {
         FileWriter writer = new FileWriter(FILE, false);
-        writer.write(formattedData);
+        writer.write(TaskList.format());
         writer.close();
     }
 }

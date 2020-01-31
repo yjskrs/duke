@@ -16,7 +16,7 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         while (sc.hasNextLine()) {
             String input = sc.nextLine();
-            if (input.equals("bye")) {
+            if (input.toLowerCase().equals("bye")) {
                 try {
                     Storage.save(TaskList.format());
                 } catch (IOException e) {
@@ -27,7 +27,7 @@ public class Duke {
                 Command cmd = Parser.handleInput(input);
                 switch (cmd.type) {
                     case LIST:
-                        TaskList.list();
+                        Ui.respond(TaskList.list());
                         break;
                     case ADD_TODO:
                     case ADD_DEADLINE:

@@ -2,22 +2,37 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class TaskList {
-    protected static List<Task> tasks = new ArrayList<>();
+    private static List<Task> tasks = new ArrayList<>();
 
     public static void setup(String data) {
         if (data.length() == 0) {
             return;
         }
         String[] list = data.split("\n");
+//        System.out.println(list[0]);
         for (int i = 0; i < list.length; ++i) {
-            String[] recArr = list[i].split(" | ");
+            if (list[i].length() == 0) {
+                continue;
+            }
+
+            String[] recArr = list[i].strip().split(" \\| ");
+//            System.out.println(recArr[0]);
+//            System.out.println(recArr[1]);
+//            System.out.println(recArr[2]);
+//            System.out.println(recArr[3]);
+//            System.out.println(recArr[4]);
             switch (recArr[0]) {
                 case "T":
-                    TaskList.addTask(recArr[0], recArr[2], 0);
+                    TaskList.addTask(Todo.createTodo(recArr[2], recArr[1].equals("1") ? true : false));
+//                    TaskList.addTask(recArr[0], recArr[2], 0);
                     break;
                 case "D":
+                    TaskList.addTask(Deadline.createDeadline(recArr[2], recArr[3], recArr[1].equals("1") ? true : false));
+//                    TaskList.addTask(recArr[0], recArr[2], recArr[3], 0);
+                    break;
                 case "E":
-                    TaskList.addTask(recArr[0], recArr[2], recArr[3], 0);
+                    TaskList.addTask(Event.createEvent(recArr[2], recArr[3], recArr[1].equals("1") ? true : false));
+//                    TaskList.addTask(recArr[0], recArr[2], recArr[3], 0);
                     break;
                 default:
                     break;
@@ -29,21 +44,21 @@ public class TaskList {
         tasks.add(t);
     }
 
-    public static void addTask(String type, String taskName, int isDone) {
-        if (taskName.length() > 0 && type.equals("T")) {
-            tasks.add(Todo.createTodo(taskName, isDone == 1 ? true : false));
-        }
-    }
-
-    public static void addTask(String type, String taskName, String time, int isDone) {
-        if (taskName.length() > 0) {
-            if (type.equals("D")) {
-                tasks.add(Deadline.createDeadline(taskName, time, isDone == 1  ? true : false));
-            } else if (type.equals("E")) {
-                tasks.add(Event.createEvent(taskName, time, isDone == 1  ? true : false));
-            }
-        }
-    }
+//    public static void addTask(String type, String taskName, int isDone) {
+//        if (taskName.length() > 0 && type.equals("T")) {
+//            tasks.add(Todo.createTodo(taskName, isDone == 1 ? true : false));
+//        }
+//    }
+//
+//    public static void addTask(String type, String taskName, String time, int isDone) {
+//        if (taskName.length() > 0) {
+//            if (type.equals("D")) {
+//                tasks.add(Deadline.createDeadline(taskName, time, isDone == 1  ? true : false));
+//            } else if (type.equals("E")) {
+//                tasks.add(Event.createEvent(taskName, time, isDone == 1  ? true : false));
+//            }
+//        }
+//    }
 
     public static boolean doTask(int i) {
         if (i <= 0 || i > tasks.size()) {

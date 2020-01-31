@@ -24,26 +24,27 @@ public class Duke {
                 }
                 return;
             } else {
-                Command cmd = Parser.handleInput(input);
-                switch (cmd.type) {
+                Command command = Parser.handleInput(input);
+                switch (command.type) {
                     case LIST:
                         Ui.respond(TaskList.list());
                         break;
                     case ADD_TODO:
                     case ADD_DEADLINE:
                     case ADD_EVENT:
-                        Ui.respond(TaskList.addTask(cmd.task));
+                        Ui.respond(TaskList.addTask(command.task));
                         break;
                     case DELETE:
-                        Ui.respond(TaskList.removeTask(cmd.index));
+                        Ui.respond(TaskList.removeTask(command.index));
                         break;
                     case DONE:
-                        Ui.respond(TaskList.doTask(cmd.index));
+                        Ui.respond(TaskList.doTask(command.index));
                         break;
                     case UNDO:
-                        Ui.respond(TaskList.undoTask(cmd.index));
+                        Ui.respond(TaskList.undoTask(command.index));
                         break;
                     default:
+                        Ui.respond("Sorry! I don't understand that command :( Please try something else!");
                         break;
                 }
             }

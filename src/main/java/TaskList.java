@@ -36,7 +36,7 @@ public class TaskList {
 
     public static String addTask(Task t) {
         tasks.add(t);
-        return t.toString();
+        return "Added:\n" + t.toString();
     }
 
     public static String doTask(int i) {
@@ -44,7 +44,7 @@ public class TaskList {
             return "This task doesn't exist.";
         } else {
             tasks.get(i-1).setDone();
-            return"Good job for completing the task:" + "\n    " + tasks.get(i-1);
+            return "Good job for completing the task:\n" + tasks.get(i-1);
         }
     }
 
@@ -53,7 +53,7 @@ public class TaskList {
             return"This task doesn't exist.";
         } else {
             tasks.get(i-1).resetDone();
-            return "o.o well... good luck completing the task:" + "\n    " + tasks.get(i-1);
+            return "o.o well... good luck completing the task:\n" + tasks.get(i-1);
         }
     }
 
@@ -62,32 +62,21 @@ public class TaskList {
             return "This task doesn't exist.";
         } else {
             tasks.remove(i-1);
-            return "removed task:" + "\n    " + tasks.get(i-1);
+            return "Removed task:" + "\n    " + tasks.get(i-1);
         }
     }
 
     public static String list() {
         if (tasks.size() > 0) {
-            String output = "    " + ((1) + ". " + tasks.get(0));
+            String output = (1) + ". " + tasks.get(0);
             for (int i = 1; i < tasks.size(); ++i) {
-                output += "\n    ";
+                output += "\n";
                 output += ((i + 1) + ". " + tasks.get(i));
             }
             return output;
         } else {
-            return "    No tasks.";
+            return "No tasks.";
         }
-    }
-
-    public static boolean printList() {
-        if (tasks.size() == 0) {
-            System.out.println(Parser.parse("There are currently no tasks. Why not add some?"));
-            return false;
-        }
-        String output = "Tasks in your list:\n";
-        output += list();
-        System.out.println(Parser.parse(output));
-        return true;
     }
 
     public static String format() {

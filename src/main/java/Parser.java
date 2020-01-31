@@ -1,10 +1,25 @@
+/**
+ * The <code>Parser</code> class is responsible for formatting user input into format readable
+ * by the Duke program, which involves the <code>Command</code> class.
+ *
+ * @author Zhu Yijie
+ */
 public class Parser {
-
+    
+    /**
+     * Handles the user input and formats it into a command for processing
+     * in the Duke program.
+     * <p>
+     * If input is invalid, returns a command of type invalid.
+     *
+     * @param input The string input by the user.
+     * @return The corresponding command.
+     */
     public static Command handleInput(String input) {
         String[] data = input.split(" ");
-        String cmd = data[0];
-        String rest = input.substring(cmd.length()).strip();
-        switch (cmd) {
+        String command = data[0];
+        String rest = input.substring(command.length()).strip();
+        switch (command) {
             case "list":
                 return new Command(CommandType.LIST);
             case "done":
@@ -27,17 +42,5 @@ public class Parser {
             default:
                 return new Command(CommandType.HUH);
         }
-    }
-
-    public static String parse(String input) {
-        if (input.length() > 0) {
-            String output = "    ____________________________________________________________\n";
-            output += "    ";
-            output += input;
-            output += "\n";
-            output += "    ____________________________________________________________";
-            return output;
-        }
-        return "";
     }
 }

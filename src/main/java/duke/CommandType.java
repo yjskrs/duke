@@ -1,3 +1,5 @@
+package duke;
+
 enum CommandType {
     LIST,
     ADD_TODO,

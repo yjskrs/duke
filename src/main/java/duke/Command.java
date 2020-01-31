@@ -1,3 +1,5 @@
+package duke;
+
 public class Command {
     protected CommandType type;
     protected int index;

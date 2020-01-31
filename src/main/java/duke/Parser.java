@@ -1,3 +1,5 @@
+package duke;
+
 /**
  * The <code>Parser</code> class is responsible for formatting user input into format readable
  * by the Duke program, which involves the <code>Command</code> class.

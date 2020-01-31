@@ -1,3 +1,5 @@
+package duke;
+
 /**
  * The <code>Ui</code> class deals with printing to standard output to provide a
  * interface to interact with the user.

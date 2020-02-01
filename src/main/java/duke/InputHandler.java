@@ -48,6 +48,9 @@ public class InputHandler {
             return "Added:\n" + newEvent;
         case "find":
             Task[] tasksFound = TaskList.findTask(restOfInput);
+            if (tasksFound == null) {
+                return "No matching tasks found.";
+            }
             String outputString = "";
             for (Task task : tasksFound) {
                 outputString += (task + "\n");

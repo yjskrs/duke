@@ -22,7 +22,7 @@ public abstract class Task {
     }
     
     // return a string formatted for saving in file
-    protected String format() {
+    public String format() {
         return (isCompleted ? "1 | " : "0 | ") + name;
     }
 

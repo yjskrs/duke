@@ -19,7 +19,7 @@ public class Duke {
         } catch (IOException e) {
 
         }
-        Ui.welcome();
+        Ui.sayHello();
     }
     
     /**
@@ -35,7 +35,7 @@ public class Duke {
                 } catch (IOException e) {
 
                 }
-                Ui.goodbye();
+                Ui.sayGoodbye();
                 return;
             }
             String response = InputHandler.processInput(input);

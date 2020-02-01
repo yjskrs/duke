@@ -10,6 +10,7 @@ public class TaskList {
         if (data.length() == 0) {
             return;
         }
+        
         String[] list = data.split("\n");
         for (int i = 0; i < list.length; ++i) {
             if (list[i].length() == 0) {
@@ -17,15 +18,17 @@ public class TaskList {
             }
 
             String[] recArr = list[i].strip().split(" \\| ");
+            String name = recArr[2];
+            boolean isCompleted = recArr[1].equals("1");
             switch (recArr[0]) {
             case "T":
-                TaskList.addTask(Todo.create(recArr[2], recArr[1].equals("1")));
+                addTask(Todo.create(name, isCompleted));
                 break;
             case "D":
-                TaskList.addTask(Deadline.create(recArr[2], recArr[1].equals("1"), recArr[3]));
+                addTask(Deadline.create(name, isCompleted, recArr[3]));
                 break;
             case "E":
-                TaskList.addTask(Event.create(recArr[2], recArr[1].equals("1"), recArr[3]));
+                addTask(Event.create(name, isCompleted, recArr[3]));
                 break;
             default:
                 break;
@@ -66,6 +69,7 @@ public class TaskList {
         if (tasks.size() == 0) {
             return "There are no tasks!";
         }
+        
         String output = "";
         for (int i = 0; i < tasks.size(); ++i) {
             output += ((i + 1) + ". " + tasks.get(i) + "\n");

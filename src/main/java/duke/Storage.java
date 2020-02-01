@@ -16,6 +16,7 @@ public class Storage {
         if (FILE.length() == 0) {
             return;
         }
+        
         byte[] encoded = Files.readAllBytes(Paths.get(FILE_PATH));
         TaskList.setup(new String(encoded, ENCODING));
     }

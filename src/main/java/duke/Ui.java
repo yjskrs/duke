@@ -20,9 +20,9 @@ public class Ui {
      * <p>
      * Used when starting up program.
      */
-    public static void welcome() {
+    public static void sayHello() {
         String welcomeMsg = "Hello from\n" + LOGO;
-        welcomeMsg += parse("Hello, I'm Duke!");
+        welcomeMsg += parseOutput("Hello, I'm Duke!");
         System.out.println(welcomeMsg);
     }
 
@@ -31,8 +31,8 @@ public class Ui {
      * <p>
      * Used when closing program.
      */
-    public static void goodbye() {
-        String goodbyeMsg = parse("Awwww... Sad to see you go :( Hope to see you again soon! ^^");
+    public static void sayGoodbye() {
+        String goodbyeMsg = parseOutput("Awwww... Sad to see you go :( Hope to see you again soon!");
         System.out.println(goodbyeMsg);
     }
 
@@ -42,7 +42,7 @@ public class Ui {
      * @param contents String to be output.
      */
     public static void respond(String contents) {
-        System.out.println(parse(contents));
+        System.out.println(parseOutput(contents));
     }
 
     /**
@@ -51,19 +51,18 @@ public class Ui {
      * @param output String to be output.
      * @return The string to be printed to standard output.
      */
-    public static String parse(String output) {
-        if (output.length() > 0) {
-            String formattedOutput = LINE_SEPARATOR + "\n" + output + "\n" + LINE_SEPARATOR;
-            String[] outputArr = formattedOutput.split("\n");
-            String indentedOutput = "";
-            for (String line : outputArr) {
-                if (line.length() == 0) {
-                    continue;
-                }
+    public static String parseOutput(String output) {
+        if (output.length() == 0) {
+            return "";
+        }
+        String formattedOutput = LINE_SEPARATOR + "\n" + output + "\n" + LINE_SEPARATOR;
+        String[] outputArr = formattedOutput.split("\n");
+        String indentedOutput = "";
+        for (String line : outputArr) {
+            if (line.length() > 0) {
                 indentedOutput += (INDENTATION + line.strip() + "\n");
             }
-            return indentedOutput;
         }
-        return "";
+        return indentedOutput;
     }
 }

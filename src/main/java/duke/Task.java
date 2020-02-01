@@ -25,6 +25,14 @@ public abstract class Task {
     public String format() {
         return (isCompleted ? "1 | " : "0 | ") + name;
     }
+    
+    public boolean matchesPartOfName(String str) {
+        return name.contains(str);
+    }
+    
+    public boolean matchesName(String str) {
+        return str.equals(name);
+    }
 
     @Override
     public boolean equals(Object obj) {

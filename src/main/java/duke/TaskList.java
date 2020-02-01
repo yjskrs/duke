@@ -53,13 +53,18 @@ public class TaskList {
         return tasks.get(number - 1);
     }
 
-    public static Task findTask(String name) {
+    public static Task[] findTask(String name) {
+        List<Task> tasksMatched = new ArrayList<>();
         for (int i = 0; i < tasks.size(); ++i) {
-            if (tasks.get(i).equals(name)) {
-                return tasks.get(i);
+            if (tasks.get(i).matchesPartOfName(name)) {
+                tasksMatched.add(tasks.get(i));
             }
         }
-        return null;
+        if (tasksMatched.size() == 0) {
+            return null;
+        } else {
+            return tasksMatched.toArray(Task[]::new);
+        }
     }
 
     public static String listTasks() {

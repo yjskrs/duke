@@ -1,8 +1,8 @@
 package duke;
 
 /**
- * The <code>Ui</code> class deals with printing to standard output to provide a
- * interface to interact with the user.
+ * The <code>Ui</code> class is a utility class which deals with printing to standard output to
+ * provide an interface to interact with the user.
  *
  * @author Zhu Yijie
  */
@@ -52,18 +52,17 @@ public class Ui {
      * @return The string to be printed to standard output.
      */
     public static String parse(String output) {
-        if (output.length() > 0) {
-            String formattedOutput = LINE_SEPARATOR + "\n" + output + "\n" + LINE_SEPARATOR;
-            String[] outputArr = formattedOutput.split("\n");
-            String indentedOutput = "";
-            for (String line : outputArr) {
-                if (line.length() == 0) {
-                    continue;
-                }
+        if (output.length() == 0) {
+            return "";
+        }
+        String formattedOutput = LINE_SEPARATOR + "\n" + output + "\n" + LINE_SEPARATOR;
+        String[] outputArr = formattedOutput.split("\n");
+        String indentedOutput = "";
+        for (String line : outputArr) {
+            if (line.length() > 0) {
                 indentedOutput += (INDENTATION + line.strip() + "\n");
             }
-            return indentedOutput;
         }
-        return "";
+        return indentedOutput;
     }
 }

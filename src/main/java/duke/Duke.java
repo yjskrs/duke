@@ -3,8 +3,16 @@ package duke;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * The <code>Duke</code> class is the entry point of the program.
+ *
+ * @author Zhu Yijie
+ */
 public class Duke {
-
+    
+    /**
+     * Creates and initialises a Duke object.
+     */
     public Duke() {
         try {
             Storage.load();
@@ -13,7 +21,10 @@ public class Duke {
         }
         Ui.welcome();
     }
-
+    
+    /**
+     * Runs Duke.
+     */
     public static void run() {
         Scanner sc = new Scanner(System.in);
         while (sc.hasNext()) {
@@ -31,7 +42,12 @@ public class Duke {
             Ui.respond(response);
         }
     }
-
+    
+    /**
+     * The main method starts the Duke program.
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         new Duke().run();
     }

@@ -2,9 +2,24 @@ package duke;
 
 import java.time.LocalDate;
 
+/**
+ * The <code>Deadline</code> class extends from Task.
+ * <p>
+ * A <code>Deadline</code> object has a <code>name</code>, a <code>isCompleted</code> property and
+ * a <code>by</code> property which represents the time of the event.
+ *
+ * @author Zhu Yijie
+ */
 public class Deadline extends Task {
     protected LocalDate by;
-
+    
+    /**
+     * Creates a new Deadline object.
+     *
+     * @param name The name of the deadline.
+     * @param isCompleted Whether the deadline is completed.
+     * @param by Time the deadline is due.
+     */
     protected Deadline(String name, boolean isCompleted, LocalDate by) {
         super(name, isCompleted);
         this.by = by;
@@ -18,7 +33,6 @@ public class Deadline extends Task {
         return new Deadline(name, isCompleted, LocalDate.parse(by));
     }
     
-    // return a string formatted for saving in file
     @Override
     public String format() {
         return "D | " + super.format() + " | " + by;

@@ -1,7 +1,21 @@
 package duke;
 
+/**
+ * The <code>InputHandler</code> class is a utility class to handle user input and call the
+ * respective classes to deal with the input. It then retrieves the output from the classes
+ * and sends it out.
+ *
+ * @author Zhu Yijie
+ */
 public class InputHandler {
-
+    
+    /**
+     * Takes in user input, handles it and passes it to the relevant classes for processing.
+     * Then returns the output to be sent to the user.
+     *
+     * @param input User input.
+     * @return The response towards the user input.
+     */
     public static String processInput(String input) {
         String[] data = input.split(" ");
         String command = data[0];

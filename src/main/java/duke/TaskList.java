@@ -3,9 +3,20 @@ package duke;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * The <code>TaskList</code> class stores a list of all <code>Task</code> objects and handles
+ * them.
+ *
+ * @author Zhu Yijie
+ */
 public class TaskList {
     private static List<Task> tasks = new ArrayList<>();
-
+    
+    /**
+     * Sets up the system of all tasks from a file.
+     *
+     * @param data Data taken from a file.
+     */
     public static void setup(String data) {
         if (data.length() == 0) {
             return;
@@ -35,27 +46,57 @@ public class TaskList {
             }
         }
     }
-
+    
+    /**
+     * Adds a task to the list.
+     *
+     * @param newTask The task to be added.
+     */
     public static void addTask(Task newTask) {
         tasks.add(newTask);
     }
-
+    
+    /**
+     * Removes a task from the list.
+     *
+     * @param number The number of the task to be removed.
+     * @return The task removed.
+     */
     public static Task removeTask(int number) {
         Task task = tasks.get(number - 1);
         tasks.remove(number - 1);
         return task;
     }
-
+    
+    /**
+     * Marks a task from the list as completed.
+     *
+     * @param number The number of the task to be modified.
+     * @return The task modified.
+     */
     public static Task markTaskAsCompleted(int number) {
         tasks.get(number - 1).markAsCompleted();
         return tasks.get(number - 1);
     }
-
+    
+    /**
+     * Marks a task from the list as incomplete.
+     *
+     * @param number The number of the task to be modified.
+     * @return The task modified.
+     */
     public static Task markTaskAsIncomplete(int number) {
         tasks.get(number - 1).markAsIncomplete();
         return tasks.get(number - 1);
     }
-
+    
+    /**
+     * Finds an array of tasks that match the string provided. Returns null if there are no
+     * matching tasks.
+     *
+     * @param name The name of task to find.
+     * @return Task array, if found, or null if no matching tasks found.
+     */
     public static Task[] findTask(String name) {
         List<Task> tasksMatched = new ArrayList<>();
         for (int i = 0; i < tasks.size(); ++i) {
@@ -63,13 +104,19 @@ public class TaskList {
                 tasksMatched.add(tasks.get(i));
             }
         }
+        
         if (tasksMatched.size() == 0) {
             return null;
         } else {
             return tasksMatched.toArray(Task[]::new);
         }
     }
-
+    
+    /**
+     * Lists all tasks in the list.
+     *
+     * @return String representing the list of tasks.
+     */
     public static String listTasks() {
         if (tasks.size() == 0) {
             return "There are no tasks!";
@@ -81,7 +128,12 @@ public class TaskList {
         }
         return output;
     }
-
+    
+    /**
+     * Formats the list of tasks for storing in a file.
+     *
+     * @return String representing the list of tasks.
+     */
     public static String format() {
         String formattedTaskList = "";
         for (int i = 0; i < tasks.size(); ++i) {

@@ -17,8 +17,8 @@ public class Ui {
 
     /**
      * Prints a welcome message to standard output.
-     * <p>
-     * Used when starting up program.
+     *
+     * <p>Used when starting up program.
      */
     public static void sayHello() {
         String welcomeMsg = "Hello from\n" + LOGO;
@@ -28,8 +28,8 @@ public class Ui {
 
     /**
      * Prints a goodbye message to standard output.
-     * <p>
-     * Used when closing program.
+     *
+     * <p>Used when closing program.
      */
     public static void sayGoodbye() {
         String goodbyeMsg = parseOutput("Awwww... Sad to see you go :( Hope to see you again soon!");

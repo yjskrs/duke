@@ -4,9 +4,9 @@ import java.time.LocalDate;
 
 /**
  * The <code>Deadline</code> class extends from Task.
- * <p>
- * A <code>Deadline</code> object has a <code>name</code>, a <code>isCompleted</code> property and
- * a <code>by</code> property which represents the time of the event.
+ *
+ * <p>A <code>Deadline</code> object has a <code>name</code>, a <code>isCompleted</code> property
+ * and a <code>by</code> property which represents the time of the event.
  *
  * @author Zhu Yijie
  */

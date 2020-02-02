@@ -17,7 +17,7 @@ public class Duke {
         try {
             Storage.load();
         } catch (IOException e) {
-
+            System.out.println("exception");
         }
         Ui.sayHello();
     }
@@ -33,7 +33,7 @@ public class Duke {
                 try {
                     Storage.save();
                 } catch (IOException e) {
-
+                    System.out.println("exception");
                 }
                 Ui.sayGoodbye();
                 return;
@@ -46,7 +46,7 @@ public class Duke {
     /**
      * The main method starts the Duke program.
      *
-     * @param args
+     * @param args Input arguments.
      */
     public static void main(String[] args) {
         new Duke().run();

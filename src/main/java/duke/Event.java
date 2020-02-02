@@ -2,9 +2,9 @@ package duke;
 
 /**
  * The <code>Event</code> class extends from Task.
- * <p>
- * An <code>Event</code> object has a <code>name</code>, a <code>isCompleted</code> property and
- * an <code>at</code> property which represents the time of the event.
+ *
+ * <p>An <code>Event</code> object has a <code>name</code>, a <code>isCompleted</code> property
+ * and an <code>at</code> property which represents the time of the event.
  *
  * @author Zhu Yijie
  */

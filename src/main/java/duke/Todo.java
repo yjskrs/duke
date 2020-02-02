@@ -2,8 +2,8 @@ package duke;
 
 /**
  * The <code>Todo</code> class extends from Task.
- * <p>
- * A <code>Todo</code> object has a <code>name</code> and a <code>isCompleted</code> property.
+ *
+ * <p>A <code>Todo</code> object has a <code>name</code> and a <code>isCompleted</code> property.
  *
  * @author Zhu Yijie
  */

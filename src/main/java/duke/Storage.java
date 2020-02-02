@@ -21,7 +21,7 @@ public class Storage {
     /**
      * Retrieves all data from file and sends data to the TaskList class.
      *
-     * @throws IOException
+     * @throws IOException If an input or output exception occurred.
      */
     public static void load() throws IOException { // or boolean?
         if (FILE.length() == 0) {
@@ -35,7 +35,7 @@ public class Storage {
     /**
      * Takes formatted TaskList data and writes it to file.
      *
-     * @throws IOException
+     * @throws IOException If an input or output exception occurred.
      */
     public static void save() throws IOException {
         FileWriter writer = new FileWriter(FILE, false);

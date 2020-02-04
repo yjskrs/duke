@@ -14,6 +14,11 @@ public class Ui {
                                      + "|____/ \\__,_|_|\\_\\___|\n";
     private static final String LINE_SEPARATOR = "____________________________________________________________";
     private static final String INDENTATION = "    ";
+    
+    public static String getHelloMessage() {
+        String welcomeMsg = "Hello, I'm Duke!";
+        return welcomeMsg;
+    }
 
     /**
      * Prints a welcome message to standard output.
@@ -22,7 +27,7 @@ public class Ui {
      */
     public static void sayHello() {
         String welcomeMsg = "Hello from\n" + LOGO;
-        welcomeMsg += parseOutput("Hello, I'm Duke!");
+        welcomeMsg += parseOutput(getHelloMessage());
         System.out.println(welcomeMsg);
     }
 

@@ -22,7 +22,8 @@ public class InputHandler {
         String restOfInput = input.substring(command.length()).strip();
         switch (command) {
         case "list":
-            return TaskList.listTasks();
+            return "Here are your tasks:\n"
+                + TaskList.listTasks();
         case "done":
             return "Good job for completing the task:\n" 
                 + TaskList.markTaskAsCompleted(Integer.valueOf(restOfInput));

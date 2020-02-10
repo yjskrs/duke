@@ -2,12 +2,6 @@ package duke;
 
 import java.io.IOException;
 import java.util.Scanner;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
-import javafx.scene.image.Image;
 
 /**
  * The <code>Duke</code> class is the entry point of the program.

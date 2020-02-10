@@ -17,3 +17,4 @@ bin/
 text-ui-test/EXPECTED.txt
 text-ui-test/ACTUAL.txt
 text-ui-test/input.txt
+/backup

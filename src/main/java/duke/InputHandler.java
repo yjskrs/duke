@@ -1,5 +1,7 @@
 package duke;
 
+import java.io.IOException;
+
 /**
  * The <code>InputHandler</code> class is a utility class to handle user input and call the
  * respective classes to deal with the input. It then retrieves the output from the classes
@@ -21,6 +23,14 @@ public class InputHandler {
         String command = inputData[0];
         String restOfInput = input.substring(command.length()).strip();
         switch (command) {
+        case "bye":
+            try {
+                Storage.save();
+            } catch (IOException e) {
+                System.out.println("exception");
+            } finally {
+                return "Awwww... Sad to see you go :( Hope to see you again soon!";
+            }
         case "list":
             return "Here are your tasks:\n"
                 + TaskList.listTasks();

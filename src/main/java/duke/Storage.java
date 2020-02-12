@@ -19,17 +19,18 @@ public class Storage {
     private static final Charset ENCODING = Charset.defaultCharset();
     
     /**
-     * Retrieves all data from file and sends data to the TaskList class.
+     * Retrieves all data from file and returns data as a string.
      *
-     * @throws IOException If an input or output exception occurred.
+     * @return Data string loaded from file.
+     * @throws IOException If an input exception occurred.
+     * @throws EmptyFileException If the file read is empty.
      */
-    public static void load() throws IOException { // or boolean?
-        if (FILE.length() == 0) {
-            return;
+    public static String load() throws IOException, EmptyFileException {
+        if (isEmpty()) {
+            throw new EmptyFileException();
         }
-        
         byte[] encoded = Files.readAllBytes(Paths.get(FILE_PATH));
-        TaskList.setup(new String(encoded, ENCODING));
+        return new String(encoded, ENCODING);
     }
     
     /**
@@ -37,9 +38,18 @@ public class Storage {
      *
      * @throws IOException If an input or output exception occurred.
      */
-    public static void save() throws IOException {
+    public static void save(String data) throws IOException {
         FileWriter writer = new FileWriter(FILE, false);
-        writer.write(TaskList.format());
+        writer.write(data);
         writer.close();
+    }
+    
+    /**
+     * Checks if FILE is empty.
+     *
+     * @return True if empty, false otherwise.
+     */
+    public static boolean isEmpty() {
+        return FILE.length() == 0;
     }
 }

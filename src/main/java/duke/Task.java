@@ -1,66 +1,35 @@
 package duke;
 
-/**
- * The <code>Task</code> class is an abstract class with a name and a boolean to represent whether
- * it is completed.
- *
- * @author Zhu Yijie
- */
 public abstract class Task {
     protected String name;
     protected boolean isCompleted;
     
-    /**
-     * Creates a new Task object.
-     *
-     * @param name The name of the task.
-     * @param isCompleted Whether the task is completed.
-     */
-    protected Task(String name, boolean isCompleted) {
+    public Task(String name) {
+        this.name = name;
+        this.isCompleted = false;
+    }
+    
+    public Task(String name, boolean isCompleted) {
         this.name = name;
         this.isCompleted = isCompleted;
     }
     
-    /**
-     * Marks the task as completed.
-     */
     public void markAsCompleted() {
         isCompleted = true;
     }
     
-    /**
-     * Marks the task as incomplete.
-     */
     public void markAsIncomplete() {
         isCompleted = false;
     }
     
-    /**
-     * Returns icon for whether the task is completed or not.
-     *
-     * @return The string representing the whether the task is completed or not.
-     */
-    public String getStatusIcon() {
-        return (isCompleted ? "/" : "X"); // return tick or X symbols
+    public boolean matchPartial(String str) {
+        return name.toLowerCase().contains(str.toLowerCase());
     }
     
-    /**
-     * Returns a string formatting the task for saving in a file.
-     *
-     * @return The string representing the task.
-     */
-    public String format() {
-        return (isCompleted ? "1 | " : "0 | ") + name;
+    public boolean equals(String str) {
+        return str.equalsIgnoreCase(name);
     }
     
-    public boolean matchesPartOfName(String str) {
-        return name.contains(str);
-    }
-    
-    public boolean matchesName(String str) {
-        return str.equals(name);
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -72,9 +41,23 @@ public abstract class Task {
             return false;
         }
     }
-
+    
+    /**
+     * Returns a string formatting the task for saving in a file.
+     *
+     * @return The string representing the task.
+     */
+    public String format() {
+        return (isCompleted ? "1 | " : "0 | ") + name;
+    }
+    
+    public String getStatusIcon() {
+        String statusIcon = isCompleted ? " \\u2713" : " ";
+        return "[" + statusIcon + "]";
+    }
+    
     @Override
     public String toString() {
-        return name;
+        return "\\033[1m" + name + "\\033[0m";
     }
 }

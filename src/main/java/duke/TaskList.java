@@ -1,144 +1,78 @@
 package duke;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
-/**
- * The <code>TaskList</code> class stores a list of all <code>Task</code> objects and handles
- * them.
- *
- * @author Zhu Yijie
- */
 public class TaskList {
-    private static List<Task> tasks = new ArrayList<>();
+    private List<Task> tasks;
     
-    /**
-     * Sets up the system of all tasks from a file.
-     *
-     * @param data Data taken from a file.
-     */
-    public static void setup(String data) {
-        if (data.length() == 0) {
-            return;
-        }
-        
-        String[] list = data.split("\n");
-        for (int i = 0; i < list.length; ++i) {
-            if (list[i].length() == 0) {
-                continue;
-            }
-
-            String[] recArr = list[i].strip().split(" \\| ");
-            String name = recArr[2];
-            boolean isCompleted = recArr[1].equals("1");
-            switch (recArr[0]) {
-            case "T":
-                addTask(Todo.create(name, isCompleted));
-                break;
-            case "D":
-                addTask(Deadline.create(name, isCompleted, recArr[3]));
-                break;
-            case "E":
-                addTask(Event.create(name, isCompleted, recArr[3]));
-                break;
-            default:
-                break;
-            }
-        }
+    public TaskList() {
+        tasks = new ArrayList<>();
     }
     
-    /**
-     * Adds a task to the list.
-     *
-     * @param newTask The task to be added.
-     */
-    public static void addTask(Task newTask) {
+    public TaskList(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+    
+    public Task getTask(int id) throws IndexOutOfBoundsException {
+        int index = id - 1;
+        if (index < 0 || index >= tasks.size()) {
+            throw new IndexOutOfBoundsException();
+        }
+        return tasks.get(index);
+    }
+    
+    public String add(Task newTask) {
         tasks.add(newTask);
+        return newTask.toString();
     }
     
-    /**
-     * Removes a task from the list.
-     *
-     * @param number The number of the task to be removed.
-     * @return The task removed.
-     */
-    public static Task removeTask(int number) {
-        Task task = tasks.get(number - 1);
-        tasks.remove(number - 1);
-        return task;
+    public String remove(int id) throws IndexOutOfBoundsException {
+        Task task = getTask(id);
+        tasks.remove(task);
+        return task.toString();
     }
     
-    /**
-     * Marks a task from the list as completed.
-     *
-     * @param number The number of the task to be modified.
-     * @return The task modified.
-     */
-    public static Task markTaskAsCompleted(int number) {
-        tasks.get(number - 1).markAsCompleted();
-        return tasks.get(number - 1);
+    public String markAsCompleted(int id) throws IndexOutOfBoundsException {
+        Task task = getTask(id);
+        task.markAsCompleted();
+        return task.toString();
     }
     
-    /**
-     * Marks a task from the list as incomplete.
-     *
-     * @param number The number of the task to be modified.
-     * @return The task modified.
-     */
-    public static Task markTaskAsIncomplete(int number) {
-        tasks.get(number - 1).markAsIncomplete();
-        return tasks.get(number - 1);
+    public String markAsIncomplete(int id) throws IndexOutOfBoundsException {
+        Task task = getTask(id);
+        task.markAsIncomplete();
+        return task.toString();
     }
     
-    /**
-     * Finds an array of tasks that match the string provided. Returns null if there are no
-     * matching tasks.
-     *
-     * @param name The name of task to find.
-     * @return Task array, if found, or null if no matching tasks found.
-     */
-    public static Task[] findTask(String name) {
-        List<Task> tasksMatched = new ArrayList<>();
-        for (int i = 0; i < tasks.size(); ++i) {
-            if (tasks.get(i).matchesPartOfName(name)) {
-                tasksMatched.add(tasks.get(i));
-            }
-        }
-        
-        if (tasksMatched.size() == 0) {
-            return null;
-        } else {
-            return tasksMatched.toArray(Task[]::new);
-        }
-    }
-    
-    /**
-     * Lists all tasks in the list.
-     *
-     * @return String representing the list of tasks.
-     */
-    public static String listTasks() {
-        if (tasks.size() == 0) {
-            return "There are no tasks!";
-        }
-        
+    public String list() {
         String output = "";
         for (int i = 0; i < tasks.size(); ++i) {
-            output += ((i + 1) + ". " + tasks.get(i) + "\n");
+            int id = i + 1;
+            output += (id + " " + tasks.get(i) + "\n");
         }
         return output;
     }
     
-    /**
-     * Formats the list of tasks for storing in a file.
-     *
-     * @return String representing the list of tasks.
-     */
-    public static String format() {
+    public String find(String name) {
+        String matches = "";
+        for (Task task : tasks) {
+            if (task.matchPartial(name)) {
+                matches += task.toString() + "\n";
+            }
+        }
+        return matches;
+    }
+    
+    public String formatData() {
         String formattedTaskList = "";
         for (int i = 0; i < tasks.size(); ++i) {
             formattedTaskList += (tasks.get(i).format() + "\n");
         }
         return formattedTaskList;
+    }
+    
+    public void clearData() {
+        tasks.clear();
     }
 }

@@ -1,43 +1,34 @@
 package duke;
 
-/**
- * The <code>Event</code> class extends from Task.
- *
- * <p>An <code>Event</code> object has a <code>name</code>, a <code>isCompleted</code> property
- * and an <code>at</code> property which represents the time of the event.
- *
- * @author Zhu Yijie
- */
 public class Event extends Task {
+    private static final String IDENTIFIER = "EVENT   ";
+    
     protected String at;
     
-    /**
-     * Creates a new Event object.
-     *
-     * @param name The name of the event.
-     * @param isCompleted Whether the event is completed.
-     * @param at Time of event.
-     */
-    protected Event(String name, boolean isCompleted, String at) {
-        super(name, isCompleted);
+    public Event(String name, String at) {
+        super(name);
         this.at = at;
     }
-
-    public static Event create(String name, String at) {
-        return new Event(name, false, at);
-    }
-
-    public static Event create(String name, boolean isCompleted, String at) {
-        return new Event(name, isCompleted, at);
+    
+    public Event(String name, boolean isCompleted, String at) {
+        super(name, isCompleted);
+        this.at = at;
     }
     
     @Override
     public String format() {
         return "E | " + super.format() + " | " + at;
     }
-
+    
+    public String getTimeString() {
+        return "(at: " + at + ")";
+    }
+    
     @Override
     public String toString() {
-        return "[E][" + getStatusIcon() + "] " + super.toString() + " (at: " + at + ")";
+        return getStatusIcon() + "  "
+                + IDENTIFIER + "  "
+                + super.toString() + " "
+                + getTimeString();
     }
 }

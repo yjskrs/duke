@@ -3,30 +3,21 @@ package duke;
 import java.io.IOException;
 import java.util.Scanner;
 
-/**
- * The <code>Duke</code> class is the entry point of the program.
- *
- * @author Zhu Yijie
- */
 public class Duke {
-    /**
-     * Creates and initialises a Duke object.
-     */
+    
+    public static Scanner sc;
+    
     public Duke() {
-        try {
-            Storage.load();
-        } catch (IOException e) {
-            System.out.println("exception");
+        this.sc = new Scanner(System.in);
+        boolean success = Controller.initialize();
+        while (!success) {
+            success = Controller.initialize(sc.next());
         }
-        Ui.sayHello();
     }
     
-    /**
-     * Runs Duke.
-     */
-    public static void run() {
-        Scanner sc = new Scanner(System.in);
+    public void run() {
         while (sc.hasNext()) {
+            boolean success = Controller.process(sc.nextLine());
             String input = sc.nextLine();
             if (input.equals("bye")) {
                 try {
@@ -49,13 +40,5 @@ public class Duke {
      */
     public static void main(String[] args) {
         new Duke().run();
-    }
-    
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
-    public String getResponse(String input) {
-        return InputHandler.processInput(input);
     }
 }

@@ -67,8 +67,22 @@ public class InputHandler {
                 outputString += (task + "\n");
             }
             return "Found matching task(s):\n" + outputString;
+        case "help":
+            return "Looking for help? Help is here!\n"
+                    + "Here are some commands you can enter:\n"
+                    + "`list`: list tasks\n"
+                    + "`find [(partial) task name]`: find tasks from existing tasks\n"
+                    + "`todo [todo name]`: add todo with name [todo name]\n"
+                    + "`deadline [deadline name] /by [date in YYYY-MM-DD format]`: add deadline with name [deadline name] and due on [date]\n"
+                    + "`event [event name] /at [datetime]`: add event with name [event name] at time [datetime]\n"
+                    + "`delete [task id]`: delete task with id [task id]\n"
+                    + "`done [task id]`: mark task with id [task id] as done\n"
+                    + "`undo [task id]`: mark task with id [task id] as not done\n"
+                    + "`bye`: exit program\n";
+
+
         default:
-            return "????????????? gomenasai wakarimasen :(((";
+            return "????????????? gomenasai wakarimasen :((( Enter `help` to get a list of commands.";
         }
     }    
 }

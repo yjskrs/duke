@@ -17,6 +17,7 @@ public abstract class Task {
      * @param isCompleted Whether the task is completed.
      */
     protected Task(String name, boolean isCompleted) {
+        assert !name.isEmpty() : "Empty task name.";
         this.name = name;
         this.isCompleted = isCompleted;
     }

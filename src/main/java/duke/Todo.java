@@ -8,6 +8,16 @@ package duke;
  * @author Zhu Yijie
  */
 public class Todo extends Task {
+    
+    /**
+     * Creates a new Todo object.
+     *
+     * @param name The name of the todo.
+     */
+    protected Todo(String name) {
+        super(name);
+    }
+    
     /**
      * Creates a new Todo object.
      *
@@ -18,14 +28,6 @@ public class Todo extends Task {
         super(name, isCompleted);
     }
 
-    public static Todo create(String name) {
-        return new Todo(name, false);
-    }
-
-    public static Todo create(String name, boolean isCompleted) {
-        return new Todo(name, isCompleted);
-    }
-    
     // return a string formatted for saving in file
     @Override
     public String format() {

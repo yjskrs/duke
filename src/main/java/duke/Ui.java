@@ -14,6 +14,7 @@ public class Ui {
                                      + "|____/ \\__,_|_|\\_\\___|\n";
     private static final String LINE_SEPARATOR = "____________________________________________________________";
     private static final String INDENTATION = "    ";
+    private static final String NEWLINE = "\n";
     
     public static String getHelloMessage() {
         String welcomeMsg = "Hello, I'm Duke!";
@@ -57,15 +58,16 @@ public class Ui {
      * @return The string to be printed to standard output.
      */
     public static String parseOutput(String output) {
-        if (output.length() == 0) {
+        if (output.isEmpty()) {
             return "";
         }
-        String formattedOutput = LINE_SEPARATOR + "\n" + output + "\n" + LINE_SEPARATOR;
-        String[] outputArr = formattedOutput.split("\n");
+        
+        String formattedOutput = LINE_SEPARATOR + NEWLINE + output + NEWLINE + LINE_SEPARATOR;
+        String[] outputArr = formattedOutput.split(NEWLINE);
         String indentedOutput = "";
         for (String line : outputArr) {
-            if (line.length() > 0) {
-                indentedOutput += (INDENTATION + line.strip() + "\n");
+            if (!line.isEmpty()) {
+                indentedOutput += (INDENTATION + line.strip() + NEWLINE);
             }
         }
         return indentedOutput;

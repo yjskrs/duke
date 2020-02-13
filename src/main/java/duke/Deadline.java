@@ -17,22 +17,25 @@ public class Deadline extends Task {
      * Creates a new Deadline object.
      *
      * @param name The name of the deadline.
+     * @param by Time the deadline is due.
+     */
+    protected Deadline(String name, String by) {
+        super(name);
+        assert !by.isEmpty() : "Empty by string.";
+        this.by = LocalDate.parse(by);
+    }
+    
+    /**
+     * Creates a new Deadline object.
+     *
+     * @param name The name of the deadline.
      * @param isCompleted Whether the deadline is completed.
      * @param by Time the deadline is due.
      */
-    protected Deadline(String name, boolean isCompleted, LocalDate by) {
+    protected Deadline(String name, boolean isCompleted, String by) {
         super(name, isCompleted);
-        this.by = by;
-    }
-    
-    public static Deadline create(String name, String by) {
         assert !by.isEmpty() : "Empty by string.";
-        return new Deadline(name, false, LocalDate.parse(by));
-    }
-
-    public static Deadline create(String name, boolean isCompleted, String by) {
-        assert !by.isEmpty() : "Empty by string.";
-        return new Deadline(name, isCompleted, LocalDate.parse(by));
+        this.by = LocalDate.parse(by);
     }
     
     @Override

@@ -15,6 +15,18 @@ public class Event extends Task {
      * Creates a new Event object.
      *
      * @param name The name of the event.
+     * @param at Time of event.
+     */
+    protected Event(String name, String at) {
+        super(name);
+        assert !at.isEmpty() : "Empty at string.";
+        this.at = at;
+    }
+    
+    /**
+     * Creates a new Event object.
+     *
+     * @param name The name of the event.
      * @param isCompleted Whether the event is completed.
      * @param at Time of event.
      */
@@ -24,14 +36,6 @@ public class Event extends Task {
         this.at = at;
     }
 
-    public static Event create(String name, String at) {
-        return new Event(name, false, at);
-    }
-
-    public static Event create(String name, boolean isCompleted, String at) {
-        return new Event(name, isCompleted, at);
-    }
-    
     @Override
     public String format() {
         return "E | " + super.format() + " | " + at;

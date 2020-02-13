@@ -18,13 +18,13 @@ public class TaskList {
      * @param data Data taken from a file.
      */
     public static void setup(String data) {
-        if (data.length() == 0) {
+        if (data.isEmpty()) {
             return;
         }
         
         String[] list = data.split("\n");
         for (int i = 0; i < list.length; ++i) {
-            if (list[i].length() == 0) {
+            if (list[i].isEmpty()) {
                 continue;
             }
 
@@ -33,13 +33,13 @@ public class TaskList {
             boolean isCompleted = recArr[1].equals("1");
             switch (recArr[0]) {
             case "T":
-                addTask(Todo.create(name, isCompleted));
+                addTask(new Todo(name, isCompleted));
                 break;
             case "D":
-                addTask(Deadline.create(name, isCompleted, recArr[3]));
+                addTask(new Deadline(name, isCompleted, recArr[3]));
                 break;
             case "E":
-                addTask(Event.create(name, isCompleted, recArr[3]));
+                addTask(new Event(name, isCompleted, recArr[3]));
                 break;
             default:
                 break;
@@ -57,37 +57,49 @@ public class TaskList {
     }
     
     /**
+     * Gets a task by its id (index + 1).
+     *
+     * @param id Id of task that user sees.
+     * @return The task.
+     */
+    private static Task getTask(int id) {
+        return tasks.get(id - 1);
+    }
+    
+    /**
      * Removes a task from the list.
      *
-     * @param number The number of the task to be removed.
+     * @param id The id of the task to be removed.
      * @return The task removed.
      */
-    public static Task removeTask(int number) {
-        Task task = tasks.get(number - 1);
-        tasks.remove(number - 1);
+    public static Task removeTask(int id) {
+        Task task = getTask(id);
+        tasks.remove(task);
         return task;
     }
     
     /**
      * Marks a task from the list as completed.
      *
-     * @param number The number of the task to be modified.
+     * @param id The id of the task to be modified.
      * @return The task modified.
      */
-    public static Task markTaskAsCompleted(int number) {
-        tasks.get(number - 1).markAsCompleted();
-        return tasks.get(number - 1);
+    public static Task markTaskAsCompleted(int id) {
+        Task task = getTask(id);
+        task.markAsCompleted();
+        return task;
     }
     
     /**
      * Marks a task from the list as incomplete.
      *
-     * @param number The number of the task to be modified.
+     * @param id The id of the task to be modified.
      * @return The task modified.
      */
-    public static Task markTaskAsIncomplete(int number) {
-        tasks.get(number - 1).markAsIncomplete();
-        return tasks.get(number - 1);
+    public static Task markTaskAsIncomplete(int id) {
+        Task task = getTask(id);
+        task.markAsIncomplete();
+        return task;
     }
     
     /**
@@ -99,13 +111,13 @@ public class TaskList {
      */
     public static Task[] findTask(String name) {
         List<Task> tasksMatched = new ArrayList<>();
-        for (int i = 0; i < tasks.size(); ++i) {
-            if (tasks.get(i).matchesPartOfName(name)) {
-                tasksMatched.add(tasks.get(i));
+        for (Task task : tasks) {
+            if (task.matchesPartOfName(name)) {
+                tasksMatched.add(task);
             }
         }
         
-        if (tasksMatched.size() == 0) {
+        if (tasksMatched.isEmpty()) {
             return null;
         } else {
             return tasksMatched.toArray(Task[]::new);
@@ -118,7 +130,7 @@ public class TaskList {
      * @return String representing the list of tasks.
      */
     public static String listTasks() {
-        if (tasks.size() == 0) {
+        if (tasks.isEmpty()) {
             return "There are no tasks!";
         }
         
@@ -136,8 +148,8 @@ public class TaskList {
      */
     public static String format() {
         String formattedTaskList = "";
-        for (int i = 0; i < tasks.size(); ++i) {
-            formattedTaskList += (tasks.get(i).format() + "\n");
+        for (Task task : tasks) {
+            formattedTaskList += (task.format() + "\n");
         }
         return formattedTaskList;
     }

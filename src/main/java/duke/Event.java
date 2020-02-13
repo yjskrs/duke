@@ -20,6 +20,7 @@ public class Event extends Task {
      */
     protected Event(String name, boolean isCompleted, String at) {
         super(name, isCompleted);
+        assert !at.isEmpty() : "Empty at string.";
         this.at = at;
     }
 

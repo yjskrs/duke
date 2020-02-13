@@ -26,10 +26,12 @@ public class Deadline extends Task {
     }
     
     public static Deadline create(String name, String by) {
+        assert !by.isEmpty() : "Empty by string.";
         return new Deadline(name, false, LocalDate.parse(by));
     }
 
     public static Deadline create(String name, boolean isCompleted, String by) {
+        assert !by.isEmpty() : "Empty by string.";
         return new Deadline(name, isCompleted, LocalDate.parse(by));
     }
     

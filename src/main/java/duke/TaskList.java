@@ -33,13 +33,13 @@ public class TaskList {
             boolean isCompleted = recArr[1].equals("1");
             switch (recArr[0]) {
             case "T":
-                addTask(Todo.create(name, isCompleted));
+                addTask(new Todo(name, isCompleted));
                 break;
             case "D":
-                addTask(Deadline.create(name, isCompleted, recArr[3]));
+                addTask(new Deadline(name, isCompleted, recArr[3]));
                 break;
             case "E":
-                addTask(Event.create(name, isCompleted, recArr[3]));
+                addTask(new Event(name, isCompleted, recArr[3]));
                 break;
             default:
                 break;

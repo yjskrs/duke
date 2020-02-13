@@ -44,17 +44,17 @@ public class InputHandler {
             return "Removed task:\n" 
                 + TaskList.removeTask(Integer.valueOf(restOfInput));
         case "todo":
-            Todo newTodo = Todo.create(restOfInput);
+            Todo newTodo = new Todo(restOfInput);
             TaskList.addTask(newTodo);
             return "Added:\n" + newTodo;
         case "deadline":
             String[] details = restOfInput.split("/by");
-            Deadline newDeadline = Deadline.create(details[0].strip(), details[1].strip());
+            Deadline newDeadline = new Deadline(details[0].strip(), details[1].strip());
             TaskList.addTask(newDeadline);
             return "Added:\n" + newDeadline;
         case "event":
             String[] details1 = restOfInput.split("/at");
-            Event newEvent = Event.create(details1[0].strip(), details1[1].strip());
+            Event newEvent = new Event(details1[0].strip(), details1[1].strip());
             TaskList.addTask(newEvent);
             return "Added:\n" + newEvent;
         case "find":

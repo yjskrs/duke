@@ -14,6 +14,17 @@ public abstract class Task {
      * Creates a new Task object.
      *
      * @param name The name of the task.
+     */
+    protected Task(String name) {
+        assert !name.isEmpty() : "Empty task name.";
+        this.name = name;
+        this.isCompleted = false;
+    }
+    
+    /**
+     * Creates a new Task object.
+     *
+     * @param name The name of the task.
      * @param isCompleted Whether the task is completed.
      */
     protected Task(String name, boolean isCompleted) {

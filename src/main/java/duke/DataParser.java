@@ -16,19 +16,18 @@ public class DataParser {
     * @return List of tasks.
     */
     public static List<Task> parseDataToTask(String data) {
-        System.out.println("helpppp");
         String[] array = data.split(NEWLINE);
         List<Task> tasks = new ArrayList<>();
         for (String item : array) {
-        if (item.isEmpty()) {
-        continue;
-        }
+            if (item.isEmpty()) {
+                continue;
+            }
         
-        String[] itemBreakdown = item.split(SPACED_PIPE);
-        String type = itemBreakdown[0].strip();
-        String name = itemBreakdown[2].strip();
-        boolean isCompleted = itemBreakdown[1].strip().equals("1");
-        switch (type) {
+            String[] itemBreakdown = item.split(SPACED_PIPE);
+            String type = itemBreakdown[0].strip();
+            String name = itemBreakdown[2].strip();
+            boolean isCompleted = itemBreakdown[1].strip().equals("1");
+            switch (type) {
             case "T":
                 tasks.add(new Todo(name, isCompleted));
                 break;
@@ -39,11 +38,9 @@ public class DataParser {
                 tasks.add(new Event(name, isCompleted, itemBreakdown[3].strip()));
                 break;
             default:
-                System.out.println(itemBreakdown[0]);
                 break;
             }
         }
-        System.out.println(tasks);
         return tasks;
     }
 }

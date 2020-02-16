@@ -9,14 +9,18 @@ import java.util.Scanner;
  * @author Zhu Yijie
  */
 public class Duke {
+    
+    private TaskList tasklist;
+    
     /**
      * Creates and initialises a Duke object.
      */
     public Duke() {
         try {
-            Storage.load();
+            this.tasklist = new TaskList(Storage.load());
         } catch (IOException e) {
             System.out.println("exception");
+            this.tasklist = new TaskList();
         }
         Ui.sayHello();
     }
@@ -24,20 +28,11 @@ public class Duke {
     /**
      * Runs Duke.
      */
-    public static void run() {
+    public void run() {
         Scanner sc = new Scanner(System.in);
         while (sc.hasNext()) {
             String input = sc.nextLine();
-            if (input.equals("bye")) {
-                try {
-                    Storage.save();
-                } catch (IOException e) {
-                    System.out.println("exception");
-                }
-                Ui.sayGoodbye();
-                return;
-            }
-            String response = InputHandler.processInput(input);
+            String response = InputHandler.processInput(input, this.tasklist);
             Ui.respond(response);
         }
     }
@@ -56,6 +51,6 @@ public class Duke {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        return InputHandler.processInput(input);
+        return InputHandler.processInput(input, this.tasklist);
     }
 }

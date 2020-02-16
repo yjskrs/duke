@@ -56,23 +56,10 @@ public abstract class Task {
         return (isCompleted ? "/" : "X"); // return tick or X symbols
     }
     
-    /**
-     * Returns a string formatting the task for saving in a file.
-     *
-     * @return The string representing the task.
-     */
-    public String format() {
-        return (isCompleted ? "1 | " : "0 | ") + name;
-    }
-    
     public boolean matchesPartOfName(String str) {
         return name.contains(str);
     }
     
-    public boolean matchesName(String str) {
-        return str.equals(name);
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -83,6 +70,15 @@ public abstract class Task {
         } else {
             return false;
         }
+    }
+    
+    /**
+     * Returns a string formatting the task for saving in a file.
+     *
+     * @return The string representing the task.
+     */
+    public String format() {
+        return (isCompleted ? "1 | " : "0 | ") + name;
     }
 
     @Override

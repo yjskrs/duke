@@ -18,14 +18,14 @@ public class InputHandler {
      * @param input User input.
      * @return The response towards the user input.
      */
-    public static String processInput(String input) {
+    public static String processInput(String input, TaskList tasklist) {
         String[] inputData = input.split(" ");
         String command = inputData[0];
         String restOfInput = input.substring(command.length()).strip();
         switch (command) {
         case "bye":
             try {
-                Storage.save();
+                Storage.save(tasklist);
             } catch (IOException e) {
                 System.out.println("exception");
             } finally {
@@ -33,32 +33,32 @@ public class InputHandler {
             }
         case "list":
             return "Here are your tasks:\n"
-                + TaskList.listTasks();
+                + tasklist.listTasks();
         case "done":
             return "Good job for completing the task:\n" 
-                + TaskList.markTaskAsCompleted(Integer.valueOf(restOfInput));
+                + tasklist.markTaskAsCompleted(Integer.valueOf(restOfInput));
         case "undo":
             return "o.o well... good luck completing the task:\n" 
-                + TaskList.markTaskAsIncomplete(Integer.valueOf(restOfInput));
+                + tasklist.markTaskAsIncomplete(Integer.valueOf(restOfInput));
         case "delete":
             return "Removed task:\n" 
-                + TaskList.removeTask(Integer.valueOf(restOfInput));
+                + tasklist.removeTask(Integer.valueOf(restOfInput));
         case "todo":
             Todo newTodo = new Todo(restOfInput);
-            TaskList.addTask(newTodo);
+            tasklist.addTask(newTodo);
             return "Added:\n" + newTodo;
         case "deadline":
             String[] details = restOfInput.split("/by");
             Deadline newDeadline = new Deadline(details[0].strip(), details[1].strip());
-            TaskList.addTask(newDeadline);
+            tasklist.addTask(newDeadline);
             return "Added:\n" + newDeadline;
         case "event":
             String[] details1 = restOfInput.split("/at");
             Event newEvent = new Event(details1[0].strip(), details1[1].strip());
-            TaskList.addTask(newEvent);
+            tasklist.addTask(newEvent);
             return "Added:\n" + newEvent;
         case "find":
-            Task[] tasksFound = TaskList.findTask(restOfInput);
+            Task[] tasksFound = tasklist.findTask(restOfInput);
             if (tasksFound == null) {
                 return "No matching tasks found.";
             }
@@ -73,7 +73,8 @@ public class InputHandler {
                     + "`list`: list tasks\n"
                     + "`find [(partial) task name]`: find tasks from existing tasks\n"
                     + "`todo [todo name]`: add todo with name [todo name]\n"
-                    + "`deadline [deadline name] /by [date in YYYY-MM-DD format]`: add deadline with name [deadline name] and due on [date]\n"
+                    + "`deadline [deadline name] /by [date in YYYY-MM-DD format]`: "
+                    + "add deadline with name [deadline name] and due on [date]\n"
                     + "`event [event name] /at [datetime]`: add event with name [event name] at time [datetime]\n"
                     + "`delete [task id]`: delete task with id [task id]\n"
                     + "`done [task id]`: mark task with id [task id] as done\n"

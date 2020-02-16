@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
 /**
  * The <code>Storage</code> class is a utility class to load data from a file, if any, and write
@@ -23,13 +24,19 @@ public class Storage {
      *
      * @throws IOException If an input or output exception occurred.
      */
-    public static void load() throws IOException { // or boolean?
+    public static List<Task> load() throws IOException { // or boolean?
         if (FILE.length() == 0) {
-            return;
+            throw new IOException();
         }
         
         byte[] encoded = Files.readAllBytes(Paths.get(FILE_PATH));
-        TaskList.setup(new String(encoded, ENCODING));
+        String data = new String(encoded, ENCODING).strip();
+        
+        if (data.isEmpty()) {
+            throw new IOException();
+        }
+        
+        return DataParser.parseDataToTask(data);
     }
     
     /**
@@ -37,9 +44,9 @@ public class Storage {
      *
      * @throws IOException If an input or output exception occurred.
      */
-    public static void save() throws IOException {
+    public static void save(TaskList tasklist) throws IOException {
         FileWriter writer = new FileWriter(FILE, false);
-        writer.write(TaskList.format());
+        writer.write(tasklist.format());
         writer.close();
     }
 }

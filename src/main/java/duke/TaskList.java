@@ -1,7 +1,7 @@
 package duke;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The <code>TaskList</code> class stores a list of all <code>Task</code> objects and handles
@@ -10,41 +10,14 @@ import java.util.ArrayList;
  * @author Zhu Yijie
  */
 public class TaskList {
-    private static List<Task> tasks = new ArrayList<>();
+    private List<Task> tasks;
     
-    /**
-     * Sets up the system of all tasks from a file.
-     *
-     * @param data Data taken from a file.
-     */
-    public static void setup(String data) {
-        if (data.isEmpty()) {
-            return;
-        }
-        
-        String[] list = data.split("\n");
-        for (int i = 0; i < list.length; ++i) {
-            if (list[i].isEmpty()) {
-                continue;
-            }
-
-            String[] recArr = list[i].strip().split(" \\| ");
-            String name = recArr[2];
-            boolean isCompleted = recArr[1].equals("1");
-            switch (recArr[0]) {
-            case "T":
-                addTask(new Todo(name, isCompleted));
-                break;
-            case "D":
-                addTask(new Deadline(name, isCompleted, recArr[3]));
-                break;
-            case "E":
-                addTask(new Event(name, isCompleted, recArr[3]));
-                break;
-            default:
-                break;
-            }
-        }
+    public TaskList() {
+        this.tasks = new ArrayList<>();
+    }
+    
+    public TaskList(List<Task> tasks) {
+        this.tasks = tasks;
     }
     
     /**
@@ -52,7 +25,7 @@ public class TaskList {
      *
      * @param newTask The task to be added.
      */
-    public static void addTask(Task newTask) {
+    public void addTask(Task newTask) {
         tasks.add(newTask);
     }
     
@@ -62,7 +35,7 @@ public class TaskList {
      * @param id Id of task that user sees.
      * @return The task.
      */
-    private static Task getTask(int id) {
+    private Task getTask(int id) {
         return tasks.get(id - 1);
     }
     
@@ -72,7 +45,7 @@ public class TaskList {
      * @param id The id of the task to be removed.
      * @return The task removed.
      */
-    public static Task removeTask(int id) {
+    public Task removeTask(int id) {
         Task task = getTask(id);
         tasks.remove(task);
         return task;
@@ -84,7 +57,7 @@ public class TaskList {
      * @param id The id of the task to be modified.
      * @return The task modified.
      */
-    public static Task markTaskAsCompleted(int id) {
+    public Task markTaskAsCompleted(int id) {
         Task task = getTask(id);
         task.markAsCompleted();
         return task;
@@ -96,7 +69,7 @@ public class TaskList {
      * @param id The id of the task to be modified.
      * @return The task modified.
      */
-    public static Task markTaskAsIncomplete(int id) {
+    public Task markTaskAsIncomplete(int id) {
         Task task = getTask(id);
         task.markAsIncomplete();
         return task;
@@ -109,7 +82,7 @@ public class TaskList {
      * @param name The name of task to find.
      * @return Task array, if found, or null if no matching tasks found.
      */
-    public static Task[] findTask(String name) {
+    public Task[] findTask(String name) {
         List<Task> tasksMatched = new ArrayList<>();
         for (Task task : tasks) {
             if (task.matchesPartOfName(name)) {
@@ -129,7 +102,7 @@ public class TaskList {
      *
      * @return String representing the list of tasks.
      */
-    public static String listTasks() {
+    public String listTasks() {
         if (tasks.isEmpty()) {
             return "There are no tasks!";
         }
@@ -146,7 +119,7 @@ public class TaskList {
      *
      * @return String representing the list of tasks.
      */
-    public static String format() {
+    public String format() {
         String formattedTaskList = "";
         for (Task task : tasks) {
             formattedTaskList += (task.format() + "\n");

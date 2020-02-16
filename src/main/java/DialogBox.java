@@ -40,8 +40,9 @@ public class DialogBox extends HBox {
         }
         
         dialog.setText(text);
+        dialog.setMinHeight(Label.USE_PREF_SIZE);
         displayPicture.setImage(img);
-        Circle clip = new Circle(50, 50, 50); // omg this looks good ???
+        Circle clip = new Circle(50, 50, 46);
         displayPicture.setClip(clip);
         dialog.setBackground(new Background(new BackgroundFill(Color.rgb(0xdc, 0xf8, 0xc6), new CornerRadii(7), Insets.EMPTY)));
         dialog.setPadding(new Insets(2, 5, 2, 5));

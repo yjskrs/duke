@@ -17,7 +17,7 @@ public class Ui {
     private static final String NEWLINE = "\n";
     
     public static String getHelloMessage() {
-        String welcomeMsg = "Hello, I'm Duke!";
+        String welcomeMsg = LOGO + "Hello, I'm Duke!";
         return welcomeMsg;
     }
 
@@ -27,8 +27,8 @@ public class Ui {
      * <p>Used when starting up program.
      */
     public static void sayHello() {
-        String welcomeMsg = "Hello from\n" + LOGO;
-        welcomeMsg += parseOutput(getHelloMessage());
+//        String welcomeMsg = "Hello from\n" + LOGO;
+        String welcomeMsg = parseOutput(getHelloMessage());
         System.out.println(welcomeMsg);
     }
 
@@ -41,7 +41,25 @@ public class Ui {
         String goodbyeMsg = parseOutput("Awwww... Sad to see you go :( Hope to see you again soon!");
         System.out.println(goodbyeMsg);
     }
-
+    
+    public static void askLoadStorage(String options) {
+        System.out.println(parseOutput("There seems to be existing task list(s). Would you like to load from file?\n"
+                + "Enter the name of the file you would like to load from:\n" + options
+                + "\nOtherwise, please enter `n`."));
+    }
+    
+    public static void askValidInput() {
+        System.out.println(parseOutput("I did not recognise that input. Please enter a valid input."));
+    }
+    
+    public static void reportInitializeSuccess() {
+        System.out.println(parseOutput("Your task list has been initialized successfully."));
+    }
+    
+    public static void printError(Exception e) {
+        System.out.println(e);
+    }
+    
     /**
      * Prints to standard output.
      *

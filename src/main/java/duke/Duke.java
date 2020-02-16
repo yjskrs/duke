@@ -10,30 +10,56 @@ import java.util.Scanner;
  */
 public class Duke {
     
+    private Scanner scanner;
     private TaskList tasklist;
+    private Storage storage;
     
     /**
      * Creates and initialises a Duke object.
      */
     public Duke() {
-        try {
-            this.tasklist = new TaskList(Storage.load());
-        } catch (IOException e) {
-            System.out.println("exception");
+        this.scanner = new Scanner(System.in);
+        Ui.sayHello();
+        String files = Storage.listExistingFiles();
+        if (!files.isEmpty()) {
+            Ui.askLoadStorage(files);
+            while (true) {
+                String input = scanner.nextLine().strip();
+                if (input.equals("n")) {
+                    this.storage = new Storage();
+                    break;
+                } else if (files.contains(input)) {
+                    this.storage = new Storage(input);
+                    break;
+                } else {
+                    Ui.askValidInput();
+                }
+            }
+            
+            try {
+                this.tasklist = new TaskList(this.storage.load());
+            } catch (IOException e) {
+                this.tasklist = new TaskList();
+            } finally {
+                Ui.reportInitializeSuccess();
+            }
+        } else {
+            this.storage = new Storage();
             this.tasklist = new TaskList();
         }
-        Ui.sayHello();
     }
     
     /**
      * Runs Duke.
      */
     public void run() {
-        Scanner sc = new Scanner(System.in);
-        while (sc.hasNext()) {
-            String input = sc.nextLine();
-            String response = InputHandler.processInput(input, this.tasklist);
+        while (scanner.hasNext()) {
+            String input = scanner.nextLine().strip();
+            String response = InputHandler.processInput(input, tasklist, storage);
             Ui.respond(response);
+            if (input.equals("bye")) {
+                return;
+            }
         }
     }
     
@@ -51,6 +77,13 @@ public class Duke {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        return InputHandler.processInput(input, this.tasklist);
+        return InputHandler.processInput(input, tasklist, storage);
+    }
+    
+    public static boolean initializeStorage(String input) {
+        
+        // if no, start fresh new copy
+        Ui.reportInitializeSuccess();
+        return true;
     }
 }

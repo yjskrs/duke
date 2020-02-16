@@ -1,5 +1,6 @@
 package duke;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -18,19 +19,13 @@ public class InputHandler {
      * @param input User input.
      * @return The response towards the user input.
      */
-    public static String processInput(String input, TaskList tasklist) {
+    public static String processInput(String input, TaskList tasklist, Storage storage) {
         String[] inputData = input.split(" ");
         String command = inputData[0];
         String restOfInput = input.substring(command.length()).strip();
         switch (command) {
         case "bye":
-            try {
-                Storage.save(tasklist);
-            } catch (IOException e) {
-                System.out.println("exception");
-            } finally {
-                return "Awwww... Sad to see you go :( Hope to see you again soon!";
-            }
+            return "Awwww... Sad to see you go :( Hope to see you again soon!";
         case "list":
             return "Here are your tasks:\n"
                 + tasklist.list();
@@ -79,9 +74,22 @@ public class InputHandler {
                     + "`delete [task id]`: delete task with id [task id]\n"
                     + "`done [task id]`: mark task with id [task id] as done\n"
                     + "`undo [task id]`: mark task with id [task id] as not done\n"
+                    + "`save [file name]`: save tasks in file with name [file name]"
                     + "`bye`: exit program\n";
-
-
+        case "save":
+            try {
+                if (storage.isUninitialized()) {
+                    if (restOfInput.isEmpty()) {
+                        return "Please enter a valid file name.";
+                    }
+                    String filePath = restOfInput + ".txt";
+                    storage = new Storage(filePath);
+                }
+                storage.save(tasklist);
+                return "Data saved in " + storage.filePath + " successfully. You may now close the program.";
+            } catch (IOException e) {
+                return "Failed to save data. Please try again.";
+            }
         default:
             return "????????????? gomenasai wakarimasen :((( Enter `help` to get a list of commands.";
         }

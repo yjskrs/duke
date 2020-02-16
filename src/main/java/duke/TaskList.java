@@ -12,21 +12,20 @@ import java.util.List;
 public class TaskList {
     private List<Task> tasks;
     
+    /**
+     * Create empty TaskList object.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
     
+    /**
+     * Create TaskList object with initial value.
+     *
+     * @param tasks Tasks loaded from file.
+     */
     public TaskList(List<Task> tasks) {
         this.tasks = tasks;
-    }
-    
-    /**
-     * Adds a task to the list.
-     *
-     * @param newTask The task to be added.
-     */
-    public void addTask(Task newTask) {
-        tasks.add(newTask);
     }
     
     /**
@@ -34,9 +33,23 @@ public class TaskList {
      *
      * @param id Id of task that user sees.
      * @return The task.
+     * @throws IndexOutOfBoundsException If fed invalid id.
      */
-    private Task getTask(int id) {
-        return tasks.get(id - 1);
+    public Task getTask(int id) throws IndexOutOfBoundsException {
+        int index = id - 1;
+        if (index < 0 || index >= tasks.size()) {
+            throw new IndexOutOfBoundsException();
+        }
+        return tasks.get(index);
+    }
+    
+    /**
+     * Adds a task to the list.
+     *
+     * @param newTask The task to be added.
+     */
+    public void add(Task newTask) {
+        tasks.add(newTask);
     }
     
     /**
@@ -44,35 +57,56 @@ public class TaskList {
      *
      * @param id The id of the task to be removed.
      * @return The task removed.
+     * @throws IndexOutOfBoundsException If fed invalid id.
      */
-    public Task removeTask(int id) {
+    public Task remove(int id) throws IndexOutOfBoundsException {
         Task task = getTask(id);
         tasks.remove(task);
         return task;
     }
     
     /**
-     * Marks a task from the list as completed.
+     * Marks a task as completed.
      *
      * @param id The id of the task to be modified.
      * @return The task modified.
+     * @throws IndexOutOfBoundsException If fed invalid id.
      */
-    public Task markTaskAsCompleted(int id) {
+    public Task markAsCompleted(int id) throws IndexOutOfBoundsException {
         Task task = getTask(id);
         task.markAsCompleted();
         return task;
     }
     
     /**
-     * Marks a task from the list as incomplete.
+     * Marks a task as incomplete.
      *
      * @param id The id of the task to be modified.
      * @return The task modified.
+     * @throws IndexOutOfBoundsException If fed invalid id.
      */
-    public Task markTaskAsIncomplete(int id) {
+    public Task markAsIncomplete(int id) throws IndexOutOfBoundsException {
         Task task = getTask(id);
         task.markAsIncomplete();
         return task;
+    }
+    
+    /**
+     * Lists all tasks in the list.
+     *
+     * @return String representing the list of tasks.
+     */
+    public String list() {
+        if (tasks.isEmpty()) {
+            return "There are no tasks!";
+        }
+        
+        String output = "";
+        for (int i = 0; i < tasks.size(); ++i) {
+            int id = i + 1;
+            output += (id + " " + tasks.get(i) + "\n");
+        }
+        return output;
     }
     
     /**
@@ -82,7 +116,7 @@ public class TaskList {
      * @param name The name of task to find.
      * @return Task array, if found, or null if no matching tasks found.
      */
-    public Task[] findTask(String name) {
+    public Task[] find(String name) {
         List<Task> tasksMatched = new ArrayList<>();
         for (Task task : tasks) {
             if (task.matchesPartOfName(name)) {
@@ -95,23 +129,6 @@ public class TaskList {
         } else {
             return tasksMatched.toArray(Task[]::new);
         }
-    }
-    
-    /**
-     * Lists all tasks in the list.
-     *
-     * @return String representing the list of tasks.
-     */
-    public String listTasks() {
-        if (tasks.isEmpty()) {
-            return "There are no tasks!";
-        }
-        
-        String output = "";
-        for (int i = 0; i < tasks.size(); ++i) {
-            output += ((i + 1) + ". " + tasks.get(i) + "\n");
-        }
-        return output;
     }
     
     /**

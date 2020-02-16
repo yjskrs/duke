@@ -33,32 +33,32 @@ public class InputHandler {
             }
         case "list":
             return "Here are your tasks:\n"
-                + tasklist.listTasks();
+                + tasklist.list();
         case "done":
             return "Good job for completing the task:\n" 
-                + tasklist.markTaskAsCompleted(Integer.valueOf(restOfInput));
+                + tasklist.markAsCompleted(Integer.valueOf(restOfInput));
         case "undo":
             return "o.o well... good luck completing the task:\n" 
-                + tasklist.markTaskAsIncomplete(Integer.valueOf(restOfInput));
+                + tasklist.markAsIncomplete(Integer.valueOf(restOfInput));
         case "delete":
             return "Removed task:\n" 
-                + tasklist.removeTask(Integer.valueOf(restOfInput));
+                + tasklist.remove(Integer.valueOf(restOfInput));
         case "todo":
             Todo newTodo = new Todo(restOfInput);
-            tasklist.addTask(newTodo);
+            tasklist.add(newTodo);
             return "Added:\n" + newTodo;
         case "deadline":
             String[] details = restOfInput.split("/by");
             Deadline newDeadline = new Deadline(details[0].strip(), details[1].strip());
-            tasklist.addTask(newDeadline);
+            tasklist.add(newDeadline);
             return "Added:\n" + newDeadline;
         case "event":
             String[] details1 = restOfInput.split("/at");
             Event newEvent = new Event(details1[0].strip(), details1[1].strip());
-            tasklist.addTask(newEvent);
+            tasklist.add(newEvent);
             return "Added:\n" + newEvent;
         case "find":
-            Task[] tasksFound = tasklist.findTask(restOfInput);
+            Task[] tasksFound = tasklist.find(restOfInput);
             if (tasksFound == null) {
                 return "No matching tasks found.";
             }

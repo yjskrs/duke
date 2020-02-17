@@ -28,6 +28,24 @@ public class Todo extends Task {
     public Todo(String name, boolean isCompleted) {
         super(name, isCompleted);
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (obj instanceof Todo) {
+            Todo todo = (Todo) obj;
+            return todo.equals(this.name);
+        } else {
+            return false;
+        }
+    }
+    
+    @Override
+    public int hashCode() {
+        int parentHash = super.hashCode() * 31;
+        return parentHash + IDENTIFIER.hashCode();
+    }
 
     // return a string formatted for saving in file
     @Override

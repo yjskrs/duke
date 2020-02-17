@@ -45,6 +45,24 @@ public class Deadline extends Task {
     //    DateTimeFormatter.ofPattern("d MMM uuuu")
     
     @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (obj instanceof Deadline) {
+            Deadline deadline = (Deadline) obj;
+            return deadline.equals(this.name);
+        } else {
+            return false;
+        }
+    }
+    
+    @Override
+    public int hashCode() {
+        int parentHash = super.hashCode() * 31;
+        return parentHash + IDENTIFIER.hashCode();
+    }
+    
+    @Override
     public String format() {
         return IDENTIFIER + " | " + super.format() + " | " + by;
     }

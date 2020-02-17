@@ -36,6 +36,24 @@ public class Event extends Task {
         assert !at.isEmpty() : "Empty at string.";
         this.at = at;
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (obj instanceof Event) {
+            Event event = (Event) obj;
+            return event.equals(this.name);
+        } else {
+            return false;
+        }
+    }
+    
+    @Override
+    public int hashCode() {
+        int parentHash = super.hashCode() * 31;
+        return parentHash + IDENTIFIER.hashCode();
+    }
 
     @Override
     public String format() {

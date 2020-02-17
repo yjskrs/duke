@@ -50,21 +50,21 @@ public abstract class Task {
     /**
      * Checks if provided task name matches this task's name partially, ignoring case.
      *
-     * @param taskname Task name to check.
-     * @return True if taskname is contained in this task's name, false otherwise.
+     * @param taskName Task name to check.
+     * @return True if taskName is contained in this task's name, false otherwise.
      */
-    public boolean matchPartial(String taskname) {
-        return name.toLowerCase().contains(taskname.toLowerCase());
+    public boolean matchPartial(String taskName) {
+        return name.toLowerCase().contains(taskName.toLowerCase());
     }
     
     /**
      * Checks if provided task name matches this task's name fully, ignoring case.
      *
-     * @param taskname Task name to check.
-     * @return True if taskname is equivalent to this task's name, false otherwise.
+     * @param taskName Task name to check.
+     * @return True if taskName is equivalent to this task's name, false otherwise.
      */
-    public boolean equals(String taskname) {
-        return name.equalsIgnoreCase(taskname);
+    public boolean equals(String taskName) {
+        return name.equalsIgnoreCase(taskName);
     }
 
     @Override
@@ -77,6 +77,11 @@ public abstract class Task {
         } else {
             return false;
         }
+    }
+    
+    @Override
+    public int hashCode() {
+        return name.toLowerCase().hashCode();
     }
     
     /**

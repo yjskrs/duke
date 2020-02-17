@@ -33,32 +33,41 @@ public class InputHandler {
             }
         case "list":
             return "Here are your tasks:\n"
-                + TaskList.listTasks();
+                + TaskList.list();
         case "done":
             return "Good job for completing the task:\n" 
-                + TaskList.markTaskAsCompleted(Integer.valueOf(restOfInput));
+                + TaskList.markAsCompleted(Integer.valueOf(restOfInput));
         case "undo":
             return "o.o well... good luck completing the task:\n" 
-                + TaskList.markTaskAsIncomplete(Integer.valueOf(restOfInput));
+                + TaskList.markAsIncomplete(Integer.valueOf(restOfInput));
         case "delete":
             return "Removed task:\n" 
-                + TaskList.removeTask(Integer.valueOf(restOfInput));
+                + TaskList.remove(Integer.valueOf(restOfInput));
         case "todo":
             Todo newTodo = new Todo(restOfInput);
-            TaskList.addTask(newTodo);
+            boolean addTodoSuccess = TaskList.add(newTodo);
+            if (!addTodoSuccess) {
+                return "Duplicate task not added:\n" + newTodo;
+            }
             return "Added:\n" + newTodo;
         case "deadline":
             String[] details = restOfInput.split("/by");
             Deadline newDeadline = new Deadline(details[0].strip(), details[1].strip());
-            TaskList.addTask(newDeadline);
+            boolean addDeadlineSuccess = TaskList.add(newDeadline);
+            if (!addDeadlineSuccess) {
+                return "Duplicate task:\n" + newDeadline;
+            }
             return "Added:\n" + newDeadline;
         case "event":
             String[] details1 = restOfInput.split("/at");
             Event newEvent = new Event(details1[0].strip(), details1[1].strip());
-            TaskList.addTask(newEvent);
+            boolean addEventSuccess = TaskList.add(newEvent);
+            if (!addEventSuccess) {
+                return "Duplicate task:\n" + newEvent;
+            }
             return "Added:\n" + newEvent;
         case "find":
-            Task[] tasksFound = TaskList.findTask(restOfInput);
+            Task[] tasksFound = TaskList.find(restOfInput);
             if (tasksFound == null) {
                 return "No matching tasks found.";
             }

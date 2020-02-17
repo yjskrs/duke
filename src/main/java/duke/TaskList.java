@@ -33,13 +33,13 @@ public class TaskList {
             boolean isCompleted = recArr[1].equals("1");
             switch (recArr[0]) {
             case "T":
-                addTask(new Todo(name, isCompleted));
+                add(new Todo(name, isCompleted));
                 break;
             case "D":
-                addTask(new Deadline(name, isCompleted, recArr[3]));
+                add(new Deadline(name, isCompleted, recArr[3]));
                 break;
             case "E":
-                addTask(new Event(name, isCompleted, recArr[3]));
+                add(new Event(name, isCompleted, recArr[3]));
                 break;
             default:
                 break;
@@ -52,8 +52,13 @@ public class TaskList {
      *
      * @param newTask The task to be added.
      */
-    public static void addTask(Task newTask) {
+    public static boolean add(Task newTask) {
+        if (tasks.contains(newTask)) {
+            return false;
+        }
+        
         tasks.add(newTask);
+        return true;
     }
     
     /**
@@ -62,7 +67,7 @@ public class TaskList {
      * @param id Id of task that user sees.
      * @return The task.
      */
-    private static Task getTask(int id) {
+    private static Task get(int id) {
         return tasks.get(id - 1);
     }
     
@@ -72,8 +77,8 @@ public class TaskList {
      * @param id The id of the task to be removed.
      * @return The task removed.
      */
-    public static Task removeTask(int id) {
-        Task task = getTask(id);
+    public static Task remove(int id) {
+        Task task = get(id);
         tasks.remove(task);
         return task;
     }
@@ -84,8 +89,8 @@ public class TaskList {
      * @param id The id of the task to be modified.
      * @return The task modified.
      */
-    public static Task markTaskAsCompleted(int id) {
-        Task task = getTask(id);
+    public static Task markAsCompleted(int id) {
+        Task task = get(id);
         task.markAsCompleted();
         return task;
     }
@@ -96,8 +101,8 @@ public class TaskList {
      * @param id The id of the task to be modified.
      * @return The task modified.
      */
-    public static Task markTaskAsIncomplete(int id) {
-        Task task = getTask(id);
+    public static Task markAsIncomplete(int id) {
+        Task task = get(id);
         task.markAsIncomplete();
         return task;
     }
@@ -109,7 +114,7 @@ public class TaskList {
      * @param name The name of task to find.
      * @return Task array, if found, or null if no matching tasks found.
      */
-    public static Task[] findTask(String name) {
+    public static Task[] find(String name) {
         List<Task> tasksMatched = new ArrayList<>();
         for (Task task : tasks) {
             if (task.matchPartial(name)) {
@@ -129,7 +134,7 @@ public class TaskList {
      *
      * @return String representing the list of tasks.
      */
-    public static String listTasks() {
+    public static String list() {
         if (tasks.isEmpty()) {
             return "There are no tasks!";
         }

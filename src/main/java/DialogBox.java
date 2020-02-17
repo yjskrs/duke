@@ -44,7 +44,13 @@ public class DialogBox extends HBox {
         displayPicture.setImage(img);
         Circle clip = new Circle(50, 50, 46);
         displayPicture.setClip(clip);
-        dialog.setBackground(new Background(new BackgroundFill(Color.rgb(0xdc, 0xf8, 0xc6), new CornerRadii(7), Insets.EMPTY)));
+        BackgroundFill fill = new BackgroundFill(
+                Color.rgb(0xdc, 0xf8, 0xc6),
+                new CornerRadii(7),
+                Insets.EMPTY
+        );
+        Background background = new Background(fill);
+        dialog.setBackground(background);
         dialog.setPadding(new Insets(2, 5, 2, 5));
     }
     
@@ -58,10 +64,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
     
+    /**
+     * Gets the user dialog box.
+     *
+     * @param text Dialog text.
+     * @param img User image.
+     * @return The dialog box.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
     
+    /**
+     * Gets the Duke dialog box.
+     *
+     * @param text Dialog text.
+     * @param img Duke image.
+     * @return The dialog box.
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

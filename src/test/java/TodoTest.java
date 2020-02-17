@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TodoTest {
     @Test
     public void testStringConversion() {
-        assertEquals("[T][X] nom", new Todo("nom").toString());
+        assertEquals("[ ] [T] nom", new Todo("nom").toString());
     }
     
     @Test

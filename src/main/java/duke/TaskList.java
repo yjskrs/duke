@@ -112,7 +112,7 @@ public class TaskList {
     public static Task[] findTask(String name) {
         List<Task> tasksMatched = new ArrayList<>();
         for (Task task : tasks) {
-            if (task.matchesPartOfName(name)) {
+            if (task.matchPartial(name)) {
                 tasksMatched.add(task);
             }
         }

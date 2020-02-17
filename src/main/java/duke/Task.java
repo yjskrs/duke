@@ -48,29 +48,23 @@ public abstract class Task {
     }
     
     /**
-     * Returns icon for whether the task is completed or not.
+     * Checks if provided task name matches this task's name partially, ignoring case.
      *
-     * @return The string representing the whether the task is completed or not.
+     * @param taskname Task name to check.
+     * @return True if taskname is contained in this task's name, false otherwise.
      */
-    public String getStatusIcon() {
-        return (isCompleted ? "/" : "X"); // return tick or X symbols
+    public boolean matchPartial(String taskname) {
+        return name.toLowerCase().contains(taskname.toLowerCase());
     }
     
     /**
-     * Returns a string formatting the task for saving in a file.
+     * Checks if provided task name matches this task's name fully, ignoring case.
      *
-     * @return The string representing the task.
+     * @param taskname Task name to check.
+     * @return True if taskname is equivalent to this task's name, false otherwise.
      */
-    public String format() {
-        return (isCompleted ? "1 | " : "0 | ") + name;
-    }
-    
-    public boolean matchesPartOfName(String str) {
-        return name.contains(str);
-    }
-    
-    public boolean matchesName(String str) {
-        return str.equals(name);
+    public boolean equals(String taskname) {
+        return name.equalsIgnoreCase(taskname);
     }
 
     @Override
@@ -79,12 +73,32 @@ public abstract class Task {
             return true;
         } else if (obj instanceof Task) {
             Task task = (Task) obj;
-            return task.name.equals(this.name);
+            return task.equals(this.name);
         } else {
             return false;
         }
     }
-
+    
+    /**
+     * Returns a string formatting the task for saving in a file.
+     *
+     * @return The string representing the task.
+     */
+    public String format() {
+        String completedString = isCompleted ? "1 | " : "0 | ";
+        return completedString + name;
+    }
+    
+    /**
+     * Returns icon for whether the task is completed or not.
+     *
+     * @return The string representing the whether the task is completed or not.
+     */
+    public String getStatusIcon() {
+        String statusIcon = isCompleted ? "/" : " ";
+        return "[" + statusIcon + "]";
+    }
+    
     @Override
     public String toString() {
         return name;

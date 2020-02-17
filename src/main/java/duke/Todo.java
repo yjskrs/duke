@@ -8,6 +8,7 @@ package duke;
  * @author Zhu Yijie
  */
 public class Todo extends Task {
+    private static final String IDENTIFIER = "T";
     
     /**
      * Creates a new Todo object.
@@ -36,6 +37,8 @@ public class Todo extends Task {
 
     @Override
     public String toString() {
-        return "[T][" + getStatusIcon() + "] " + super.toString();
+        return getStatusIcon()
+                + " " + "[" + IDENTIFIER + "]" + " "
+                + super.toString();
     }
 }

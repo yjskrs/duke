@@ -9,7 +9,8 @@ package duke;
  * @author Zhu Yijie
  */
 public class Event extends Task {
-    protected String at;
+    private static final String IDENTIFIER = "E";
+    private String at;
     
     /**
      * Creates a new Event object.
@@ -38,11 +39,18 @@ public class Event extends Task {
 
     @Override
     public String format() {
-        return "E | " + super.format() + " | " + at;
+        return IDENTIFIER + " | " + super.format() + " | " + at;
+    }
+    
+    public String getTimeString() {
+        return "(at: " + at + ")";
     }
 
     @Override
     public String toString() {
-        return "[E][" + getStatusIcon() + "] " + super.toString() + " (at: " + at + ")";
+        return getStatusIcon()
+                + " " + "[" + IDENTIFIER + "]" + " "
+                + super.toString() + " "
+                + getTimeString();
     }
 }

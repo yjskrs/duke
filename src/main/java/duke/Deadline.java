@@ -1,6 +1,8 @@
 package duke;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
 /**
  * The <code>Deadline</code> class extends from Task.
@@ -11,7 +13,8 @@ import java.time.LocalDate;
  * @author Zhu Yijie
  */
 public class Deadline extends Task {
-    protected LocalDate by;
+    private static final String IDENTIFIER = "D";
+    private LocalDate by;
     
     /**
      * Creates a new Deadline object.
@@ -37,19 +40,25 @@ public class Deadline extends Task {
         assert !by.isEmpty() : "Empty by string.";
         this.by = LocalDate.parse(by);
     }
+
+    //    DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).format(by)
+    //    DateTimeFormatter.ofPattern("d MMM uuuu")
     
     @Override
     public String format() {
-        return "D | " + super.format() + " | " + by;
+        return IDENTIFIER + " | " + super.format() + " | " + by;
+    }
+    
+    public String getTimeString() {
+        return "(by: " + DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).format(by) + ")";
     }
 
     @Override
     public String toString() {
-        String month = String.valueOf(by.getMonth());
-        String formattedDate = by.getDayOfMonth() + " "
-                                + month.substring(0, 1).toUpperCase() + month.substring(1).toLowerCase() + " "
-                                + by.getYear();
-        return "[D][" + getStatusIcon() + "] " + super.toString() + " (by: " + formattedDate + ")";
-    }    
+        return getStatusIcon()
+                + " " + "[" + IDENTIFIER + "]" + " "
+                + super.toString() + " "
+                + getTimeString();
+    }
 }
 

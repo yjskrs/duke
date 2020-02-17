@@ -17,7 +17,7 @@ public class Event extends Task {
      * @param name The name of the event.
      * @param at Time of event.
      */
-    protected Event(String name, String at) {
+    public Event(String name, String at) {
         super(name);
         assert !at.isEmpty() : "Empty at string.";
         this.at = at;
@@ -30,7 +30,7 @@ public class Event extends Task {
      * @param isCompleted Whether the event is completed.
      * @param at Time of event.
      */
-    protected Event(String name, boolean isCompleted, String at) {
+    public Event(String name, boolean isCompleted, String at) {
         super(name, isCompleted);
         assert !at.isEmpty() : "Empty at string.";
         this.at = at;

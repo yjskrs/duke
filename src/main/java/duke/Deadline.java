@@ -19,7 +19,7 @@ public class Deadline extends Task {
      * @param name The name of the deadline.
      * @param by Time the deadline is due.
      */
-    protected Deadline(String name, String by) {
+    public Deadline(String name, String by) {
         super(name);
         assert !by.isEmpty() : "Empty by string.";
         this.by = LocalDate.parse(by);
@@ -32,7 +32,7 @@ public class Deadline extends Task {
      * @param isCompleted Whether the deadline is completed.
      * @param by Time the deadline is due.
      */
-    protected Deadline(String name, boolean isCompleted, String by) {
+    public Deadline(String name, boolean isCompleted, String by) {
         super(name, isCompleted);
         assert !by.isEmpty() : "Empty by string.";
         this.by = LocalDate.parse(by);

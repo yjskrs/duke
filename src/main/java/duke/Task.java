@@ -15,7 +15,7 @@ public abstract class Task {
      *
      * @param name The name of the task.
      */
-    protected Task(String name) {
+    public Task(String name) {
         assert !name.isEmpty() : "Empty task name.";
         this.name = name;
         this.isCompleted = false;
@@ -27,7 +27,7 @@ public abstract class Task {
      * @param name The name of the task.
      * @param isCompleted Whether the task is completed.
      */
-    protected Task(String name, boolean isCompleted) {
+    public Task(String name, boolean isCompleted) {
         assert !name.isEmpty() : "Empty task name.";
         this.name = name;
         this.isCompleted = isCompleted;

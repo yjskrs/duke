@@ -6,17 +6,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TodoTest {
     @Test
     public void testStringConversion() {
-        assertEquals("[T][X] nom", Todo.create("nom").toString());
+        assertEquals("[T][X] nom", new Todo("nom").toString());
     }
     
     @Test
     public void testFormatConversion() {
-        assertEquals("T | 0 | nom", Todo.create("nom").format());
+        assertEquals("T | 0 | nom", new Todo("nom").format());
     }
     
     @Test
     public void testMarkAsCompleted() {
-        Todo newTodo = Todo.create("nom");
+        Todo newTodo = new Todo("nom");
         newTodo.markAsCompleted();
         assertEquals("T | 1 | nom", newTodo.format());
     }

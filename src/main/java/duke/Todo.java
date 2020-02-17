@@ -14,7 +14,7 @@ public class Todo extends Task {
      *
      * @param name The name of the todo.
      */
-    protected Todo(String name) {
+    public Todo(String name) {
         super(name);
     }
     
@@ -24,7 +24,7 @@ public class Todo extends Task {
      * @param name The name of the todo.
      * @param isCompleted Whether the todo is completed.
      */
-    protected Todo(String name, boolean isCompleted) {
+    public Todo(String name, boolean isCompleted) {
         super(name, isCompleted);
     }
 

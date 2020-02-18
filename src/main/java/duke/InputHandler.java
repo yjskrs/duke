@@ -68,6 +68,16 @@ public class InputHandler {
                 "bye                          | exit program");
     }
     
+    public static String processSave(TaskList taskList) {
+        try {
+            Storage.save(taskList);
+        } catch (IOException e) {
+            System.out.println("exception");
+        } finally {
+            return "Tasks saved! You may now exit the program.";
+        }
+    }
+    
     private static String processList(TaskList taskList) {
         String list = taskList.list();
         return "Here are your tasks:\n"
@@ -119,6 +129,36 @@ public class InputHandler {
         }
     }
     
+    public static String processDone(String id, TaskList taskList) {
+        try {
+            int idValue = Integer.parseInt(id);
+            return "Good job for completing the task:\n"
+                    + taskList.markAsCompleted(idValue);
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            return "Invalid task id. Please enter a valid id number!";
+        }
+    }
+    
+    public static String processUndo(String id, TaskList taskList) {
+        try {
+            int idValue = Integer.parseInt(id);
+            return "o.o well... good luck completing the task:\n"
+                    + taskList.markAsIncomplete(idValue);
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            return "Invalid task id. Please enter a valid id number!";
+        }
+    }
+    
+    public static String processDelete(String id, TaskList taskList) {
+        try {
+            int idValue = Integer.parseInt(id);
+            return "Removed task:\n"
+                    + taskList.remove(idValue);
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            return "Invalid task id. Please enter a valid id number!";
+        }
+    }
+    
     public static String processFind(String key, TaskList taskList) {
         Task[] tasksFound = taskList.find(key);
         if (tasksFound == null) {
@@ -131,34 +171,6 @@ public class InputHandler {
         }
         return "Found matching task(s):\n" + outputString;
     }
-    
-    public static String processDelete(String id, TaskList taskList) {
-        return "Removed task:\n"
-                + taskList.remove(Integer.valueOf(id));
-    }
-    
-    public static String processDone(String id, TaskList taskList) {
-        return "Good job for completing the task:\n"
-                + taskList.markAsCompleted(Integer.valueOf(id));
-    }
-    
-    public static String processUndo(String id, TaskList taskList) {
-        return "o.o well... good luck completing the task:\n"
-                + taskList.markAsIncomplete(Integer.valueOf(id));
-    }
-    
-    
-    public static String processSave(TaskList taskList) {
-        try {
-            Storage.save(taskList);
-        } catch (IOException e) {
-            System.out.println("exception");
-        } finally {
-            return "Tasks saved! You may now exit the program.";
-        }
-    }
-    
-    
     
     public static String processUnrecognizedCommand() {
         return "????????????? gomenasai wakarimasen :((( Enter `help` to get a list of commands.";

@@ -85,7 +85,11 @@ public class TaskList {
      * @param id Id of task that user sees.
      * @return The task.
      */
-    private Task get(int id) {
+    private Task get(int id) throws IndexOutOfBoundsException {
+        if (id <= 0 || id > tasks.size()) {
+            throw new IndexOutOfBoundsException();
+        }
+        
         return tasks.get(id - 1);
     }
     

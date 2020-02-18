@@ -25,7 +25,7 @@ public class StringParser {
     public static String combineTaskStringWithSpace(String... text) {
         return Arrays.asList(text).stream()
                 .map(content -> content.strip())
-                .collect(Collectors.joining(" "));
+                .collect(Collectors.joining(SPACE));
     }
     
     /**
@@ -37,7 +37,6 @@ public class StringParser {
     public static String combineTaskStringWithSpacedPipe(String... text) {
         return Arrays.asList(text).stream()
                 .map(content -> content.strip())
-                .collect(Collectors.joining(" | "));
+                .collect(Collectors.joining(SPACED_PIPE));
     }
-    
 }

@@ -40,7 +40,7 @@ public class Storage {
      */
     public static void save(TaskList taskList) throws IOException {
         FileWriter writer = new FileWriter(FILE, false);
-        writer.write(taskList.format());
+        writer.write(taskList.formatForStorage());
         writer.close();
     }
 }

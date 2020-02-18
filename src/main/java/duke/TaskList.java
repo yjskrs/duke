@@ -68,16 +68,15 @@ public class TaskList {
     
     /**
      * Adds a task to the list.
-     *
      * @param newTask The task to be added.
+     * @throws IllegalArgumentException If the task alraedy exists in the list.
      */
-    public boolean add(Task newTask) {
+    public void add(Task newTask) throws IllegalArgumentException {
         if (tasks.contains(newTask)) {
-            return false;
+            throw new IllegalArgumentException();
         }
         
         tasks.add(newTask);
-        return true;
     }
     
     /**
@@ -154,10 +153,6 @@ public class TaskList {
      * @return String representing the list of tasks.
      */
     public String list() {
-        if (tasks.isEmpty()) {
-            return "There are no tasks!";
-        }
-        
         String output = "";
         for (int i = 0; i < tasks.size(); ++i) {
             output += ((i + 1) + ". " + tasks.get(i) + "\n");
@@ -170,11 +165,10 @@ public class TaskList {
      *
      * @return String representing the list of tasks.
      */
-    public String format() {
-        String formattedTaskList = "";
-        for (Task task : tasks) {
-            formattedTaskList += (task.format() + "\n");
-        }
-        return formattedTaskList;
+    public String formatForStorage() {
+        String[] taskStrings = tasks.stream()
+                .map(Task::format)
+                .toArray(String[]::new);
+        return StringParser.combineTextWithNewline(taskStrings);
     }
 }

@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.Collections;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -43,16 +44,15 @@ public class DialogBox extends HBox {
         }
         
         dialog.setText(text);
-//        dialog.setFont(Font.font("Ubuntu", FontWeight.THIN, FontPosture.REGULAR, 10));
+        dialog.setFont(Font.font("UD Digi Kyokasho NP-R", FontWeight.NORMAL, FontPosture.REGULAR, 12));
+        dialog.setWrapText(true);
         dialog.setMinHeight(Label.USE_PREF_SIZE);
         displayPicture.setImage(img);
         Circle clip = new Circle(50, 50, 46);
         displayPicture.setClip(clip);
-        BackgroundFill fill = new BackgroundFill(
-                Color.rgb(0xdc, 0xf8, 0xc6),
+        BackgroundFill fill = new BackgroundFill(Color.rgb(0xdc, 0xf8, 0xc6),
                 new CornerRadii(7),
-                Insets.EMPTY
-        );
+                Insets.EMPTY);
         Background background = new Background(fill);
         dialog.setBackground(background);
         dialog.setPadding(new Insets(2, 5, 2, 5));

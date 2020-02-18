@@ -39,4 +39,16 @@ public class StringParser {
                 .map(content -> content.strip())
                 .collect(Collectors.joining(SPACED_PIPE));
     }
+    
+    /**
+     * Combine text items into a newline-separated string.
+     *
+     * @param text Text items.
+     * @return Combined string.
+     */
+    public static String combineTextWithNewline(String... text) {
+        return Arrays.asList(text).stream()
+                .map(content -> content.strip())
+                .collect(Collectors.joining(NEWLINE));
+    }
 }

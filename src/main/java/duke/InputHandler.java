@@ -19,73 +19,104 @@ public class InputHandler {
      * @return The response towards the user input.
      */
     public static String processInput(String input, TaskList taskList) {
-        String[] inputData = input.split(" ");
-        String command = inputData[0];
-        String restOfInput = input.substring(command.length()).strip();
+        String command = input.split(" ")[0].toLowerCase();
+        String arguments = input.substring(command.length()).strip();
         switch (command) {
-        case "save":
-            return processSave(taskList);
         case "bye":
             return processBye();
-        case "list":
-            return processList(taskList);
-        case "done":
-            return processDone(restOfInput, taskList);
-        case "undo":
-            return processUndo(restOfInput, taskList);
-        case "delete":
-            return processDelete(restOfInput, taskList);
-        case "todo":
-            return processAddTodo(restOfInput, taskList);
-        case "deadline":
-            return processAddDeadline(restOfInput, taskList);
-        case "event":
-            return processAddEvent(restOfInput, taskList);
-        case "find":
-            return processFind(restOfInput, taskList);
         case "help":
             return processHelp();
+        case "save":
+            return processSave(taskList);
+        case "list":
+            return processList(taskList);
+        case "todo":
+            return processAddTodo(arguments, taskList);
+        case "deadline":
+            return processAddDeadline(arguments, taskList);
+        case "event":
+            return processAddEvent(arguments, taskList);
+        case "done":
+            return processDone(arguments, taskList);
+        case "undo":
+            return processUndo(arguments, taskList);
+        case "delete":
+            return processDelete(arguments, taskList);
+        case "find":
+            return processFind(arguments, taskList);
         default:
             return processUnrecognizedCommand();
         }
     }
     
+    public static String processBye() {
+        return "Awwww... Sad to see you go :( Hope to see you again soon!";
+    }
+    
+    public static String processHelp() {
+        return StringParser.combineTextWithNewline("Looking for help? Help is here!",
+                "Here are the commands you can enter:",
+                "list                         | list tasks",
+                "find [(partial) task name]   | find existing task",
+                "todo [name]                  | add todo with name",
+                "deadline [name] /by [date]   | add deadline with name and due on date (in YYYY-MM-DD)",
+                "event [event] /at [datetime] | add event with name and occurring at datetime",
+                "delete [id]                  | delete task with id",
+                "done [id]                    | mark task with id as done",
+                "undo [id]                    | mark task with id as not done",
+                "save                         | save tasks to storage",
+                "bye                          | exit program");
+    }
+    
     private static String processList(TaskList taskList) {
+        String list = taskList.list();
         return "Here are your tasks:\n"
-                + taskList.list();
+                + (list.isEmpty() ? "There are no tasks!" : list);
     }
     
     public static String processAddTodo(String taskContent, TaskList taskList) {
+        if (taskContent.isEmpty()) {
+            return "Todo name not specified! Please enter in the format: todo [name]";
+        }
         Todo newTodo = new Todo(taskContent);
-        boolean addTodoSuccess = taskList.add(newTodo);
-        if (!addTodoSuccess) {
+        try {
+            taskList.add(newTodo);
+            return "Added:\n" + newTodo;
+        } catch (IllegalArgumentException e) {
             return "Duplicate task not added:\n" + newTodo;
         }
-        return "Added:\n" + newTodo;
     }
     
     public static String processAddDeadline(String taskContent, TaskList taskList) {
-        String taskName = taskContent.split("/by")[0];
-        String deadline = taskContent.substring(taskName.length() + 3);
-    
-        Deadline newDeadline = new Deadline(taskName.strip(), deadline.strip());
-        boolean addDeadlineSuccess = taskList.add(newDeadline);
-        if (!addDeadlineSuccess) {
-            return "Duplicate task:\n" + newDeadline;
+        String taskName = taskContent.split("/by")[0].strip();
+        String deadline = taskContent.substring(taskName.length()).replace("/by", "").strip();
+        if (taskContent.isEmpty() || taskName.isEmpty() || deadline.isEmpty()) {
+            return "Deadline name and/or time not specified! Please enter in the format: deadline [name] /by [time]";
         }
-        return "Added:\n" + newDeadline;
+    
+        Deadline newDeadline = new Deadline(taskName, deadline);
+        try {
+            taskList.add(newDeadline);
+            return "Added:\n" + newDeadline;
+        } catch (IllegalArgumentException e) {
+            return "Duplicate task not added:\n" + newDeadline;
+        }
     }
     
     public static String processAddEvent(String taskContent, TaskList taskList) {
-        String taskName = taskContent.split("/at")[0];
-        String time = taskContent.substring(taskName.length() + 3);
-        
-        Event newEvent = new Event(taskName.strip(), time.strip());
-        boolean addEventSuccess = taskList.add(newEvent);
-        if (!addEventSuccess) {
-            return "Duplicate task:\n" + newEvent;
+        String taskName = taskContent.split("/at")[0].strip();
+        String time = taskContent.substring(taskName.length()).replace("/at", "").strip();
+        if (taskContent.isEmpty() || taskName.isEmpty() || time.isEmpty()) {
+            return "Event name and/or time not specified! Please enter in the format: event [name] /at [time]";
         }
-        return "Added:\n" + newEvent;
+        
+        Event newEvent = new Event(taskName, time);
+        try {
+            taskList.add(newEvent);
+            return "Added:\n" + newEvent;
+        } catch (IllegalArgumentException e) {
+            return "Duplicate task not added:\n" + newEvent;
+        }
     }
     
     public static String processFind(String key, TaskList taskList) {
@@ -116,20 +147,6 @@ public class InputHandler {
                 + taskList.markAsIncomplete(Integer.valueOf(id));
     }
     
-    public static String processHelp() {
-        return "Looking for help? Help is here!\n"
-                + "Here are some commands you can enter:\n"
-                + "`list`: list tasks\n"
-                + "`find [(partial) task name]`: find tasks from existing tasks\n"
-                + "`todo [todo name]`: add todo with name [todo name]\n"
-                + "`deadline [deadline name] /by [date in YYYY-MM-DD format]`: \n"
-                + "add deadline with name [deadline name] and due on [date]\n"
-                + "`event [event name] /at [datetime]`: add event with name [event name] at time [datetime]\n"
-                + "`delete [task id]`: delete task with id [task id]\n"
-                + "`done [task id]`: mark task with id [task id] as done\n"
-                + "`undo [task id]`: mark task with id [task id] as not done\n"
-                + "`bye`: exit program\n";
-    }
     
     public static String processSave(TaskList taskList) {
         try {
@@ -141,9 +158,7 @@ public class InputHandler {
         }
     }
     
-    public static String processBye() {
-        return "Awwww... Sad to see you go :( Hope to see you again soon!";
-    }
+    
     
     public static String processUnrecognizedCommand() {
         return "????????????? gomenasai wakarimasen :((( Enter `help` to get a list of commands.";

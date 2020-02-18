@@ -79,4 +79,3 @@ public class Deadline extends Task {
                 + getTimeString();
     }
 }
-

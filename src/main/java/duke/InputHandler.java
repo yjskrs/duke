@@ -94,5 +94,5 @@ public class InputHandler {
         default:
             return "????????????? gomenasai wakarimasen :((( Enter `help` to get a list of commands.";
         }
-    }    
+    }
 }

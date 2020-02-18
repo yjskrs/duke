@@ -13,6 +13,8 @@ import java.time.format.FormatStyle;
  */
 public class Event extends Task {
     private static final String IDENTIFIER = "E";
+    public static final String TIME_DEMARCATOR = "/at";
+    
     private String at;
     
     /**

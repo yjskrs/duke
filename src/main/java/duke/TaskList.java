@@ -68,8 +68,9 @@ public class TaskList {
     
     /**
      * Adds a task to the list.
+     *
      * @param newTask The task to be added.
-     * @throws IllegalArgumentException If the task alraedy exists in the list.
+     * @throws IllegalArgumentException If the task already exists in the list.
      */
     public void add(Task newTask) throws IllegalArgumentException {
         if (tasks.contains(newTask)) {
@@ -84,6 +85,7 @@ public class TaskList {
      *
      * @param id Id of task that user sees.
      * @return The task.
+     * @throws IndexOutOfBoundsException If id is invalid.
      */
     private Task get(int id) throws IndexOutOfBoundsException {
         if (id <= 0 || id > tasks.size()) {

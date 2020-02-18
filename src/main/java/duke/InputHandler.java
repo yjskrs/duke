@@ -16,12 +16,16 @@ public class InputHandler {
      * Then returns the output to be sent to the user.
      *
      * @param input User input.
-     * @return The response towards the user input.
+     * @return The response to the user input.
      */
     public static String processInput(String input, TaskList taskList) {
-        String command = input.split(" ")[0].toLowerCase();
+        String command = input.split(StringParser.SPACE)[0].toLowerCase();
         String arguments = input.substring(command.length()).strip();
         switch (command) {
+        case "hello":
+            return processHello();
+        case "poke":
+            return processPoke();
         case "bye":
             return processBye();
         case "help":
@@ -49,12 +53,30 @@ public class InputHandler {
         }
     }
     
-    public static String processBye() {
-        return "Awwww... Sad to see you go :( Hope to see you again soon!";
+    private static String processHello() {
+        return "Hello!! <3 <3";
     }
     
-    public static String processHelp() {
-        return StringParser.combineTextWithNewline("Looking for help? Help is here!",
+    private static String processPoke() {
+        String[] responses = {"(- o - ) . z Z)",
+                              "( > A < )/",
+                              "/(T___T)\\",
+                              "(0` - `!)/",
+                              "(> - w -) >",
+                              "(/ _ < .)",
+                              "(/ > D <)/",
+                              "(/q n q)/",
+                              "/(o_ o)"};
+        int rnd = (int) Math.floor(Math.random() * responses.length);
+        return responses[rnd];
+    }
+    
+    private static String processBye() {
+        return "('A')/'' Bye! Come again soon.";
+    }
+    
+    private static String processHelp() {
+        return StringParser.combineTextWithNewline("Looking for help? Help is here! (^ u ^)/",
                 "Here are the commands you can enter:",
                 "list                         | list tasks",
                 "find [(partial) task name]   | find existing task",
@@ -65,10 +87,18 @@ public class InputHandler {
                 "done [id]                    | mark task with id as done",
                 "undo [id]                    | mark task with id as not done",
                 "save                         | save tasks to storage",
-                "bye                          | exit program");
+                "hello                        | greet me",
+                "poke                         | poke me",
+                "bye                          | say goodbye to me");
     }
     
-    public static String processSave(TaskList taskList) {
+    /**
+     * Processes the save command.
+     *
+     * @param taskList Task list.
+     * @return Save message.
+     */
+    private static String processSave(TaskList taskList) {
         try {
             Storage.save(taskList);
         } catch (IOException e) {
@@ -78,13 +108,26 @@ public class InputHandler {
         }
     }
     
+    /**
+     * Processes the list command.
+     *
+     * @param taskList Task list.
+     * @return List message with listed tasks.
+     */
     private static String processList(TaskList taskList) {
         String list = taskList.list();
         return "Here are your tasks:\n"
                 + (list.isEmpty() ? "There are no tasks!" : list);
     }
     
-    public static String processAddTodo(String taskContent, TaskList taskList) {
+    /**
+     * Processes the todo command.
+     *
+     * @param taskContent Todo command contents.
+     * @param taskList Task list.
+     * @return Add todo message.
+     */
+    private static String processAddTodo(String taskContent, TaskList taskList) {
         if (taskContent.isEmpty()) {
             return "Todo name not specified! Please enter in the format: todo [name]";
         }
@@ -97,9 +140,16 @@ public class InputHandler {
         }
     }
     
-    public static String processAddDeadline(String taskContent, TaskList taskList) {
-        String taskName = taskContent.split("/by")[0].strip();
-        String deadline = taskContent.substring(taskName.length()).replace("/by", "").strip();
+    /**
+     * Processes the deadline command.
+     *
+     * @param taskContent Deadline command contents.
+     * @param taskList Task list.
+     * @return Add deadline message.
+     */
+    private static String processAddDeadline(String taskContent, TaskList taskList) {
+        String taskName = taskContent.split(Deadline.TIME_DEMARCATOR)[0].strip();
+        String deadline = taskContent.substring(taskName.length()).replace(Deadline.TIME_DEMARCATOR, "").strip();
         if (taskContent.isEmpty() || taskName.isEmpty() || deadline.isEmpty()) {
             return "Deadline name and/or time not specified! Please enter in the format: deadline [name] /by [time]";
         }
@@ -113,9 +163,16 @@ public class InputHandler {
         }
     }
     
-    public static String processAddEvent(String taskContent, TaskList taskList) {
-        String taskName = taskContent.split("/at")[0].strip();
-        String time = taskContent.substring(taskName.length()).replace("/at", "").strip();
+    /**
+     * Processes the event command.
+     *
+     * @param taskContent Event command contents.
+     * @param taskList Task list.
+     * @return Add event message.
+     */
+    private static String processAddEvent(String taskContent, TaskList taskList) {
+        String taskName = taskContent.split(Event.TIME_DEMARCATOR)[0].strip();
+        String time = taskContent.substring(taskName.length()).replace(Event.TIME_DEMARCATOR, "").strip();
         if (taskContent.isEmpty() || taskName.isEmpty() || time.isEmpty()) {
             return "Event name and/or time not specified! Please enter in the format: event [name] /at [time]";
         }
@@ -129,7 +186,14 @@ public class InputHandler {
         }
     }
     
-    public static String processDone(String id, TaskList taskList) {
+    /**
+     * Processes the done command.
+     *
+     * @param id Task id.
+     * @param taskList Task list.
+     * @return Mark task as done message.
+     */
+    private static String processDone(String id, TaskList taskList) {
         try {
             int idValue = Integer.parseInt(id);
             return "Good job for completing the task:\n"
@@ -138,8 +202,15 @@ public class InputHandler {
             return "Invalid task id. Please enter a valid id number!";
         }
     }
-    
-    public static String processUndo(String id, TaskList taskList) {
+   
+    /**
+     * Processes the undo command.
+     *
+     * @param id Task id.
+     * @param taskList Task list.
+     * @return Mark task as not done message.
+     */
+    private static String processUndo(String id, TaskList taskList) {
         try {
             int idValue = Integer.parseInt(id);
             return "o.o well... good luck completing the task:\n"
@@ -149,7 +220,14 @@ public class InputHandler {
         }
     }
     
-    public static String processDelete(String id, TaskList taskList) {
+    /**
+     * Processes the delete command.
+     *
+     * @param id Task id.
+     * @param taskList Task list.
+     * @return Remove task message.
+     */
+    private static String processDelete(String id, TaskList taskList) {
         try {
             int idValue = Integer.parseInt(id);
             return "Removed task:\n"
@@ -159,7 +237,14 @@ public class InputHandler {
         }
     }
     
-    public static String processFind(String key, TaskList taskList) {
+    /**
+     * Processes the find command.
+     *
+     * @param key Keyword to look for.
+     * @param taskList Task list.
+     * @return Lists tasks found.
+     */
+    private static String processFind(String key, TaskList taskList) {
         Task[] tasksFound = taskList.find(key);
         if (tasksFound == null) {
             return "No matching tasks found.";
@@ -172,7 +257,7 @@ public class InputHandler {
         return "Found matching task(s):\n" + outputString;
     }
     
-    public static String processUnrecognizedCommand() {
-        return "????????????? gomenasai wakarimasen :((( Enter `help` to get a list of commands.";
+    private static String processUnrecognizedCommand() {
+        return "???????? gomenasai wakarimasen :((( Enter `help` to get a list of commands.";
     }
 }

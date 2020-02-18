@@ -14,6 +14,8 @@ import java.time.format.FormatStyle;
  */
 public class Deadline extends Task {
     private static final String IDENTIFIER = "D";
+    public static final String TIME_DEMARCATOR = "/by";
+    
     private LocalDate by;
     
     /**

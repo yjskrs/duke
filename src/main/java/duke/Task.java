@@ -7,8 +7,8 @@ package duke;
  * @author Zhu Yijie
  */
 public abstract class Task {
-    protected String name;
-    protected boolean isCompleted;
+    private String name;
+    private boolean isCompleted;
     
     /**
      * Creates a new Task object.
@@ -73,7 +73,7 @@ public abstract class Task {
             return true;
         } else if (obj instanceof Task) {
             Task task = (Task) obj;
-            return task.equals(this.name);
+            return task.equals(this.name) && task.getIdentifier().equals(this.getIdentifier());
         } else {
             return false;
         }
@@ -81,7 +81,9 @@ public abstract class Task {
     
     @Override
     public int hashCode() {
-        return name.toLowerCase().hashCode();
+        int nameHash = getName().toLowerCase().hashCode() * 277;
+        int identifierHash = getIdentifier().hashCode() * 23;
+        return nameHash + identifierHash;
     }
     
     /**
@@ -90,22 +92,51 @@ public abstract class Task {
      * @return The string representing the task.
      */
     public String format() {
-        String completedString = isCompleted ? "1 | " : "0 | ";
-        return completedString + name;
+        String completedString = isCompleted ? "1" : "0";
+        return getIdentifier() + completedString + name;
     }
     
     /**
-     * Returns icon for whether the task is completed or not.
+     * Returns a string representing the name of the task.
+     *
+     * @return The name of the task.
+     */
+    public String getName() {
+        return name;
+    }
+    
+    /**
+     * Returns string for whether the task is completed or not.
      *
      * @return The string representing the whether the task is completed or not.
      */
-    public String getStatusIcon() {
-        String statusIcon = isCompleted ? "/" : " ";
-        return "[" + statusIcon + "]";
+    protected String getStatus() {
+        return isCompleted ? "/" : " ";
     }
     
-    @Override
-    public String toString() {
-        return name;
+    /**
+     * Returns status icon for whether the task is completed or not.
+     *
+     * @return The icon string representing the whether the task is completed or not.
+     */
+    protected String getStatusIcon() {
+        return StringParser.addSquareBracket(getStatus());
     }
+    
+    /**
+     * Returns identifier string for the type of task.
+     *
+     * @return The string representing the task type.
+     */
+    protected abstract String getIdentifier();
+    
+    /**
+     * Returns identifier icon for the type of task.
+     *
+     * @return The icon string representing the task type.
+     */
+    protected abstract String getIdentifierIcon();
+    
+    @Override
+    public abstract String toString();
 }

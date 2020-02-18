@@ -28,35 +28,29 @@ public class Todo extends Task {
     public Todo(String name, boolean isCompleted) {
         super(name, isCompleted);
     }
-    
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        } else if (obj instanceof Todo) {
-            Todo todo = (Todo) obj;
-            return todo.equals(this.name);
-        } else {
-            return false;
-        }
-    }
-    
-    @Override
-    public int hashCode() {
-        int parentHash = super.hashCode() * 31;
-        return parentHash + IDENTIFIER.hashCode();
-    }
 
     // return a string formatted for saving in file
     @Override
     public String format() {
         return "T | " + super.format();
     }
-
+    
+    @Override
+    protected String getIdentifier() {
+        return IDENTIFIER;
+    }
+    
+    @Override
+    protected String getIdentifierIcon() {
+        return StringParser.addSquareBracket(getIdentifier());
+    }
+    
     @Override
     public String toString() {
-        return getStatusIcon()
-                + " " + "[" + IDENTIFIER + "]" + " "
-                + super.toString();
+        return StringParser
+                .combineTaskStringWithSpace(
+                        getIdentifierIcon(),
+                        getStatusIcon(),
+                        getName());
     }
 }

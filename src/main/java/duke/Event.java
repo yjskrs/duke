@@ -1,5 +1,8 @@
 package duke;
 
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+
 /**
  * The <code>Event</code> class extends from Task.
  *
@@ -36,24 +39,6 @@ public class Event extends Task {
         assert !at.isEmpty() : "Empty at string.";
         this.at = at;
     }
-    
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        } else if (obj instanceof Event) {
-            Event event = (Event) obj;
-            return event.equals(this.name);
-        } else {
-            return false;
-        }
-    }
-    
-    @Override
-    public int hashCode() {
-        int parentHash = super.hashCode() * 31;
-        return parentHash + IDENTIFIER.hashCode();
-    }
 
     @Override
     public String format() {
@@ -61,14 +46,26 @@ public class Event extends Task {
     }
     
     public String getTimeString() {
-        return "(at: " + at + ")";
+        return StringParser.addRoundBracket("at: " + at);
     }
-
+    
+    @Override
+    protected String getIdentifier() {
+        return IDENTIFIER;
+    }
+    
+    @Override
+    protected String getIdentifierIcon() {
+        return StringParser.addSquareBracket(getIdentifier());
+    }
+    
     @Override
     public String toString() {
-        return getStatusIcon()
-                + " " + "[" + IDENTIFIER + "]" + " "
-                + super.toString() + " "
-                + getTimeString();
+        return StringParser
+                .combineTaskStringWithSpace(
+                        getIdentifierIcon(),
+                        getStatusIcon(),
+                        getName(),
+                        getTimeString());
     }
 }

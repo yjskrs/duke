@@ -18,14 +18,14 @@ public class InputHandler {
      * @param input User input.
      * @return The response towards the user input.
      */
-    public static String processInput(String input) {
+    public static String processInput(String input, TaskList taskList) {
         String[] inputData = input.split(" ");
         String command = inputData[0];
         String restOfInput = input.substring(command.length()).strip();
         switch (command) {
         case "bye":
             try {
-                Storage.save();
+                Storage.save(taskList);
             } catch (IOException e) {
                 System.out.println("exception");
             } finally {
@@ -33,19 +33,19 @@ public class InputHandler {
             }
         case "list":
             return "Here are your tasks:\n"
-                + TaskList.list();
+                + taskList.list();
         case "done":
             return "Good job for completing the task:\n" 
-                + TaskList.markAsCompleted(Integer.valueOf(restOfInput));
+                + taskList.markAsCompleted(Integer.valueOf(restOfInput));
         case "undo":
             return "o.o well... good luck completing the task:\n" 
-                + TaskList.markAsIncomplete(Integer.valueOf(restOfInput));
+                + taskList.markAsIncomplete(Integer.valueOf(restOfInput));
         case "delete":
             return "Removed task:\n" 
-                + TaskList.remove(Integer.valueOf(restOfInput));
+                + taskList.remove(Integer.valueOf(restOfInput));
         case "todo":
             Todo newTodo = new Todo(restOfInput);
-            boolean addTodoSuccess = TaskList.add(newTodo);
+            boolean addTodoSuccess = taskList.add(newTodo);
             if (!addTodoSuccess) {
                 return "Duplicate task not added:\n" + newTodo;
             }
@@ -53,7 +53,7 @@ public class InputHandler {
         case "deadline":
             String[] details = restOfInput.split("/by");
             Deadline newDeadline = new Deadline(details[0].strip(), details[1].strip());
-            boolean addDeadlineSuccess = TaskList.add(newDeadline);
+            boolean addDeadlineSuccess = taskList.add(newDeadline);
             if (!addDeadlineSuccess) {
                 return "Duplicate task:\n" + newDeadline;
             }
@@ -61,13 +61,13 @@ public class InputHandler {
         case "event":
             String[] details1 = restOfInput.split("/at");
             Event newEvent = new Event(details1[0].strip(), details1[1].strip());
-            boolean addEventSuccess = TaskList.add(newEvent);
+            boolean addEventSuccess = taskList.add(newEvent);
             if (!addEventSuccess) {
                 return "Duplicate task:\n" + newEvent;
             }
             return "Added:\n" + newEvent;
         case "find":
-            Task[] tasksFound = TaskList.find(restOfInput);
+            Task[] tasksFound = taskList.find(restOfInput);
             if (tasksFound == null) {
                 return "No matching tasks found.";
             }

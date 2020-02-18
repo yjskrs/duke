@@ -23,13 +23,14 @@ public class Storage {
      *
      * @throws IOException If an input or output exception occurred.
      */
-    public static void load() throws IOException { // or boolean?
-        if (FILE.length() == 0) {
-            return;
+    public static TaskList load() {
+        try {
+            byte[] encoded = Files.readAllBytes(Paths.get(FILE_PATH));
+            return TaskList.setup(new String(encoded, ENCODING));
+        } catch (IOException e) {
+            return new TaskList();
         }
         
-        byte[] encoded = Files.readAllBytes(Paths.get(FILE_PATH));
-        TaskList.setup(new String(encoded, ENCODING));
     }
     
     /**
@@ -37,9 +38,9 @@ public class Storage {
      *
      * @throws IOException If an input or output exception occurred.
      */
-    public static void save() throws IOException {
+    public static void save(TaskList taskList) throws IOException {
         FileWriter writer = new FileWriter(FILE, false);
-        writer.write(TaskList.format());
+        writer.write(taskList.format());
         writer.close();
     }
 }

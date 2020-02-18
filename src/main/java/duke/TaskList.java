@@ -10,41 +10,60 @@ import java.util.ArrayList;
  * @author Zhu Yijie
  */
 public class TaskList {
-    private static List<Task> tasks = new ArrayList<>();
+    private List<Task> tasks;
+    
+    /**
+     * Creates a new TaskLit object.
+     */
+    public TaskList() {
+        this.tasks = new ArrayList<>();
+    }
+    
+    /**
+     * Creates a new TaskLit object.
+     *
+     * @param tasks List of tasks.
+     */
+    public TaskList(List<Task> tasks) {
+        this.tasks = tasks;
+    }
     
     /**
      * Sets up the system of all tasks from a file.
      *
      * @param data Data taken from a file.
      */
-    public static void setup(String data) {
+    public static TaskList setup(String data) {
         if (data.isEmpty()) {
-            return;
+            return new TaskList();
         }
         
+        List<Task> newTasks = new ArrayList<>();
         String[] list = data.split("\n");
-        for (int i = 0; i < list.length; ++i) {
-            if (list[i].isEmpty()) {
+        for (String line : list) {
+            if (line.isEmpty()) {
                 continue;
             }
 
-            String[] recArr = list[i].strip().split(" \\| ");
-            String name = recArr[2];
-            boolean isCompleted = recArr[1].equals("1");
-            switch (recArr[0]) {
+            String[] arguments = line.strip().split(" \\| ");
+            String type = arguments[0];
+            String name = arguments[2];
+            boolean isCompleted = arguments[1].equals("1");
+            switch (type) {
             case "T":
-                add(new Todo(name, isCompleted));
+                newTasks.add(new Todo(name, isCompleted));
                 break;
             case "D":
-                add(new Deadline(name, isCompleted, recArr[3]));
+                newTasks.add(new Deadline(name, isCompleted, arguments[3]));
                 break;
             case "E":
-                add(new Event(name, isCompleted, recArr[3]));
+                newTasks.add(new Event(name, isCompleted, arguments[3]));
                 break;
             default:
                 break;
             }
         }
+        return new TaskList(newTasks);
     }
     
     /**
@@ -52,7 +71,7 @@ public class TaskList {
      *
      * @param newTask The task to be added.
      */
-    public static boolean add(Task newTask) {
+    public boolean add(Task newTask) {
         if (tasks.contains(newTask)) {
             return false;
         }
@@ -67,7 +86,7 @@ public class TaskList {
      * @param id Id of task that user sees.
      * @return The task.
      */
-    private static Task get(int id) {
+    private Task get(int id) {
         return tasks.get(id - 1);
     }
     
@@ -77,7 +96,7 @@ public class TaskList {
      * @param id The id of the task to be removed.
      * @return The task removed.
      */
-    public static Task remove(int id) {
+    public Task remove(int id) {
         Task task = get(id);
         tasks.remove(task);
         return task;
@@ -89,7 +108,7 @@ public class TaskList {
      * @param id The id of the task to be modified.
      * @return The task modified.
      */
-    public static Task markAsCompleted(int id) {
+    public Task markAsCompleted(int id) {
         Task task = get(id);
         task.markAsCompleted();
         return task;
@@ -101,7 +120,7 @@ public class TaskList {
      * @param id The id of the task to be modified.
      * @return The task modified.
      */
-    public static Task markAsIncomplete(int id) {
+    public Task markAsIncomplete(int id) {
         Task task = get(id);
         task.markAsIncomplete();
         return task;
@@ -114,7 +133,7 @@ public class TaskList {
      * @param name The name of task to find.
      * @return Task array, if found, or null if no matching tasks found.
      */
-    public static Task[] find(String name) {
+    public Task[] find(String name) {
         List<Task> tasksMatched = new ArrayList<>();
         for (Task task : tasks) {
             if (task.matchPartial(name)) {
@@ -134,7 +153,7 @@ public class TaskList {
      *
      * @return String representing the list of tasks.
      */
-    public static String list() {
+    public String list() {
         if (tasks.isEmpty()) {
             return "There are no tasks!";
         }
@@ -151,7 +170,7 @@ public class TaskList {
      *
      * @return String representing the list of tasks.
      */
-    public static String format() {
+    public String format() {
         String formattedTaskList = "";
         for (Task task : tasks) {
             formattedTaskList += (task.format() + "\n");

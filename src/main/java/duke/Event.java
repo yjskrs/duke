@@ -28,7 +28,7 @@ public class Event extends Task {
     }
     
     /**
-     * Creates a new Event object.
+     * Creates a new Event object with non-default isCompleted.
      *
      * @param name The name of the event.
      * @param isCompleted Whether the event is completed.
@@ -39,11 +39,8 @@ public class Event extends Task {
         assert !at.isEmpty() : "Empty at string.";
         this.at = at;
     }
-
-    @Override
-    public String format() {
-        return IDENTIFIER + " | " + super.format() + " | " + at;
-    }
+    
+    ////////////////////////////// PRINTING TASK
     
     public String getTimeString() {
         return StringParser.addRoundBracket("at: " + at);
@@ -57,6 +54,16 @@ public class Event extends Task {
     @Override
     protected String getIdentifierIcon() {
         return StringParser.addSquareBracket(getIdentifier());
+    }
+    
+    @Override
+    public String format() {
+        return StringParser
+                .combineTaskStringWithSpacedPipe(
+                        getIdentifier(),
+                        getStatusInBinary(),
+                        getName(),
+                        at);
     }
     
     @Override

@@ -20,7 +20,7 @@ public class Todo extends Task {
     }
     
     /**
-     * Creates a new Todo object.
+     * Creates a new Todo object with non-default isCompleted.
      *
      * @param name The name of the todo.
      * @param isCompleted Whether the todo is completed.
@@ -28,12 +28,8 @@ public class Todo extends Task {
     public Todo(String name, boolean isCompleted) {
         super(name, isCompleted);
     }
-
-    // return a string formatted for saving in file
-    @Override
-    public String format() {
-        return "T | " + super.format();
-    }
+    
+    ////////////////////////////// PRINTING TASK
     
     @Override
     protected String getIdentifier() {
@@ -43,6 +39,15 @@ public class Todo extends Task {
     @Override
     protected String getIdentifierIcon() {
         return StringParser.addSquareBracket(getIdentifier());
+    }
+    
+    @Override
+    public String format() {
+        return StringParser
+                .combineTaskStringWithSpacedPipe(
+                        getIdentifier(),
+                        getStatusInBinary(),
+                        getName());
     }
     
     @Override

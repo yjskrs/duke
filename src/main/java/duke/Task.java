@@ -22,7 +22,7 @@ public abstract class Task {
     }
     
     /**
-     * Creates a new Task object.
+     * Creates a new Task object with non-default isCompleted.
      *
      * @param name The name of the task.
      * @param isCompleted Whether the task is completed.
@@ -47,54 +47,7 @@ public abstract class Task {
         isCompleted = false;
     }
     
-    /**
-     * Checks if provided task name matches this task's name partially, ignoring case.
-     *
-     * @param taskName Task name to check.
-     * @return True if taskName is contained in this task's name, false otherwise.
-     */
-    public boolean matchPartial(String taskName) {
-        return name.toLowerCase().contains(taskName.toLowerCase());
-    }
-    
-    /**
-     * Checks if provided task name matches this task's name fully, ignoring case.
-     *
-     * @param taskName Task name to check.
-     * @return True if taskName is equivalent to this task's name, false otherwise.
-     */
-    public boolean equals(String taskName) {
-        return name.equalsIgnoreCase(taskName);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        } else if (obj instanceof Task) {
-            Task task = (Task) obj;
-            return task.equals(this.name) && task.getIdentifier().equals(this.getIdentifier());
-        } else {
-            return false;
-        }
-    }
-    
-    @Override
-    public int hashCode() {
-        int nameHash = getName().toLowerCase().hashCode() * 277;
-        int identifierHash = getIdentifier().hashCode() * 23;
-        return nameHash + identifierHash;
-    }
-    
-    /**
-     * Returns a string formatting the task for saving in a file.
-     *
-     * @return The string representing the task.
-     */
-    public String format() {
-        String completedString = isCompleted ? "1" : "0";
-        return getIdentifier() + completedString + name;
-    }
+    ////////////////////////////// PRINTING TASK
     
     /**
      * Returns a string representing the name of the task.
@@ -112,6 +65,15 @@ public abstract class Task {
      */
     protected String getStatus() {
         return isCompleted ? "/" : " ";
+    }
+    
+    /**
+     * Returns string for whether the task is completed or not in binary.
+     *
+     * @return The string representing the whether the task is completed or not.
+     */
+    protected String getStatusInBinary() {
+        return isCompleted ? "1" : "0";
     }
     
     /**
@@ -137,6 +99,54 @@ public abstract class Task {
      */
     protected abstract String getIdentifierIcon();
     
+    /**
+     * Returns a string formatting the task for saving in a file.
+     *
+     * @return The string representing the task.
+     */
+    public abstract String format();
+    
     @Override
     public abstract String toString();
+    
+    ////////////////////////////// EQUALITY CHECKS
+    
+    /**
+     * Checks if provided task name matches this task's name partially, ignoring case.
+     *
+     * @param taskName Task name to check.
+     * @return True if taskName is contained in this task's name, false otherwise.
+     */
+    public boolean matchPartial(String taskName) {
+        return name.toLowerCase().contains(taskName.toLowerCase());
+    }
+    
+    /**
+     * Checks if provided task name matches this task's name fully, ignoring case.
+     *
+     * @param taskName Task name to check.
+     * @return True if taskName is equivalent to this task's name, false otherwise.
+     */
+    public boolean equals(String taskName) {
+        return name.equalsIgnoreCase(taskName);
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (obj instanceof Task) {
+            Task task = (Task) obj;
+            return task.equals(this.name) && task.getIdentifier().equals(this.getIdentifier());
+        } else {
+            return false;
+        }
+    }
+    
+    @Override
+    public int hashCode() {
+        int nameHash = getName().toLowerCase().hashCode() * 277;
+        int identifierHash = getIdentifier().hashCode() * 23;
+        return nameHash + identifierHash;
+    }
 }

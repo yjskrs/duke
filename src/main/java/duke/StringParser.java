@@ -16,16 +16,28 @@ public class StringParser {
         return "(" + text + ")";
     }
     
+    /**
+     * Format task contents into a string separated by spaces.
+     *
+     * @param text Task contents.
+     * @return Formatted task contents.
+     */
     public static String combineTaskStringWithSpace(String... text) {
         return Arrays.asList(text).stream()
                 .map(content -> content.strip())
                 .collect(Collectors.joining(" "));
     }
     
+    /**
+     * Format task contents into a string separated by spaced pipes for saving to storage.
+     *
+     * @param text Task contents.
+     * @return Formatted task contents.
+     */
     public static String combineTaskStringWithSpacedPipe(String... text) {
         return Arrays.asList(text).stream()
                 .map(content -> content.strip())
-                .collect(Collectors.joining(" "));
+                .collect(Collectors.joining(" | "));
     }
     
 }

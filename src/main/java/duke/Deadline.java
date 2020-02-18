@@ -29,7 +29,7 @@ public class Deadline extends Task {
     }
     
     /**
-     * Creates a new Deadline object.
+     * Creates a new Deadline object with non-default isCompleted.
      *
      * @param name The name of the deadline.
      * @param isCompleted Whether the deadline is completed.
@@ -40,14 +40,8 @@ public class Deadline extends Task {
         assert !by.isEmpty() : "Empty by string.";
         this.by = LocalDate.parse(by);
     }
-
-    //    DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).format(by)
-    //    DateTimeFormatter.ofPattern("d MMM uuuu")
     
-    @Override
-    public String format() {
-        return IDENTIFIER + " | " + super.format() + " | " + by;
-    }
+    ////////////////////////////// PRINTING TASK
     
     public String getTimeString() {
         return StringParser.addRoundBracket("by: "
@@ -62,6 +56,16 @@ public class Deadline extends Task {
     @Override
     protected String getIdentifierIcon() {
         return StringParser.addSquareBracket(getIdentifier());
+    }
+    
+    @Override
+    public String format() {
+        return StringParser
+                .combineTaskStringWithSpacedPipe(
+                        getIdentifier(),
+                        getStatusInBinary(),
+                        getName(),
+                        by.toString());
     }
     
     @Override

@@ -1,6 +1,5 @@
 package duke;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -27,17 +26,11 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         while (sc.hasNext()) {
             String input = sc.nextLine();
-            if (input.equals("bye")) {
-                try {
-                    Storage.save(taskList);
-                } catch (IOException e) {
-                    System.out.println("exception");
-                }
-                Ui.sayGoodbye();
-                return;
-            }
             String response = InputHandler.processInput(input, taskList);
             Ui.respond(response);
+            if (input.equals("bye")) {
+                return;
+            }
         }
     }
     

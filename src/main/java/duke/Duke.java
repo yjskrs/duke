@@ -1,5 +1,7 @@
 package duke;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -8,15 +10,28 @@ import java.util.Scanner;
  * @author Zhu Yijie
  */
 public class Duke {
+    private static final String FILE_PATH = "./data/duke.txt";
     
     private TaskList taskList;
+    private Storage storage;
     
     /**
      * Creates and initialises a Duke object.
      */
     public Duke() {
-        this.taskList = Storage.load();
         Ui.sayHello();
+        this.storage = new Storage(FILE_PATH);
+        try {
+            List<Task> tasks = DataParser.parseToTasks(this.storage.load());
+            this.taskList = new TaskList(tasks);
+            Ui.respond("Task list loaded from storage. Enter `list` to see your tasks.");
+        } catch (IOException e) {
+            Ui.respond("Failed to get tasks from storage. Starting with an empty list.");
+            this.taskList = new TaskList();
+        } catch (NullPointerException e) {
+            Ui.respond("There were no tasks saved. Starting with an empty list.");
+            this.taskList = new TaskList();
+        }
     }
     
     /**
@@ -26,7 +41,7 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         while (sc.hasNext()) {
             String input = sc.nextLine();
-            String response = InputHandler.processInput(input, taskList);
+            String response = InputHandler.processInput(input, taskList, storage);
             Ui.respond(response);
             if (input.equals("bye")) {
                 return;
@@ -48,6 +63,6 @@ public class Duke {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        return InputHandler.processInput(input, taskList);
+        return InputHandler.processInput(input, taskList, storage);
     }
 }

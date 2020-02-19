@@ -18,7 +18,7 @@ public class InputHandler {
      * @param input User input.
      * @return The response to the user input.
      */
-    public static String processInput(String input, TaskList taskList) {
+    public static String processInput(String input, TaskList taskList, Storage storage) {
         String command = input.split(StringParser.SPACE)[0].toLowerCase();
         String arguments = input.substring(command.length()).strip();
         switch (command) {
@@ -31,7 +31,7 @@ public class InputHandler {
         case "help":
             return processHelp();
         case "save":
-            return processSave(taskList);
+            return processSave(taskList, storage);
         case "list":
             return processList(taskList);
         case "todo":
@@ -98,13 +98,12 @@ public class InputHandler {
      * @param taskList Task list.
      * @return Save message.
      */
-    private static String processSave(TaskList taskList) {
+    private static String processSave(TaskList taskList, Storage storage) {
         try {
-            Storage.save(taskList);
-        } catch (IOException e) {
-            System.out.println("exception");
-        } finally {
+            storage.save(taskList.formatForStorage());
             return "Tasks saved! You may now exit the program.";
+        } catch (IOException e) {
+            return "Sorry! I couldn't save your tasks to disk :(";
         }
     }
     

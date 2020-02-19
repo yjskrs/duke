@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
 /**
  * The <code>Storage</code> class is a utility class to load data from a file, if any, and write
@@ -14,33 +15,33 @@ import java.nio.file.Paths;
  * @author Zhu Yijie
  */
 public class Storage {
-    private static final String FILE_PATH = "./data/duke.txt";
-    private static final File FILE = new File(FILE_PATH);
-    private static final Charset ENCODING = Charset.defaultCharset();
+    private String filePath;
     
-    /**
-     * Retrieves all data from file and sends data to the TaskList class.
-     *
-     * @throws IOException If an input or output exception occurred.
-     */
-    public static TaskList load() {
-        try {
-            byte[] encoded = Files.readAllBytes(Paths.get(FILE_PATH));
-            return TaskList.setup(new String(encoded, ENCODING));
-        } catch (IOException e) {
-            return new TaskList();
-        }
-        
+    public Storage(String filePath) {
+        this.filePath = filePath;
     }
     
     /**
-     * Takes formatted TaskList data and writes it to file.
+     * Retrieves data from file.
      *
-     * @throws IOException If an input or output exception occurred.
+     * @return Data from file.
+     * @throws IOException If failure in reading from file.
      */
-    public static void save(TaskList taskList) throws IOException {
-        FileWriter writer = new FileWriter(FILE, false);
-        writer.write(taskList.formatForStorage());
+    public String load() throws IOException {
+        byte[] encoded = Files.readAllBytes(Paths.get(filePath));
+        return new String(encoded, Charset.defaultCharset());
+    }
+    
+    /**
+     * Writes data to file.
+     *
+     * @param data Data from program.
+     * @throws IOException If failure in writing to file.
+     */
+    public void save(String data) throws IOException {
+        File file = new File(filePath);
+        FileWriter writer = new FileWriter(file, false);
+        writer.write(data);
         writer.close();
     }
 }

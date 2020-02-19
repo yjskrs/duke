@@ -1,5 +1,13 @@
 # User Guide
 
+This is a user guide for the `Duke` program developed under CS2103T Software Engineering individual project.
+
+# Overview
+
+This is a simple task managing application interacted with through the Command Line Interface.
+
+![Duke Screenshot](/docs/Ui.png)
+
 ## 1. Features 
 
 ### 1.1 Viewing help: `help`
@@ -46,7 +54,7 @@ Expected outcome:
 
     `[T] [ ] make pineapple tarts`
     
-### 1.5 Adding Deadline task: `task`
+### 1.5 Adding Deadline task: `deadline`
 
 Format: `deadline NAME /by DATE` - date in YYYY-MM-DD
 

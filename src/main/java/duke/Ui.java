@@ -12,7 +12,6 @@ public class Ui {
                                      + "| | | | | | | |/ / _ \\\n"
                                      + "| |_| | |_| |   <  __/\n"
                                      + "|____/ \\__,_|_|\\_\\___|\n";
-//    private static final String LINE_SEPARATOR = "============================================================";
     
     public static String getHelloMessage() {
         String welcomeMsg = "Hello, I'm Duke! What can I do for you?";

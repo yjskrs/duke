@@ -1,5 +1,8 @@
 package duke;
 
+import duke.tasks.Task;
+import duke.utils.DataParser;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
@@ -29,7 +32,7 @@ public class Duke {
             Ui.respond("Failed to get tasks from storage. Starting with an empty list.");
             this.taskList = new TaskList();
         } catch (NullPointerException e) {
-            Ui.respond("There were no tasks saved. Starting with an empty list.");
+            Ui.respond("There were no saved tasks. Starting with an empty list.");
             this.taskList = new TaskList();
         }
     }

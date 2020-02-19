@@ -12,8 +12,7 @@ public class Ui {
                                      + "| | | | | | | |/ / _ \\\n"
                                      + "| |_| | |_| |   <  __/\n"
                                      + "|____/ \\__,_|_|\\_\\___|\n";
-    private static final String LINE_SEPARATOR = "============================================================";
-    private static final String NEWLINE = "\n";
+//    private static final String LINE_SEPARATOR = "============================================================";
     
     public static String getHelloMessage() {
         String welcomeMsg = "Hello, I'm Duke! What can I do for you?";
@@ -31,15 +30,6 @@ public class Ui {
         System.out.println(welcomeMsg);
     }
 
-    /**
-     * Prints a goodbye message to standard output.
-     *
-     * <p>Used when closing program.
-     */
-    public static void sayGoodbye() {
-        String goodbyeMsg = parseOutput("Awwww... Sad to see you go :( Hope to see you again soon!");
-        System.out.println(goodbyeMsg);
-    }
 
     /**
      * Prints to standard output.
@@ -61,6 +51,6 @@ public class Ui {
             return "";
         }
         
-        return output + NEWLINE;
+        return output + "\n";
     }
 }

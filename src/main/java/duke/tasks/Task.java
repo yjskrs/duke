@@ -1,4 +1,6 @@
-package duke;
+package duke.tasks;
+
+import duke.StringParser;
 
 /**
  * The <code>Task</code> class is an abstract class with a name and a boolean to represent whether

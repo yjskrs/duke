@@ -1,5 +1,10 @@
 package duke;
 
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -26,44 +31,6 @@ public class TaskList {
      */
     public TaskList(List<Task> tasks) {
         this.tasks = tasks;
-    }
-    
-    /**
-     * Sets up the system of all tasks from a file.
-     *
-     * @param data Data taken from a file.
-     */
-    public static TaskList setup(String data) {
-        if (data.isEmpty()) {
-            return new TaskList();
-        }
-        
-        List<Task> newTasks = new ArrayList<>();
-        String[] list = data.split("\n");
-        for (String line : list) {
-            if (line.isEmpty()) {
-                continue;
-            }
-
-            String[] arguments = line.strip().split(" \\| ");
-            String type = arguments[0];
-            String name = arguments[2];
-            boolean isCompleted = arguments[1].equals("1");
-            switch (type) {
-            case "T":
-                newTasks.add(new Todo(name, isCompleted));
-                break;
-            case "D":
-                newTasks.add(new Deadline(name, isCompleted, arguments[3]));
-                break;
-            case "E":
-                newTasks.add(new Event(name, isCompleted, arguments[3]));
-                break;
-            default:
-                break;
-            }
-        }
-        return new TaskList(newTasks);
     }
     
     /**

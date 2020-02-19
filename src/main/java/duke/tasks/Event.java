@@ -1,7 +1,6 @@
-package duke;
+package duke.tasks;
 
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
+import duke.StringParser;
 
 /**
  * The <code>Event</code> class extends from Task.

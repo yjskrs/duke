@@ -1,6 +1,7 @@
+package duke;
+
 import java.io.IOException;
 import java.util.Collections;
-import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

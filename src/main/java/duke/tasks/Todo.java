@@ -1,4 +1,7 @@
-package duke;
+package duke.tasks;
+
+import duke.StringParser;
+import duke.tasks.Task;
 
 /**
  * The <code>Todo</code> class extends from Task.

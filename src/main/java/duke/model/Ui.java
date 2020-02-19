@@ -1,4 +1,4 @@
-package duke;
+package duke.model;
 
 /**
  * The <code>Ui</code> class is a utility class which deals with printing to standard output to

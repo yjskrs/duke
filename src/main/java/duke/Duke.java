@@ -1,6 +1,12 @@
 package duke;
 
+import duke.commands.Command;
+import duke.commands.exceptions.CommandException;
+import duke.model.Storage;
+import duke.model.TaskList;
+import duke.model.Ui;
 import duke.tasks.Task;
+import duke.utils.CommandParser;
 import duke.utils.DataParser;
 
 import java.io.IOException;
@@ -35,25 +41,15 @@ public class Duke {
     }
     
     /**
-     * Runs Duke.
-     */
-    public void run() {
-        Scanner sc = new Scanner(System.in);
-        while (sc.hasNext()) {
-            String input = sc.nextLine();
-            String response = InputHandler.processInput(input, taskList, storage);
-            Ui.print(response);
-            if (input.equals("bye")) {
-                return;
-            }
-        }
-    }
-    
-    /**
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        return InputHandler.processInput(input, taskList, storage);
+        try {
+            Command command = CommandParser.parseToCommand(input);
+            return command.execute(taskList, storage);
+        } catch (CommandException e) {
+            return e.getMessage();
+        }
     }
 }

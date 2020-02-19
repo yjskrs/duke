@@ -1,6 +1,7 @@
 package duke;
 
 import duke.tasks.Task;
+import duke.utils.StringParser;
 
 import java.util.List;
 import java.util.ArrayList;

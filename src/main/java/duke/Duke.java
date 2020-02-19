@@ -28,11 +28,8 @@ public class Duke {
             List<Task> tasks = DataParser.parseToTasks(this.storage.load());
             this.taskList = new TaskList(tasks);
             Ui.print("Task list loaded from storage. Enter `list` to see your tasks.");
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             Ui.print("Failed to get tasks from storage. Starting with an empty list.");
-            this.taskList = new TaskList();
-        } catch (NullPointerException e) {
-            Ui.print("There were no saved tasks. Starting with an empty list.");
             this.taskList = new TaskList();
         }
     }
@@ -50,15 +47,6 @@ public class Duke {
                 return;
             }
         }
-    }
-    
-    /**
-     * The main method starts the Duke program.
-     *
-     * @param args Input arguments.
-     */
-    public static void main(String[] args) {
-        new Duke().run();
     }
     
     /**

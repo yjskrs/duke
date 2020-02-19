@@ -1,6 +1,6 @@
 package duke.tasks;
 
-import duke.StringParser;
+import duke.utils.StringParser;
 
 /**
  * The <code>Event</code> class extends from Task.

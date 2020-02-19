@@ -1,6 +1,6 @@
 package duke.tasks;
 
-import duke.StringParser;
+import duke.utils.StringParser;
 
 /**
  * The <code>Task</code> class is an abstract class with a name and a boolean to represent whether
@@ -56,7 +56,7 @@ public abstract class Task {
      *
      * @return The name of the task.
      */
-    public String getName() {
+    protected String getName() {
         return name;
     }
     

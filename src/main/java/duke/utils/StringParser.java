@@ -1,11 +1,11 @@
-package duke;
+package duke.utils;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class StringParser {
     public static final String SPACE = " ";
-    public static final String PIPE = " | ";
+    public static final String SPACED_PIPE = " | ";
     public static final String NEWLINE = "\n";
     
     public static String addSquareBracket(String text) {
@@ -37,7 +37,7 @@ public class StringParser {
     public static String combineTextWithPipe(String... text) {
         return Arrays.asList(text).stream()
                 .map(content -> content.strip())
-                .collect(Collectors.joining(PIPE));
+                .collect(Collectors.joining(SPACED_PIPE));
     }
     
     /**

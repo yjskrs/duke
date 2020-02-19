@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 public class StringParser {
     public static final String SPACE = " ";
-    public static final String SPACED_PIPE = " | ";
+    public static final String PIPE = " | ";
     public static final String NEWLINE = "\n";
     
     public static String addSquareBracket(String text) {
@@ -22,7 +22,7 @@ public class StringParser {
      * @param text Task contents.
      * @return Formatted task contents.
      */
-    public static String combineTaskStringWithSpace(String... text) {
+    public static String combineTextWithSpace(String... text) {
         return Arrays.asList(text).stream()
                 .map(content -> content.strip())
                 .collect(Collectors.joining(SPACE));
@@ -34,10 +34,10 @@ public class StringParser {
      * @param text Task contents.
      * @return Formatted task contents.
      */
-    public static String combineTaskStringWithSpacedPipe(String... text) {
+    public static String combineTextWithPipe(String... text) {
         return Arrays.asList(text).stream()
                 .map(content -> content.strip())
-                .collect(Collectors.joining(SPACED_PIPE));
+                .collect(Collectors.joining(PIPE));
     }
     
     /**

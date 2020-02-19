@@ -36,7 +36,7 @@ public class Ui {
      *
      * @param contents String to be output.
      */
-    public static void respond(String contents) {
+    public static void print(String contents) {
         System.out.println(parseOutput(contents));
     }
 

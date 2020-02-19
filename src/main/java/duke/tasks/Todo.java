@@ -1,7 +1,6 @@
 package duke.tasks;
 
 import duke.StringParser;
-import duke.tasks.Task;
 
 /**
  * The <code>Todo</code> class extends from Task.
@@ -47,7 +46,7 @@ public class Todo extends Task {
     @Override
     public String format() {
         return StringParser
-                .combineTaskStringWithSpacedPipe(
+                .combineTextWithPipe(
                         getIdentifier(),
                         getStatusInBinary(),
                         getName());
@@ -56,7 +55,7 @@ public class Todo extends Task {
     @Override
     public String toString() {
         return StringParser
-                .combineTaskStringWithSpace(
+                .combineTextWithSpace(
                         getIdentifierIcon(),
                         getStatusIcon(),
                         getName());

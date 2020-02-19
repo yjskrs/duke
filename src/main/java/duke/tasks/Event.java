@@ -60,7 +60,7 @@ public class Event extends Task {
     @Override
     public String format() {
         return StringParser
-                .combineTaskStringWithSpacedPipe(
+                .combineTextWithPipe(
                         getIdentifier(),
                         getStatusInBinary(),
                         getName(),
@@ -70,7 +70,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return StringParser
-                .combineTaskStringWithSpace(
+                .combineTextWithSpace(
                         getIdentifierIcon(),
                         getStatusIcon(),
                         getName(),

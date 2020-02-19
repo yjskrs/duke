@@ -27,12 +27,12 @@ public class Duke {
         try {
             List<Task> tasks = DataParser.parseToTasks(this.storage.load());
             this.taskList = new TaskList(tasks);
-            Ui.respond("Task list loaded from storage. Enter `list` to see your tasks.");
+            Ui.print("Task list loaded from storage. Enter `list` to see your tasks.");
         } catch (IOException e) {
-            Ui.respond("Failed to get tasks from storage. Starting with an empty list.");
+            Ui.print("Failed to get tasks from storage. Starting with an empty list.");
             this.taskList = new TaskList();
         } catch (NullPointerException e) {
-            Ui.respond("There were no saved tasks. Starting with an empty list.");
+            Ui.print("There were no saved tasks. Starting with an empty list.");
             this.taskList = new TaskList();
         }
     }
@@ -45,7 +45,7 @@ public class Duke {
         while (sc.hasNext()) {
             String input = sc.nextLine();
             String response = InputHandler.processInput(input, taskList, storage);
-            Ui.respond(response);
+            Ui.print(response);
             if (input.equals("bye")) {
                 return;
             }

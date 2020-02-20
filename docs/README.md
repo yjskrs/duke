@@ -22,7 +22,7 @@
 
 ![Duke Screenshot](/docs/Ui.png)
 
-## 2. Features 
+# 2. Features 
 
 ### 2.1. Adding tasks: `todo` `deadline` `event`
 

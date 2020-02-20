@@ -7,14 +7,15 @@ package duke.model;
  * @author Zhu Yijie
  */
 public class Ui {
-    private static final String LOGO = " ____        _        \n"
-                                     + "|  _ \\ _   _| | _____ \n"
-                                     + "| | | | | | | |/ / _ \\\n"
-                                     + "| |_| | |_| |   <  __/\n"
-                                     + "|____/ \\__,_|_|\\_\\___|\n";
+    private static final String LOGO = "d8888b. db    db db   dD d88888b \n" +
+        "88  `8D 88    88 88 ,8P' 88'     \n" +
+        "88   88 88    88 88,8P   88ooooo \n" +
+        "88   88 88    88 88`8b   88~~~~~ \n" +
+        "88  .8D 88b  d88 88 `88. 88.     \n" +
+        "Y8888D' ~Y8888P' 88   8b 988888P\n";
     
     public static String getHelloMessage() {
-        String welcomeMsg = "Hello, I'm Duke! What can I do for you?";
+        String welcomeMsg = LOGO + "Hello, I'm Duke! What can I do for you?";
         return welcomeMsg;
     }
 
@@ -24,12 +25,9 @@ public class Ui {
      * <p>Used when starting up program.
      */
     public static void sayHello() {
-        String welcomeMsg = "Hello from\n" + LOGO;
-        welcomeMsg += parseOutput(getHelloMessage());
-        System.out.println(welcomeMsg);
+        System.out.println(parseOutput(getHelloMessage()));
     }
-
-
+    
     /**
      * Prints to standard output.
      *

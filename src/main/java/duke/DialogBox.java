@@ -24,9 +24,10 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 
 /**
- * An example of a custom control using FXML.
- * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
- * containing text from the speaker.
+ * The <code>DialogBox</code> class represents a dialog box consisting of an ImageView to
+ * represent the speaker as well as a Label containing text from the speaker.
+ *
+ * <p>Adapted from JavaFx Tutorial initially written by Jeffry Lum.
  */
 public class DialogBox extends HBox {
     @FXML

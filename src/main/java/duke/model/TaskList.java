@@ -1,4 +1,4 @@
-package duke;
+package duke.model;
 
 import duke.tasks.Task;
 import duke.utils.StringParser;

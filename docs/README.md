@@ -1,30 +1,30 @@
 # User Guide
 
-1. [Introduction](#introduction)
+1. [Introduction](#1-introduction)
     
-2. [Features](#features)
+2. [Features](#2-features)
     
-    2.1 Adding tasks: `todo` `deadline` `event`
+    2.1. Adding tasks: `todo` `deadline` `event`
     
-    2.2 Showing tasks: `list` `find`
+    2.2. Showing tasks: `list` `find`
     
-    2.3 Marking tasks: `done` `undo`
+    2.3. Marking tasks: `done` `undo`
     
-    2.4 Managing tasks: `delete` `save`
+    2.4. Managing tasks: `delete` `save`
     
-    2.5 Getting help: `help`
+    2.5. Getting help: `help`
     
-    2.6 Conversing with Duke: `hello` `bye` `poke`
+    2.6. Conversing with Duke: `hello` `bye` `poke`
     
-# Introduction
+# 1. Introduction
 
 `Duke` is a simple task managing application interacted with through the Command Line Interface.
 
 ![Duke Screenshot](/docs/Ui.png)
 
-## Features 
+## 2. Features 
 
-### 2.1 Adding tasks: `todo` `deadline` `event`
+### 2.1. Adding tasks: `todo` `deadline` `event`
 
 #### `todo`
 
@@ -75,7 +75,7 @@ Expected outcome:
     `[E] [ ] make pineapple tarts (at: Friday)`
     
     
-### 2.2 Showing tasks: `list` `find`  
+### 2.2. Showing tasks: `list` `find`  
     
 #### `list`
     
@@ -101,7 +101,7 @@ Expected outcome:
     
     `[D] [ ] MAKE A LIST`
     
-### 2.3 Marking tasks: `done` `undo`
+### 2.3. Marking tasks: `done` `undo`
 
 #### `done`
 
@@ -135,7 +135,7 @@ Expected outcome:
 
     `[T] [ ] sleep`
 
-2.4 Managing tasks: `delete` `save`
+### 2.4. Managing tasks: `delete` `save`
 
 #### `delete`
 
@@ -159,7 +159,7 @@ Format: `save`
 
 Saves the task list to a .txt file.
 
-### 2.5 Getting help: `help`
+### 2.5. Getting help: `help`
 
 #### `help`
 
@@ -167,7 +167,7 @@ Format: `help`
 
 Gets help on the commands you can enter.
 
-### 2.6 Conversing with Duke: `hello` `bye` `poke`
+### 2.6. Conversing with Duke: `hello` `bye` `poke`
 
 #### `hello`
 

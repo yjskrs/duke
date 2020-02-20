@@ -1,26 +1,89 @@
 # User Guide
 
-This is a user guide for the `Duke` program developed under CS2103T Software Engineering individual project.
+1. [Introduction](#introduction)
+    
+2. [Features](#features)
+    
+    2.1 Adding tasks: `todo` `deadline` `event`
+    
+    2.2 Showing tasks: `list` `find`
+    
+    2.3 Marking tasks: `done` `undo`
+    
+    2.4 Managing tasks: `delete` `save`
+    
+    2.5 Getting help: `help`
+    
+    2.6 Conversing with Duke: `hello` `bye` `poke`
+    
+# Introduction
 
-# Overview
-
-This is a simple task managing application interacted with through the Command Line Interface.
+`Duke` is a simple task managing application interacted with through the Command Line Interface.
 
 ![Duke Screenshot](/docs/Ui.png)
 
-## 1. Features 
+## Features 
 
-### 1.1 Viewing help: `help`
+### 2.1 Adding tasks: `todo` `deadline` `event`
 
-Format: `help` 
+#### `todo`
 
-### 1.2 Listing all tasks: `list`
+Format: `todo NAME`
 
+Adds a todo task to the task list.
+
+Example:
+ 
+* `todo make pineapple tarts`
+
+Expected outcome:
+
+* `Added:`
+
+    `[T] [ ] make pineapple tarts`
+
+#### `deadline`
+
+Format: `deadline NAME /by DATE` - date in YYYY-MM-DD
+
+Adds a deadline task to the task list.
+
+Example:
+ 
+* `deadline make pineapple tarts /by 2020-03-05`
+
+Expected outcome:
+
+* `Added:`
+
+    `[D] [ ] make pineapple tarts (by: Thursday, March 5, 2020)`
+    
+#### `event`
+    
+Format: `event NAME /at DATETIME`
+
+Adds a event task to the task list.
+
+Example:
+ 
+* `event make pineapple tarts /by Friday`
+
+Expected outcome:
+
+* `Added:`
+
+    `[E] [ ] make pineapple tarts (at: Friday)`
+    
+    
+### 2.2 Showing tasks: `list` `find`  
+    
+#### `list`
+    
 Format: `list`
 
 Shows a list of all tasks.
 
-### 1.3 Finding task: `find`
+#### `find`
 
 Format: `find PARTIAL_TASKNAME`
 
@@ -37,72 +100,10 @@ Expected outcome:
     `[T] [ ] eat an apple`
     
     `[D] [ ] MAKE A LIST`
-
-### 1.4 Adding Todo task: `todo`
-
-Format: `todo NAME`
-
-Adds a todo task to the task list.
-
-Example:
- 
-* `todo make pineapple tarts`
-
-Expected outcome:
-
-* `Added:`
-
-    `[T] [ ] make pineapple tarts`
     
-### 1.5 Adding Deadline task: `deadline`
+### 2.3 Marking tasks: `done` `undo`
 
-Format: `deadline NAME /by DATE` - date in YYYY-MM-DD
-
-Adds a deadline task to the task list.
-
-Example:
- 
-* `deadline make pineapple tarts /by 2020-03-05`
-
-Expected outcome:
-
-* `Added:`
-
-    `[D] [ ] make pineapple tarts (by: Thursday, March 5, 2020)`
-    
-### 1.6 Adding Event task: `event`
-
-Format: `event NAME /at DATETIME`
-
-Adds a event task to the task list.
-
-Example:
- 
-* `event make pineapple tarts /by Friday`
-
-Expected outcome:
-
-* `Added:`
-
-    `[E] [ ] make pineapple tarts (at: Friday)`
-    
-### 1.7 Deleting a task: `delete`
-
-Format: `delete ID`
-
-Deletes the task with the specified id from the task list.
-
-Example:
- 
-* `delete 7`
-
-Expected outcome:
-
-* `Removed task:`
-
-    `[E] [ ] make pineapple tarts (at: Friday)`
-    
-### 1.8 Marking a task as done: `done`
+#### `done`
 
 Format: `done ID`
 
@@ -117,8 +118,8 @@ Expected outcome:
 * `Good job for completing the task:`
 
     `[T] [/] sleep`
-    
-### 1.9 Marking a task as not done: `undo`
+
+#### `undo`
 
 Format: `undo ID`
 
@@ -133,9 +134,55 @@ Expected outcome:
 * `o.o well... good luck completing the task:`
 
     `[T] [ ] sleep`
-    
-### 1.10 Saving task list: `save`
+
+2.4 Managing tasks: `delete` `save`
+
+#### `delete`
+
+Format: `delete ID`
+
+Deletes the task with the specified id from the task list.
+
+Example:
+ 
+* `delete 7`
+
+Expected outcome:
+
+* `Removed task:`
+
+    `[E] [ ] make pineapple tarts (at: Friday)`
+
+#### `save`
 
 Format: `save`
 
 Saves the task list to a .txt file.
+
+### 2.5 Getting help: `help`
+
+#### `help`
+
+Format: `help`
+
+Gets help on the commands you can enter.
+
+### 2.6 Conversing with Duke: `hello` `bye` `poke`
+
+#### `hello`
+
+Format: `hello`
+
+Exchange hello message with Duke.
+
+#### `bye`
+
+Format: `bye`
+
+Exchange goodbye message with Duke.
+
+#### `poke`
+
+Format: `poke`
+
+Poke Duke for a response.

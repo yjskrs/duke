@@ -1,11 +1,13 @@
 package duke.commands;
 
-import duke.commands.exceptions.CommandException;
 import duke.model.Storage;
 import duke.model.TaskList;
 
+/**
+ * The <code>HelpCommand</code> class represents a help command to return a help message.
+ */
 public class HelpCommand extends Command {
-    private final static String MESSAGE = "Looking for help? Help is here! (^ u ^)/\n"
+    private static final String MESSAGE = "Looking for help? Help is here! (^ u ^)/\n"
             + "Here are the commands you can enter:\n"
             + "list                         | list tasks\n"
             + "find [(partial) task name]   | find existing task\n"
@@ -21,7 +23,7 @@ public class HelpCommand extends Command {
             + "bye                          | say goodbye to me\n";
     
     @Override
-    public String execute(TaskList taskList, Storage storage) throws CommandException {
+    public String execute(TaskList taskList, Storage storage) {
         return MESSAGE;
     }
 }

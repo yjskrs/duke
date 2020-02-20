@@ -1,10 +1,13 @@
 package duke.commands;
 
-import duke.commands.exceptions.CommandException;
 import duke.model.Storage;
 import duke.model.TaskList;
 import duke.tasks.Task;
 
+/**
+ * The <code>FindCommand</code> class represents a find command to find tasks matching
+ * a provided key.
+ */
 public class FindCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Found matching task(s):\n";
     public static final String MESSAGE_FAILURE = "No matching tasks found.";
@@ -15,6 +18,7 @@ public class FindCommand extends Command {
         this.key = key;
     }
     
+    @Override
     public String execute(TaskList taskList, Storage storage) {
         Task[] tasksFound = taskList.find(key);
         if (tasksFound == null) {

@@ -8,6 +8,9 @@ import duke.tasks.Todo;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The <code>DataParser</code> class is a utility class to help parse string data from storage.
+ */
 public class DataParser {
     public static final String NEWLINE = "\n";
     public static final String PIPE = " \\| ";

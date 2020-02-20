@@ -6,6 +6,10 @@ import duke.model.TaskList;
 import duke.tasks.Event;
 import duke.tasks.Event;
 
+/**
+ *  The <code>EventCommand</code> class represents a event command which creates a
+ *  new Event object and adds it to the task list.
+ */
 public class EventCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Added:\n";
     public static final String MESSAGE_EMPTY_CONTENT =

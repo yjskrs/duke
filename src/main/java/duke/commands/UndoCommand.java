@@ -4,6 +4,10 @@ import duke.commands.exceptions.CommandException;
 import duke.model.Storage;
 import duke.model.TaskList;
 
+/**
+ * The <code>UndoCommand</code> class represents a undo command to mark a task from the
+ * task list as not done.
+ */
 public class UndoCommand extends Command {
     private static final String MESSAGE_SUCCESS = "o.o well... good luck completing the task:\n";
     private static final String MESSAGE_FAILURE = "Invalid task id. Please enter a valid id number!";

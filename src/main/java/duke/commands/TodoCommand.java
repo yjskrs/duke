@@ -1,11 +1,14 @@
 package duke.commands;
 
-import com.sun.nio.sctp.MessageInfo;
 import duke.commands.exceptions.CommandException;
 import duke.model.Storage;
 import duke.model.TaskList;
 import duke.tasks.Todo;
 
+/**
+ *  The <code>TodoCommand</code> class represents a todo command which creates a
+ *  new Todo object and adds it to the task list.
+ */
 public class TodoCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Added:\n";
     public static final String MESSAGE_EMPTY_CONTENT =
@@ -19,6 +22,7 @@ public class TodoCommand extends Command {
         this.name = content;
     }
     
+    @Override
     public String execute(TaskList taskList, Storage storage) throws CommandException {
         if (name.isEmpty()) {
             throw new CommandException(MESSAGE_EMPTY_CONTENT);

@@ -4,6 +4,10 @@ import duke.commands.exceptions.CommandException;
 import duke.model.Storage;
 import duke.model.TaskList;
 
+/**
+ * The <code>DoneCommand</code> class represents a done command to mark a task from the
+ * task list as done.
+ */
 public class DoneCommand extends Command {
     private static final String MESSAGE_SUCCESS = "Good job for completing the task:\n";
     private static final String MESSAGE_FAILURE = "Invalid task id. Please enter a valid id number!";

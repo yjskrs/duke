@@ -11,7 +11,6 @@ import duke.utils.DataParser;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * The <code>Duke</code> class is the entry point of the program.

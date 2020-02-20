@@ -5,6 +5,10 @@ import duke.model.Storage;
 import duke.model.TaskList;
 import duke.tasks.Deadline;
 
+/**
+ * The <code>DeadlineCommand</code> class represents a deadline command which creates a
+ * new Deadline object and adds it to the task list.
+ */
 public class DeadlineCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Added:\n";
     public static final String MESSAGE_EMPTY_CONTENT =
@@ -20,6 +24,7 @@ public class DeadlineCommand extends Command {
         this.deadline = content.substring(name.length()).replace(Deadline.TIME_DEMARCATOR, "").strip();
     }
     
+    @Override
     public String execute(TaskList taskList, Storage storage) throws CommandException {
         if (name.isEmpty() || deadline.isEmpty()) {
             throw new CommandException(MESSAGE_EMPTY_CONTENT);

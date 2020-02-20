@@ -3,6 +3,10 @@ package duke.utils;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+/**
+ * The <code>StringParser</code> class is a utility class to help parse strings into
+ * different formats.
+ */
 public class StringParser {
     public static final String SPACE = " ";
     public static final String SPACED_PIPE = " | ";

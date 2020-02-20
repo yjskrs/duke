@@ -15,9 +15,11 @@ import java.nio.file.Paths;
  */
 public class Storage {
     private String filePath;
+    private String fileDirectory;
     
-    public Storage(String filePath) {
-        this.filePath = filePath;
+    public Storage(String fileName, String fileDirectory) {
+        this.filePath = fileDirectory + fileName;
+        this.fileDirectory = fileDirectory;
     }
     
     /**
@@ -39,6 +41,10 @@ public class Storage {
      */
     public void save(String data) throws IOException {
         File file = new File(filePath);
+        File directory = new File(fileDirectory);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
         FileWriter writer = new FileWriter(file, false);
         writer.write(data);
         writer.close();

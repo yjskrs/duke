@@ -18,7 +18,8 @@ import java.util.List;
  * @author Zhu Yijie
  */
 public class Duke {
-    private static final String FILE_PATH = "./data/duke.txt";
+    private static final String FILE_NAME = "duke.txt";
+    private static final String FILE_DIRECTORY = "./data/";
     
     private TaskList taskList;
     private Storage storage;
@@ -28,7 +29,7 @@ public class Duke {
      */
     public Duke() {
         Ui.sayHello();
-        this.storage = new Storage(FILE_PATH);
+        this.storage = new Storage(FILE_NAME, FILE_DIRECTORY);
         try {
             List<Task> tasks = DataParser.parseToTasks(this.storage.load());
             this.taskList = new TaskList(tasks);
